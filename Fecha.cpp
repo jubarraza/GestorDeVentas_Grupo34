@@ -55,9 +55,11 @@ void Fecha::Cargar() {
     cout << "Dia: ";
     cin >> d;
     setDia(d);
+    cin.ignore();
     cout << "Mes: ";
     cin >> m;
     setMes(m);
+    cin.ignore();
     cout << "Anio: ";
     cin >> a;
     setAnio(a);
