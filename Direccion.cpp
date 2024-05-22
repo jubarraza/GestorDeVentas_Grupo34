@@ -79,3 +79,8 @@ void Direccion::Mostrar() {
     cout << "Provincia: " << _provincia << endl;
     cout << "Codigo Postal: #" << _cp << endl;
 }
+
+void Direccion::MostrarEnLinea()
+{
+    cout << "Direccion: " << _calle << " " <<  _numero << ", " << _provincia << ", CP: #" << _cp << endl;
+}

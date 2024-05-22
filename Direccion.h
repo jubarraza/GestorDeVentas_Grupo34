@@ -20,5 +20,6 @@ public:
     void setCP(int cp);
     void Cargar();
     void Mostrar();
+    void MostrarEnLinea();
 };
 
