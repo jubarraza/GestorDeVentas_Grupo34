@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Direccion.cpp" />
     <ClCompile Include="Fecha.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Venta.cpp" />
@@ -134,10 +135,14 @@
     <ClCompile Include="VentasManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Direccion.h" />
     <ClInclude Include="Fecha.h" />
     <ClInclude Include="Venta.h" />
     <ClInclude Include="VentasArchivo.h" />
     <ClInclude Include="VentasManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
