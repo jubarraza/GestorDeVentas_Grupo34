@@ -19,10 +19,12 @@ void VentasManager::menu()
         cout << "********************** " << endl;
         cout << "1. Cargar Venta " << endl;
         cout << "2. Mostrar Ventas " << endl;
-        cout << "3. Opcion " << endl;
-        cout << "4. Opcion " << endl;
-        cout << "5. Opcion " << endl;
+        cout << "3. Crear backup " << endl;
+        cout << "4. Restaurar backup " << endl;
+        cout << "5. Editar Venta " << endl;
+        cout << "6. Borrar Venta " << endl;
 
+        cout << endl;
         cout << "0. SALIR DEL PROGRAMA " << endl;
         cout << "********************** " << endl;
         cout << "OPCION: " << endl;
@@ -41,17 +43,22 @@ void VentasManager::menu()
             break;
 
         case 3:
-
+            backupArchivo();
             system("pause");
             break;
 
         case 4:
-
+            restaurarBackup();
             system("pause");
             break;
 
         case 5:
+            editarVenta();
+            system("pause");
+            break;
 
+        case 6:
+            borrarVenta();
             system("pause");
             break;
 
@@ -69,33 +76,42 @@ Venta VentasManager::crearVenta()
     int dni, nroLegajo, idSucursal, idVehiculo;
     float gastos, total;
     Fecha f;
+    Venta reg;
 
     cout << "Venta: #" << id << endl;
+    reg.setIdVenta(id);
     cout << "Ingrese fecha de Venta: " << endl;
     f.Cargar();
+    reg.setFechaVenta(f);
     cout << endl;
-    cin.ignore();
     cout << "Ingrese DNI del Cliente: " << endl;
     cin >> dni;
     cin.ignore();
+    reg.setDniCliente(dni);
     cout << "Ingrese ID de Sucursal: " << endl;
     cin >> idSucursal;
     cin.ignore();
+    reg.setIdSucursal(idSucursal);
     cout << "Ingrese Legajo del Vendedor: " << endl;
     cin >> nroLegajo;
     cin.ignore();
+    reg.setNroLegajo(nroLegajo);
     cout << "Ingrese ID del Vehiculo comprado: " << endl;
     cin >> idVehiculo;
     cin.ignore();
+    reg.setIdVehiculo(idVehiculo);
     cout << "Gastos Administrativos: $" << endl;
     cin >> gastos;
     cin.ignore();
+    reg.setGastosAdm(gastos);
     cout << "Total Venta: $" << endl;
     cin >> total;
     cin.ignore();
+    reg.setTotalVentas(total);
     cout << endl;
+    reg.setEliminado(false);
 
-    return Venta(id, f, dni, idSucursal, nroLegajo, idVehiculo, gastos, total, false);
+    return reg;
 }
 
 void VentasManager::mostrarVenta(Venta reg)
@@ -125,10 +141,14 @@ void VentasManager::agregarVenta()
 void VentasManager::listarVentas()
 {
     int i, cantidad = _archivo.contarVentas();
+    Venta reg;
 
     for (i=0; i < cantidad; i++) {
         cout << "------------------------------" << endl;
-        mostrarVenta(_archivo.leerVenta(i));
+        reg = _archivo.leerVenta(i);
+        if (reg.getEliminado() == false) {
+            mostrarVenta(reg);
+        }
         cout << "------------------------------" << endl << endl;
     }
 }
@@ -154,12 +174,142 @@ int VentasManager::buscarVenta(int idVenta)
     return -1; //se recorrio el archivo y no existe el codigo
 }
 
-bool VentasManager::sobreescribirVenta(Venta reg, int pos)
+void VentasManager::editarVenta()
 {
-	return false;
+    int id, opcion;
+    
+    cout << "Ingrese ID de Venta a editar: ";
+    cin >> id;
+    cin.ignore();
+    cout << endl;
+    
+    int pos = buscarVenta(id);
+    
+    if (pos >= 0) {
+        Venta reg;
+        reg = _archivo.leerVenta(pos);
+
+        if (reg.getEliminado() == false) {
+            cout << endl << "Venta a Editar: " << endl;
+            mostrarVenta(reg);
+
+            cout << endl;
+            cout << "¿Que dato desea editar?" << endl;
+            cout << "1 - Fecha de Venta" << endl;
+            cout << "2 - Gastos Administrativos" << endl;
+            cin >> opcion;
+
+            switch (opcion) {
+            case 1:
+            {
+                Fecha f;
+                f.Cargar();
+                reg.setFechaVenta(f);
+                break;
+            }
+            case 2:
+            {
+                float gastos;
+                cout << "Ingrese nuevo valor de Gastos Administrativos: ";
+                cin >> gastos;
+                reg.setGastosAdm(gastos);
+                break;
+
+            default:
+                cout << "Opcion invalida.";
+                break;
+            }
+            }
+            cout << endl;
+            bool result = _archivo.sobreescribirVenta(reg, pos);
+
+            if (result == true) {
+                cout << "Se editó correctamente la venta." << endl;
+            }
+            else {
+                cout << "No se pudo editar la venta." << endl;
+            }
+
+
+        }
+        else {
+            cout << "La venta buscada se encuentra eliminada" << endl;
+        }
+    
+    }
+    else {
+        cout << "Error al buscar la venta. Codigo " << pos << endl;
+    }
 }
 
-bool VentasManager::bajaLogica()
+void VentasManager::backupArchivo()
 {
-	return false;
+    string origen = "Ventas.dat";
+    string copia = "Ventas.bak";
+
+    string comando = "copy " + origen + " " + copia;
+
+    int resultado = system(comando.c_str());
+    
+    if (resultado == 0) {
+        cout << endl << "Backup realizado con exito." << endl;
+    }
+    else {
+        cout << "Hubo un error al copiar el archivo." << endl;
+    }
+   
+}
+
+void VentasManager::restaurarBackup()
+{
+    string origen = "Ventas.bak";
+    string copia = "Ventas.dat";
+
+    string comando = "copy " + origen + " " + copia;
+
+    int resultado = system(comando.c_str());
+
+    if (resultado == 0) {
+        cout << endl << "Backup restaurado con exito." << endl;
+    }
+    else {
+        cout << "Hubo un error al restaurar el archivo." << endl;
+    }
+
+}
+
+void VentasManager::borrarVenta()
+{
+    int id;
+    char opc;
+
+    cout << "Ingrese ID de Venta a borrar: ";
+    cin >> id; 
+    cin.ignore(); 
+    cout << endl; 
+
+    int pos = buscarVenta(id); 
+
+    if (pos >= 0) {
+        Venta reg;
+        reg = _archivo.leerVenta(pos);
+
+        cout << endl << "Venta a Borrar: " << endl;
+        mostrarVenta(reg);
+        cout << endl << "Confirma que desea borrar esta venta? S/N" << endl;
+        cin >> opc;
+
+        if (opc == 's' || opc == 'S') {
+            reg.setEliminado(true);
+            bool result = _archivo.sobreescribirVenta(reg, pos);
+        }
+        else {
+            cout << endl << "Se cancelo el borrado de la venta." << endl;
+        }
+
+    }
+    else {
+        cout << "La venta buscada no existe" << endl;
+    }
+
 }

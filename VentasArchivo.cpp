@@ -8,7 +8,7 @@ VentasArchivo::VentasArchivo()
     strcpy(_nombreArchivo, "Ventas.dat");
 }
 
-VentasArchivo::VentasArchivo(const std::string n)
+VentasArchivo::VentasArchivo(std::string n = "Ventas.dat")
 {
     if (n.size() <= 40) {
         strcpy(_nombreArchivo, n.c_str());
@@ -57,11 +57,6 @@ bool VentasArchivo::guardarVenta(Venta reg)
     return result;
 }
 
-bool VentasArchivo::backupArchivo()
-{
-    return false;
-}
-
 int VentasArchivo::leerUltimoId()
 {
     int cantidad = contarVentas();
@@ -74,4 +69,17 @@ int VentasArchivo::leerUltimoId()
     return ultimoId;
 }
 
-
+bool VentasArchivo::sobreescribirVenta(Venta reg, int pos)
+{
+    FILE* p;
+    bool result;
+    p = fopen("Ventas.dat", "rb+");  
+    if (p == nullptr) {
+        return false;
+    }
+    fseek(p, sizeof reg * pos, 0); 
+    result = fwrite(&reg, sizeof reg, 1, p); //escribo sobre ese registro
+    fclose(p);
+    
+    return result;
+} 

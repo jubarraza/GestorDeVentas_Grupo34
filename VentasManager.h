@@ -13,7 +13,9 @@ public:
 	void agregarVenta();
 	void listarVentas();
 	int buscarVenta(int idVenta);
-	bool sobreescribirVenta(Venta reg, int pos);
-	bool bajaLogica();
+	void editarVenta();
+	void backupArchivo();
+	void restaurarBackup();
+	void borrarVenta();
 };
 

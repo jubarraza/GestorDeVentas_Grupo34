@@ -8,12 +8,9 @@ using namespace std;
 
 int main()
 {
-    VentasManager vm(VentasArchivo("Ventas.dat")); 
+    VentasManager vm(VentasArchivo("Ventas.dat"));
 
     vm.menu();
-
-
-
 
     return 0;
 }

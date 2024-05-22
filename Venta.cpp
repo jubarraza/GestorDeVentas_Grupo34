@@ -18,10 +18,10 @@ Venta::Venta()
 
 Venta::Venta(int idVenta, Fecha fechaVenta, int dni, int idSucursal, int nroLegajo, int idVehiculo, float gastos, float total, bool eliminado)
 {
-    _idVenta = idVenta;
-    _fechaVenta = fechaVenta;
-    _dniCliente = dni;
-    _idSucursal = idSucursal;
+    setIdVenta(idVenta);
+    setFechaVenta(fechaVenta);
+    setDniCliente(dni);
+    setIdSucursal(idSucursal);
     _nroLegajo = nroLegajo;
     _idVehiculo = idVehiculo;
     _gastosAdm = gastos;
@@ -29,6 +29,8 @@ Venta::Venta(int idVenta, Fecha fechaVenta, int dni, int idSucursal, int nroLega
     _eliminado = eliminado;
 
 }
+
+//getters
 
 int Venta::getIdVenta()
 {
@@ -75,7 +77,9 @@ bool Venta::getEliminado()
     return _eliminado;
 }
 
-void Venta::setIdVenta(int id)
+//setters
+
+void Venta::setIdVenta(int id) // hay que hacer validacion para que sea unico
 {
     if (id > 0) {
         _idVenta = id; 
@@ -92,6 +96,41 @@ void Venta::setFechaVenta(Fecha f)
     _fechaVenta = f;
 }
 
+void Venta::setDniCliente(int dni) //tiene validacion para que el nro siempre sea de almenos 7 digitos - Si el cliente existe debe encontrarlo, si no existe debera dejar registrarlo.
+{
+    if (dni > 999999) {
+        _dniCliente = dni;
+    }
+    else {
+        cout << "DNI con formato incorrecto. Intente nuevamente:" << endl;
+        cin >> dni;
+        this->setDniCliente(dni);
+    }
+    
+}
+
+void Venta::setIdSucursal(int id) //se tiene que hacer validacion para que sea una sucursal existente
+{
+    if (id > 0) {
+        _idSucursal = id;
+    }
+    else {
+        cout << "Id de Sucursal incorrecto. Intente nuevamente:" << endl;
+        cin >> id;
+        this->setIdSucursal(id);
+    }
+}
+
+void Venta::setNroLegajo(int nro) //se tiene que hacer validacion para que sea un vendedor existente
+{
+    _nroLegajo = nro;
+}
+
+void Venta::setIdVehiculo(int id) //se tiene que hacer validacion para que sea un vehiculo existente
+{
+    _idVehiculo = id;
+}
+
 void Venta::setGastosAdm(float gastos)
 {
     _gastosAdm = gastos;
@@ -99,7 +138,12 @@ void Venta::setGastosAdm(float gastos)
 
 void Venta::setTotalVentas(float total)
 {
-    _totalVenta = total;
+    if (total >= 0) {
+        _totalVenta = total;
+    }
+    else {
+        _totalVenta = 0;
+    }
 }
 
 void Venta::setEliminado(bool e)
