@@ -82,5 +82,5 @@ void Direccion::Mostrar() {
 
 void Direccion::MostrarEnLinea()
 {
-    cout << "Direccion: " << _calle << " " <<  _numero << ", " << _provincia << ", CP: #" << _cp << endl;
+    cout << _calle << " " <<  _numero << ", " << _provincia << ", CP: #" << _cp;
 }

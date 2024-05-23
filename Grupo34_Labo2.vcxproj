@@ -130,6 +130,7 @@
     <ClCompile Include="Direccion.cpp" />
     <ClCompile Include="Fecha.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Sucursal.cpp" />
     <ClCompile Include="Venta.cpp" />
     <ClCompile Include="VentasArchivo.cpp" />
     <ClCompile Include="VentasManager.cpp" />
@@ -137,6 +138,7 @@
   <ItemGroup>
     <ClInclude Include="Direccion.h" />
     <ClInclude Include="Fecha.h" />
+    <ClInclude Include="Sucursal.h" />
     <ClInclude Include="Venta.h" />
     <ClInclude Include="VentasArchivo.h" />
     <ClInclude Include="VentasManager.h" />
