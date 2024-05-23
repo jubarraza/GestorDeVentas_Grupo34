@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Venta">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAIQAQABAFQAAEABAAAAABABIAjMQEFAEEQAACA=</HashCode>
+      <FileName>Venta.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VentasArchivo">
+    <Position X="3" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAASAAAACAAAEAAAAAAAAAAAAAABIA=</HashCode>
+      <FileName>VentasArchivo.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VentasManager">
+    <Position X="3" Y="3.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAQEQAQAAAAAAQAAAAAAkAAAAQgAAQAAAAAAAAEAA=</HashCode>
+      <FileName>VentasManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
