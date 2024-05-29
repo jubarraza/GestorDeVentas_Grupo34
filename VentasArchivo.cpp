@@ -14,6 +14,11 @@ VentasArchivo::VentasArchivo(std::string n = "Ventas.dat")
 
 }
 
+string VentasArchivo::getNombreArchivo()
+{
+    return _nombreArchivo;
+}
+
 Venta VentasArchivo::leerVenta(int pos)
 {
     Venta reg;

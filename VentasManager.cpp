@@ -158,7 +158,7 @@ int VentasManager::buscarVenta(int idVenta)
     Venta reg;
     FILE* p;
     int pos = 0;
-    p = fopen("Ventas.dat", "rb");
+    p = fopen(_archivo.getNombreArchivo().c_str(), "rb");
     if (p == nullptr) {
         return -2; //no se abrio el archivo
     }

@@ -7,6 +7,7 @@ private:
 	char _nombreArchivo[40];
 public:
 	VentasArchivo(std::string n);
+	std::string getNombreArchivo();
 	Venta leerVenta(int pos);
 	int contarVentas();
 	bool guardarVenta(Venta reg);
