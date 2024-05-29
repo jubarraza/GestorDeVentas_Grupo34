@@ -46,7 +46,16 @@ void Vendedor::setFechaIngreso(Fecha fechaIngreso) {
 }
 
 void Vendedor::setAntiguedad(int antiguedad) {
+    
     _antiguedad = antiguedad;
+}
+
+int Vendedor::calcularAntiguedad()
+{
+    const int ANIO_ACTUAL = 2024;
+    int antiguedad = ANIO_ACTUAL - _fechaIngreso.getAnio();
+
+    return antiguedad;
 }
 
 void Vendedor::setEliminado(bool eliminado) {

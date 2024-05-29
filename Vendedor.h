@@ -19,6 +19,7 @@ public:
 
     void setNroLegajo(int nroLegajo);
     void setFechaIngreso(Fecha fechaIngreso);
-    void setAntiguedad(int antiguedad);
+    void setAntiguedad(int antiguedad); 
+    int calcularAntiguedad(); //calcula segun el año de ingreso
     void setEliminado(bool eliminado);
 };
