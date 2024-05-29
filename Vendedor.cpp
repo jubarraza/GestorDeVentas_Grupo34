@@ -53,7 +53,7 @@ void Vendedor::setAntiguedad(int antiguedad) {
 int Vendedor::calcularAntiguedad()
 {
     const int ANIO_ACTUAL = 2024;
-    int antiguedad = ANIO_ACTUAL - _fechaIngreso.getAnio();
+    int antiguedad = ANIO_ACTUAL - _fechaIngreso.getAnio(); 
 
     return antiguedad;
 }

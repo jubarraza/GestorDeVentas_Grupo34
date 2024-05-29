@@ -1,7 +1,12 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <cstring>
 #include "VendedorArchivo.h"
-
+/*
+VendedorArchivo::VendedorArchivo()
+{
+    strcpy(_nombreArchivo, "Vendedores.dat");
+}
+*/
 VendedorArchivo::VendedorArchivo(std::string nombreArchivo = "vendedores.dat") {
     strcpy(_nombreArchivo, nombreArchivo.c_str());
 }
