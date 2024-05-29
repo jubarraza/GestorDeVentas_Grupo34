@@ -8,6 +8,7 @@ private:
 	char _nombreArchivo[40];
 public:
 	ClienteArchivo(std::string n);
+	std::string getNombreArchivo();
 	Cliente leerCliente(int pos);
 	int contarClientes();
 	bool guardarCliente(Cliente reg);

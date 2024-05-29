@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream> 
 #include "ClienteArchivo.h"
 using namespace std;
@@ -10,6 +11,11 @@ ClienteArchivo::ClienteArchivo(std::string n = "Clientes.dat")
     else {
         cout << "Nombre invalido";        
     }
+}
+
+string ClienteArchivo::getNombreArchivo()
+{
+    return _nombreArchivo;
 }
 
 Cliente ClienteArchivo::leerCliente(int pos)
