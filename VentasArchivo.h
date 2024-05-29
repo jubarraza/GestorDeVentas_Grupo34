@@ -6,7 +6,6 @@ class VentasArchivo
 private:
 	char _nombreArchivo[40];
 public:
-	VentasArchivo();
 	VentasArchivo(std::string n);
 	Venta leerVenta(int pos);
 	int contarVentas();

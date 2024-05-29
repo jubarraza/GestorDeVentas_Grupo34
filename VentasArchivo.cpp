@@ -3,18 +3,13 @@
 #include "VentasArchivo.h"
 using namespace std;
 
-VentasArchivo::VentasArchivo()
-{
-    strcpy(_nombreArchivo, "Ventas.dat");
-}
-
 VentasArchivo::VentasArchivo(std::string n = "Ventas.dat")
 {
     if (n.size() <= 40) {
         strcpy(_nombreArchivo, n.c_str());
     }
     else {
-        cout << "Nombre NO Valido" << endl;
+        cout << "Nombre inválido" << endl;
     }
 
 }
@@ -73,7 +68,7 @@ bool VentasArchivo::sobreescribirVenta(Venta reg, int pos)
 {
     FILE* p;
     bool result;
-    p = fopen("Ventas.dat", "rb+");  
+    p = fopen(_nombreArchivo, "rb+");  
     if (p == nullptr) {
         return false;
     }
