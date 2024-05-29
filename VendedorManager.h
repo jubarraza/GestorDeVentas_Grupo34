@@ -3,10 +3,10 @@
 
 class VendedorManager {
 private:
-
-public:
     VendedorArchivo _archivo;
 
+public:
+    VendedorManager();
     Vendedor CrearVendedor();
     void MostrarVendedor(Vendedor reg);
     void AgregarVendedor();

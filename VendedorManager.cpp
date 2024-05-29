@@ -3,6 +3,10 @@
 
 #include "VendedorManager.h"
 
+VendedorManager::VendedorManager() : _archivo("Vendedores.dat")
+{
+}
+
 Vendedor VendedorManager::CrearVendedor() {
     int numLegajo, anioAntiguedad;
     Fecha fechaI;
@@ -16,9 +20,9 @@ Vendedor VendedorManager::CrearVendedor() {
     std::cout << "FECHA INGRESO: " << std::endl;
     fechaI.Cargar();
     vendedor.setFechaIngreso(fechaI);
-    std::cout << "ANTIGUEDAD: ";
-    std::cin >> anioAntiguedad;
-    vendedor.setAntiguedad(anioAntiguedad);
+    vendedor.setAntiguedad(vendedor.calcularAntiguedad());
+    std::cout << "ANTIGUEDAD: " << vendedor.getAntiguedad();
+    std::cout << std::endl;
     vendedor.setEliminado(false);
 
     return vendedor;
@@ -28,7 +32,7 @@ void VendedorManager::MostrarVendedor(Vendedor reg) {
     Persona persona;
 
     persona.Mostrar();
-    std::cout << "NUMERO DE LEGAJO: " << reg.getNroLegajo();
+    std::cout << "NUMERO DE LEGAJO: " << reg.getNroLegajo() << std::endl;
     std::cout << "FECHA INGRESO: " << reg.getFechaIngreso().toString() << std::endl;
     std::cout << "ANTIGUEDAD: " << reg.getAntiguedad() << std::endl;
 }
@@ -71,7 +75,7 @@ void VendedorManager::EliminarVendedor() {
 
         MostrarVendedor(vendedor);
 
-        std::cout << "Desea eliminar este vendedor. Confirar? S/N" << std::endl;
+        std::cout << "Desea eliminar este vendedor. Confirmar? S/N" << std::endl;
         std::cin >> opc;
 
         if (opc == 's' || opc == 'S') {
