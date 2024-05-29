@@ -127,11 +127,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Configuracion.cpp" />
     <ClCompile Include="Direccion.cpp" />
     <ClCompile Include="Fecha.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Persona.cpp" />
     <ClCompile Include="Sucursal.cpp" />
+    <ClCompile Include="Vehiculo.cpp" />
+    <ClCompile Include="VehiculosArchivo.cpp" />
+    <ClCompile Include="VehiculosManager.cpp" />
     <ClCompile Include="Vendedor.cpp" />
     <ClCompile Include="VendedorArchivo.cpp" />
     <ClCompile Include="VendedorManager.cpp" />
@@ -140,10 +144,14 @@
     <ClCompile Include="VentasManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Configuracion.h" />
     <ClInclude Include="Direccion.h" />
     <ClInclude Include="Fecha.h" />
     <ClInclude Include="Persona.h" />
     <ClInclude Include="Sucursal.h" />
+    <ClInclude Include="Vehiculo.h" />
+    <ClInclude Include="VehiculosArchivo.h" />
+    <ClInclude Include="VehiculosManager.h" />
     <ClInclude Include="Vendedor.h" />
     <ClInclude Include="VendedorArchivo.h" />
     <ClInclude Include="VendedorManager.h" />
