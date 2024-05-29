@@ -4,8 +4,9 @@
 #include "VehiculosManager.h"
 using namespace std;
 
-VehiculosManager::VehiculosManager(VehiculosArchivo archivo) {
-    _vehiculosArchivo = archivo;
+VehiculosManager::VehiculosManager() : _vehiculosArchivo("Vehiculos.dat")
+{
+    
 }
 
 void VehiculosManager::Menu() {
@@ -18,7 +19,7 @@ void VehiculosManager::Menu() {
         cout << "2) Listar " << endl;
         cout << "3) Editar " << endl;
         cout << "4) Eliminar " << endl;
-        cout << "5) Restaurar " << endl;
+        cout << "5) Restaurar Vehiculo" << endl;
         cout << "6) Realizar Backup " << endl;
         cout << "7) Restaurar Backup " << endl;
         cout << "0) Salir " << endl;

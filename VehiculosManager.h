@@ -5,7 +5,7 @@ class VehiculosManager {
 private:
     VehiculosArchivo _vehiculosArchivo;
 public:
-    VehiculosManager(VehiculosArchivo archivo);
+    VehiculosManager();
     void Menu();
     Vehiculo cargarVehiculo();
     void agregarVehiculo();
