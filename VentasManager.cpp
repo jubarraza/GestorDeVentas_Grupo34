@@ -75,7 +75,7 @@ Venta VentasManager::crearVenta()
     int id = _archivo.leerUltimoId() + 1;
     int dni, nroLegajo, idSucursal, idVehiculo;
     float gastos, total;
-    Fecha f;
+    Fecha f(1,1,1990);
     Venta reg;
 
     cout << "Venta: #" << id << endl;
@@ -117,15 +117,17 @@ Venta VentasManager::crearVenta()
 void VentasManager::mostrarVenta(Venta reg)
 {
     cout << left;
-    cout << setw(0) << "Venta: #" << reg.getIdVenta() << "         " << "Fecha de Venta: " << reg.getFechaVenta().toString();
-    cout << endl << endl;
-    cout << "Cliente: " << reg.getDniCliente() << endl;
-    cout << "Sucursal: " << reg.getIdSucursal() << endl;
-    cout << "Vendedor: " << reg.getNroLegajo() << endl;
-    cout << "Vehiculo comprado: " << reg.getIdVehiculo() << endl;
-    cout << "Gastos Administrativos: $" << reg.getGastosAdm() << endl;
-    cout << "Total Venta: $" << fixed << setprecision(0) << reg.getTotalVenta() << endl;
-
+    cout << endl;
+    cout << setw(5) << reg.getIdVenta();
+    cout << setw(14) << reg.getFechaVenta().toString();
+    cout << setw(15) << reg.getDniCliente();
+    cout << setw(16) << reg.getIdSucursal();
+    cout << setw(17) << reg.getNroLegajo();
+    cout << setw(17) << reg.getIdVehiculo();
+    cout << setw(2) << "$ " << setw(16) << fixed << setprecision(2) << reg.getGastosAdm();
+    cout << setw(2) << "$ " << setw(16) << fixed << setprecision(2) << reg.getTotalVenta();
+    cout << endl;
+    
 }
 
 void VentasManager::agregarVenta()
@@ -142,14 +144,26 @@ void VentasManager::listarVentas()
 {
     int i, cantidad = _archivo.contarVentas();
     Venta reg;
+    cout << left;
+    cout << setw(45) << " " << "* Listado de Ventas *" << endl;
+    cout << "-------------------------------------------------------------------------------------------------------------------" << endl;
+    cout << setw(5) << "#ID";
+    cout << setw(14) << "Fecha Venta ";
+    cout << setw(13) << "Dni Cliente ";
+    cout << setw(14) << "Id Sucursal ";
+    cout << setw(18) << "Legajo Vendedor ";
+    cout << setw(20) << "Vehiculo comprado ";
+    cout << setw(19) << "Gastos Adm ";
+    cout << setw(16) << "Total Venta ";
+    cout << endl;
 
     for (i=0; i < cantidad; i++) {
-        cout << "------------------------------" << endl;
+        
         reg = _archivo.leerVenta(i);
         if (reg.getEliminado() == false) {
             mostrarVenta(reg);
         }
-        cout << "------------------------------" << endl << endl;
+        cout << endl;
     }
 }
 
