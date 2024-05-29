@@ -6,7 +6,7 @@ using namespace std;
 Venta::Venta()
 {
     _idVenta = 0;
-    _fechaVenta = Fecha(0,0,0);
+    _fechaVenta = Fecha();
     _dniCliente = 0;
     _idSucursal = 0;
     _nroLegajo = 0;
