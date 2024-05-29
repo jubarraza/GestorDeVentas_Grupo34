@@ -22,7 +22,9 @@ void Fecha::setDia(int d) {
         _dia = d;
     }
     else {
-        _dia = 0;
+        cout << "Dia no valido. Intente nuevamente:" << endl;
+        cin >> d;
+        this->setDia(d);
     }
 }
 
@@ -31,7 +33,9 @@ void Fecha::setMes(int m) {
         _mes = m;
     }
     else {
-        _mes = 0;
+        cout << "Mes no valido. Intente nuevamente:" << endl;
+        cin >> m;
+        this->setMes(m);
     }
 }
 
@@ -40,7 +44,9 @@ void Fecha::setAnio(int a) {
         _anio = a;
     }
     else {
-        _anio = 0;
+        cout << "Año no valido. Intente nuevamente:" << endl;
+        cin >> a;
+        this->setAnio(a);
     }
 }
 
