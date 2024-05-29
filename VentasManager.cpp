@@ -5,9 +5,9 @@
 using namespace std;
 
 
-VentasManager::VentasManager(VentasArchivo archivo)
+VentasManager::VentasManager() : _archivo("Ventas.dat")
 {
-    _archivo = archivo;
+
 }
 
 void VentasManager::menu()

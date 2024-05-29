@@ -6,7 +6,7 @@ class VentasManager
 private:
 	VentasArchivo _archivo;
 public:
-	VentasManager(VentasArchivo archivo);
+	VentasManager();
 	void menu();
 	Venta crearVenta();
 	void mostrarVenta(Venta reg);
