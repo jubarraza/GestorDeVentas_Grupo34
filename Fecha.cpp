@@ -11,9 +11,9 @@ Fecha::Fecha(int dia, int mes, int anio) {
 }
 
 Fecha::Fecha() {
-    _dia = 0;
-    _mes = 0;
-    _anio = 0;
+    _dia = 1;
+    _mes = 1;
+    _anio = 1900;
   
 }
 
@@ -22,9 +22,11 @@ void Fecha::setDia(int d) {
         _dia = d;
     }
     else {
+        cin.ignore();
         cout << "Dia no valido. Intente nuevamente:" << endl;
         cin >> d;
         this->setDia(d);
+        cin.ignore();
     }
 }
 
@@ -47,6 +49,7 @@ void Fecha::setAnio(int a) {
         cout << "Año no valido. Intente nuevamente:" << endl;
         cin >> a;
         this->setAnio(a);
+        cin.ignore();
     }
 }
 
@@ -69,6 +72,7 @@ void Fecha::Cargar() {
     cout << "Anio: ";
     cin >> a;
     setAnio(a);
+    cin.ignore();
 }
 
 
