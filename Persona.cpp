@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstring>
 #include "Persona.h"
+using namespace std;
 
 //Constructores
 
@@ -44,15 +45,37 @@ Fecha Persona::getFechaNacimiento() {
 //Setters
 
 void Persona::setDni(int dni) {
-    _dni = dni;
+    if (dni > 999999) {
+        _dni = dni;
+    }
+    else {
+        cout << "DNI con formato incorrecto. Intente nuevamente:" << endl;
+        cin >> dni;
+        this->setDni(dni);
+    }
 }
 
 void Persona::setNombre(std::string nombre) {
-    strcpy(_nombre, nombre.c_str());
+    if (nombre.size() <= 40) { 
+        strcpy(_nombre, nombre.c_str()); 
+    }
+    else {
+        cout << "Nombre no valido (hasta 40 caracteres). Intente nuevamente:" << endl;
+        cin >> nombre; 
+        this->setNombre(nombre); 
+    }
 }
 
 void Persona::setApellido(std::string apellido) {
-    strcpy(_apellido, apellido.c_str());
+    if (apellido.size() <= 40) {
+        strcpy(_apellido, apellido.c_str()); 
+    }
+    else {
+        cout << "Apellido no valido (hasta 40 caracteres). Intente nuevamente:" << endl;
+        cin >> apellido;
+        this->setApellido(apellido); 
+    }
+    
 }
 
 void Persona::setFechaNacimiento(Fecha fechaNacimiento) {
@@ -60,14 +83,21 @@ void Persona::setFechaNacimiento(Fecha fechaNacimiento) {
 }
 
 void Persona::Cargar() {
-    std::cout << "DNI: ";
-    std::cin >> _dni;
-    std::cin.ignore();
-    std::cout << "NOMBRE: ";
-    std::cin.getline(_nombre, 24);
-    std::cout << "APELLIDO: ";
-    std::cin.getline(_apellido, 24);
-    std::cout << "FECHA NACIMIENTO: " << std::endl;
+    int dni;
+    string nombre, apellido; 
+    Fecha f;
+
+    cout << "DNI: ";
+    cin >> dni;
+    setDni(dni);
+    cin.ignore();
+    cout << "NOMBRE: ";
+    getline(cin, nombre);
+    setNombre(nombre);
+    cout << "APELLIDO: ";
+    getline(cin, apellido);
+    setApellido(apellido);
+    cout << "FECHA NACIMIENTO: " << endl;
     _fechaNacimiento.Cargar();
 }
 
