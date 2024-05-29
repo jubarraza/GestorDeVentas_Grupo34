@@ -1,6 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <cstring>
+#include <string>
 #include "Persona.h"
 using namespace std;
 
@@ -35,7 +35,10 @@ std::string Persona::getApellido() {
 }
 
 std::string Persona::getApellidoNombre() {
-    return strcat(_apellido, _nombre);
+
+    string nombreCompleto;
+    nombreCompleto = getApellido()+", " + getNombre();
+    return nombreCompleto;
 }
 
 Fecha Persona::getFechaNacimiento() {
@@ -51,6 +54,7 @@ void Persona::setDni(int dni) {
     else {
         cout << "DNI con formato incorrecto. Intente nuevamente:" << endl;
         cin >> dni;
+        cin.ignore();
         this->setDni(dni);
     }
 }
@@ -89,6 +93,7 @@ void Persona::Cargar() {
 
     cout << "DNI: ";
     cin >> dni;
+    //cin.ignore();
     setDni(dni);
     cin.ignore();
     cout << "NOMBRE: ";
@@ -102,9 +107,9 @@ void Persona::Cargar() {
 }
 
 void Persona::Mostrar() {
-    std::cout << "DNI: " << _dni << std::endl;
-    std::cout << "NOMBRE: " << _nombre << std::endl;
-    std::cout << "APELLIDO: " << _apellido << std::endl;
-    std::cout << "FECHA NACIMIENTO: ";
-    std::cout << _fechaNacimiento.toString() << std::endl;
+    cout << "DNI: " << _dni << std::endl;
+    cout << "NOMBRE: " << _nombre << std::endl;
+    cout << "APELLIDO: " << _apellido << std::endl;
+    cout << "FECHA NACIMIENTO: ";
+    cout << _fechaNacimiento.toString() << std::endl;
 }
