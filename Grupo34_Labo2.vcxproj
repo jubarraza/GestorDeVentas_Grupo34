@@ -133,6 +133,8 @@
     <ClCompile Include="Persona.cpp" />
     <ClCompile Include="Sucursal.cpp" />
     <ClCompile Include="Vendedor.cpp" />
+    <ClCompile Include="VendedorArchivo.cpp" />
+    <ClCompile Include="VendedorManager.cpp" />
     <ClCompile Include="Venta.cpp" />
     <ClCompile Include="VentasArchivo.cpp" />
     <ClCompile Include="VentasManager.cpp" />
@@ -143,6 +145,8 @@
     <ClInclude Include="Persona.h" />
     <ClInclude Include="Sucursal.h" />
     <ClInclude Include="Vendedor.h" />
+    <ClInclude Include="VendedorArchivo.h" />
+    <ClInclude Include="VendedorManager.h" />
     <ClInclude Include="Venta.h" />
     <ClInclude Include="VentasArchivo.h" />
     <ClInclude Include="VentasManager.h" />
