@@ -1,6 +1,15 @@
+#define _CRT_SECURE_NO_WARNINGS 
 #include <iostream>
 #include "Cliente.h"
 using namespace std;
+
+Cliente::Cliente() : Persona(), _direccion()
+{
+    strcpy(_email ,"nn");
+    _telefono = 1;
+    _eliminado = false;
+
+}
 
 string Cliente::getEmail()
 {
@@ -15,6 +24,11 @@ int Cliente::getTelefono()
 Direccion Cliente::getDireccion()
 {
 	return _direccion;
+}
+
+bool Cliente::getEliminado()
+{
+    return _eliminado;
 }
 
 void Cliente::setEmail(string e)
@@ -37,5 +51,10 @@ void Cliente::setTelefono(int tel)
 void Cliente::setDireccion(Direccion d)
 {
     _direccion = d;
+}
+
+void Cliente::setEliminado(bool e)
+{
+    _eliminado = e;
 }
 
