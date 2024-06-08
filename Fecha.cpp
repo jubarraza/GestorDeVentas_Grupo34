@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "Fecha.h"
 #include <iostream>
 #include <string>
@@ -134,4 +135,19 @@ string Fecha::toString()
 
 
 }
+
+int Fecha::obtenerAnioactual()
+{
+    time_t t = time(0);
+    tm* tiempoLocal = localtime(&t);
+    return 1900 + tiempoLocal->tm_year;  // tm_year es el número de años desde 1900
+    
+    /*
+    primera linea; obtiene el tiempo actual en segundos desde el 1 de enero de 1970.
+    segunda linea; convierte este tiempo en una estructura tm que contiene información de fecha y hora desglosada.
+    tercer linea; obtiene el año actual, ya que tm_year representa el número de años transcurridos desde 1900.
+    */
+}
+
+
 
