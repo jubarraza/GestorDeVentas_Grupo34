@@ -8,11 +8,11 @@ VendedorManager::VendedorManager() : _archivo("Vendedores.dat")
 }
 
 Vendedor VendedorManager::CrearVendedor() {
-    int numLegajo, anioAntiguedad;
+    int numLegajo;
     Fecha fechaI;
     Vendedor vendedor;
 
-    vendedor.Cargar();
+    vendedor.CargarPersona();
     std::cout << "NUMERO DE LEGAJO: ";
     std::cin >> numLegajo;
     vendedor.setNroLegajo(numLegajo);
@@ -29,7 +29,7 @@ Vendedor VendedorManager::CrearVendedor() {
 
 void VendedorManager::MostrarVendedor(Vendedor reg) {
     
-    reg.Mostrar();
+    reg.MostrarPersona();
     std::cout << "NUMERO DE LEGAJO: " << reg.getNroLegajo() << std::endl;
     std::cout << "FECHA INGRESO: " << reg.getFechaIngreso().toString() << std::endl;
     std::cout << "ANTIGUEDAD: " << reg.getAntiguedad() << std::endl;

@@ -1,8 +1,9 @@
 #pragma once
 
 #include "Persona.h"
+#include "PersonaManager.h"
 
-class Vendedor :public Persona {
+class Vendedor :public PersonaManager {
 private:
     int _nroLegajo;
     Fecha _fechaIngreso;
