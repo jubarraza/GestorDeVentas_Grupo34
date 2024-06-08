@@ -127,12 +127,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cliente.cpp" />
+    <ClCompile Include="ClienteArchivo.cpp" />
+    <ClCompile Include="ClienteManager.cpp" />
     <ClCompile Include="Configuracion.cpp" />
     <ClCompile Include="Direccion.cpp" />
     <ClCompile Include="Fecha.cpp" />
+    <ClCompile Include="Informes.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Persona.cpp" />
+    <ClCompile Include="PersonaManager.cpp" />
     <ClCompile Include="Sucursal.cpp" />
+    <ClCompile Include="SucursalArchivo.cpp" />
+    <ClCompile Include="SucursalManager.cpp" />
     <ClCompile Include="Vehiculo.cpp" />
     <ClCompile Include="VehiculosArchivo.cpp" />
     <ClCompile Include="VehiculosManager.cpp" />
@@ -144,11 +151,18 @@
     <ClCompile Include="VentasManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cliente.h" />
+    <ClInclude Include="ClienteArchivo.h" />
+    <ClInclude Include="ClienteManager.h" />
     <ClInclude Include="Configuracion.h" />
     <ClInclude Include="Direccion.h" />
     <ClInclude Include="Fecha.h" />
+    <ClInclude Include="Informes.h" />
     <ClInclude Include="Persona.h" />
+    <ClInclude Include="PersonaManager.h" />
     <ClInclude Include="Sucursal.h" />
+    <ClInclude Include="SucursalArchivo.h" />
+    <ClInclude Include="SucursalManager.h" />
     <ClInclude Include="Vehiculo.h" />
     <ClInclude Include="VehiculosArchivo.h" />
     <ClInclude Include="VehiculosManager.h" />
