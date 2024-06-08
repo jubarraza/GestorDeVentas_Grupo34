@@ -391,7 +391,7 @@ void VehiculosManager::realizarBackup() {
     cout << "Selecione una Opcion: ";
     cin >> opc;
     switch (opc) {
-    case 1: system("copy Vehiculos.dat Vehiculos.bkp");
+    case 1: system("copy Vehiculos.dat Vehiculos.bak");
         cout << "* Backup Realizado con Exito! *" << endl;
     case 2:
         break;
@@ -406,7 +406,7 @@ void VehiculosManager::restaurarBackup() {
     cout << "Selecione una Opcion: ";
     cin >> opc;
     switch (opc) {
-    case 1: system("copy Vehiculos.bkp Vehiculos.dat");
+    case 1: system("copy Vehiculos.bak Vehiculos.dat");
         cout << "* Restauracion Realizado con Exito! *" << endl;
     case 2:
         break;
