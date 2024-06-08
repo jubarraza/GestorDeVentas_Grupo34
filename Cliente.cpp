@@ -1,10 +1,14 @@
 #define _CRT_SECURE_NO_WARNINGS 
 #include <iostream>
 #include "Cliente.h"
+
 using namespace std;
 
-Cliente::Cliente() : Persona(), _direccion()
+Cliente::Cliente() : _direccion()
 {
+    setNombre("NN");
+    setApellido("NN");
+    setDni(1111111);
     strcpy(_email ,"nn");
     _telefono = 1;
     _eliminado = false;

@@ -1,8 +1,10 @@
 #pragma once
 #include "Persona.h"
 #include "Direccion.h"
+#include "PersonaManager.h"
+
 class Cliente :
-    public Persona
+    public PersonaManager 
 {
 private:
     char _email[50];

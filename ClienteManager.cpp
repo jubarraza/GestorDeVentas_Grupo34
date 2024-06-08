@@ -75,7 +75,7 @@ Cliente ClienteManager::crearCliente()
     Cliente reg;
 
     cout << "------------- Ingreso de nuevo Cliente -------------" << endl;
-    reg.Cargar();
+    reg.CargarPersona();
     cin.ignore();
     cout << "EMAIL: ";
     getline(cin, email);
@@ -94,7 +94,7 @@ Cliente ClienteManager::crearCliente()
 
 void ClienteManager::mostrarCliente(Cliente reg)
 {
-    reg.Mostrar();
+    reg.MostrarPersona();
     cout << "EMAIL: " << reg.getEmail() << endl;
     cout << "TELEFONO: " << reg.getTelefono() << endl;
     cout << "DIRECCION: ";
