@@ -65,7 +65,7 @@ int SucursalManager::buscarPosicion(int codBuscado)
     Sucursal reg;
     FILE* p;
     int pos = 0;
-    p = fopen("Sucursal.dat", "rb");
+    p = fopen("Sucursales.dat", "rb");
     if (p == nullptr) {
         return -2; //no se abrio el archivo
     }
@@ -239,8 +239,8 @@ void SucursalManager::bajaLogica()
 
 void SucursalManager::backupArchivo()
 {
-    string origen = "Sucursal.dat";
-    string copia = "Sucursal.bkp";
+    string origen = "Sucursales.dat";
+    string copia = "Sucursales.bkp";
 
     string comando = "copy " + origen + " " + copia;
 
@@ -256,8 +256,8 @@ void SucursalManager::backupArchivo()
 
 void SucursalManager::restaurarBackup()
 {
-    string origen = "Sucursal.dat";
-    string copia = "Sucursal.bkp";
+    string origen = "Sucursales.dat";
+    string copia = "Sucursales.bkp";
 
     string comando = "copy " + origen + " " + copia;
 
