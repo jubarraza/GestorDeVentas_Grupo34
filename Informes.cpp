@@ -53,8 +53,10 @@ void Informes::Menu()
         case 6:
         {
             int opc;
-            cout << "¿Desea la version: 1 - Mensual o 2 - Anual?";
+            cout << "¿Desea la version: 1 - Mensual o 2 - Anual?" << endl;
             cin >> opc;
+            cin.ignore();
+            cout << endl;
 
             if (opc == 1) {
                 ventasTodasLasSucursalesMensual();
