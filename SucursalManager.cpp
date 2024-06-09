@@ -240,7 +240,7 @@ void SucursalManager::bajaLogica()
 void SucursalManager::backupArchivo()
 {
     string origen = "Sucursal.dat";
-    string copia = "Sucursal.back";
+    string copia = "Sucursal.bkp";
 
     string comando = "copy " + origen + " " + copia;
 
@@ -257,7 +257,7 @@ void SucursalManager::backupArchivo()
 void SucursalManager::restaurarBackup()
 {
     string origen = "Sucursal.dat";
-    string copia = "Sucursal.back";
+    string copia = "Sucursal.bkp";
 
     string comando = "copy " + origen + " " + copia;
 

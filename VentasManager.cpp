@@ -272,7 +272,7 @@ void VentasManager::editarVenta()
 void VentasManager::backupArchivo()
 {
     string origen = "Ventas.dat";
-    string copia = "Ventas.bak";
+    string copia = "Ventas.bkp";
 
     string comando = "copy " + origen + " " + copia;
 
@@ -289,7 +289,7 @@ void VentasManager::backupArchivo()
 
 void VentasManager::restaurarBackup()
 {
-    string origen = "Ventas.bak";
+    string origen = "Ventas.bkp";
     string copia = "Ventas.dat";
 
     string comando = "copy " + origen + " " + copia;
