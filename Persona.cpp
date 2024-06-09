@@ -6,11 +6,11 @@ using namespace std;
 
 //Constructores
 
-Persona::Persona() {
+Persona::Persona() : _fechaNacimiento()
+{
     setDni(1000000);
-    strcpy(_nombre, " ");
-    strcpy(_apellido, " ");
-    setFechaNacimiento(Fecha());
+    strcpy(_nombre, "NN");
+    strcpy(_apellido, "NN");
 }
 
 Persona::Persona(long dni, std::string nombre, std::string apellido, Fecha fechaNacimiento) {
