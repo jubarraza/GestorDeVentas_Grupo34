@@ -117,6 +117,19 @@ Venta VentasManager::crearVenta()
 void VentasManager::mostrarVenta(Venta reg)
 {
     cout << left;
+    cout << setw(0) << "Venta: #" << reg.getIdVenta() << "         " << "Fecha de Venta: " << reg.getFechaVenta().toString();
+    cout << endl << endl;
+    cout << "Cliente: " << reg.getDniCliente() << endl;
+    cout << "Sucursal: " << reg.getIdSucursal() << endl;
+    cout << "Vendedor: " << reg.getNroLegajo() << endl;
+    cout << "Vehiculo comprado: " << reg.getIdVehiculo() << endl;
+    cout << "Gastos Administrativos: $" << reg.getGastosAdm() << endl;
+    cout << "Total Venta: $" << fixed << setprecision(0) << reg.getTotalVenta() << endl;
+}
+
+void VentasManager::mostrarVentaEnLinea(Venta reg)
+{
+    cout << left;
     cout << endl;
     cout << setw(5) << reg.getIdVenta();
     cout << setw(14) << reg.getFechaVenta().toString();
@@ -161,7 +174,7 @@ void VentasManager::listarVentas()
         
         reg = _archivo.leerVenta(i);
         if (reg.getEliminado() == false) {
-            mostrarVenta(reg);
+            mostrarVentaEnLinea(reg); 
         }
         cout << endl;
     }

@@ -10,6 +10,7 @@ public:
 	void menu();
 	Venta crearVenta();
 	void mostrarVenta(Venta reg);
+	void mostrarVentaEnLinea(Venta reg);
 	void agregarVenta();
 	void listarVentas();
 	int buscarVenta(int idVenta);
