@@ -1,5 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include <iomanip>
 #include "ClienteManager.h"
 using namespace std;
 
@@ -7,7 +8,7 @@ ClienteManager::ClienteManager() : _archivo("Clientes.dat")
 {
 }
 
-void ClienteManager::menu()
+void ClienteManager::Menu()
 {
     int opcion;
     do {
@@ -69,8 +70,7 @@ void ClienteManager::menu()
 
 Cliente ClienteManager::crearCliente()
 {
-    string email;
-    int tel;
+    string email, tel;
     Direccion d;
     Cliente reg;
 
@@ -81,9 +81,8 @@ Cliente ClienteManager::crearCliente()
     getline(cin, email);
     reg.setEmail(email);
     cout << "TELEFONO: ";
-    cin >> tel;
+    getline(cin, tel);
     reg.setTelefono(tel);
-    cin.ignore();
     cout << "DIRECCION: " << endl;
     d.Cargar();
     reg.setDireccion(d);
@@ -95,10 +94,19 @@ Cliente ClienteManager::crearCliente()
 void ClienteManager::mostrarCliente(Cliente reg)
 {
     reg.MostrarPersona();
+    cout << endl;
     cout << "EMAIL: " << reg.getEmail() << endl;
     cout << "TELEFONO: " << reg.getTelefono() << endl;
-    cout << "DIRECCION: ";
-    reg.getDireccion().MostrarEnLinea();
+    cout << "DIRECCION: " << reg.getDireccion().toString();
+}
+
+void ClienteManager::mostrarClienteEnLinea(Cliente reg) 
+{
+    reg.MostrarPersonaEnLinea();
+    cout << setw(33) << reg.getEmail();
+    cout << setw(20) << reg.getTelefono();
+    cout << setw(30) << reg.getDireccion().toString();
+    cout << endl;
 }
 
 void ClienteManager::agregarCliente()
@@ -116,16 +124,26 @@ void ClienteManager::listarClientes()
     int i, cantidad = _archivo.contarClientes();
     Cliente reg;
 
-    cout << "**** Listado de Clientes ****" << endl;
+        cout << left;
+        cout << setw(55) << " " << "* Listado de Clientes *" << endl;
+        cout << "-------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+        cout << setw(13) << "DNI";
+        cout << setw(20) << "Nombre ";
+        cout << setw(20) << "Apellido ";
+        cout << setw(24) << "Fecha de Nacimiento ";
+        cout << setw(33) << "Email ";
+        cout << setw(20) << "Telefono ";
+        cout << setw(30) << "Direccion ";
+        cout << endl;
 
-    for (i = 0; i < cantidad; i++) {
-        cout << "------------------------------" << endl;
-        reg = _archivo.leerCliente(i);
-        if (reg.getEliminado() == false) {
-            mostrarCliente(reg);
+        for (i = 0; i < cantidad; i++) {
+            reg = _archivo.leerCliente(i);
+            if (reg.getEliminado() == false) {
+                mostrarClienteEnLinea(reg);
+            }
+        
         }
-        cout << endl << "------------------------------" << endl << endl;
-    }
+
 }
 
 int ClienteManager::buscarCliente(int dni)
@@ -187,10 +205,9 @@ void ClienteManager::editarCliente()
             }
             case 2:
             {
-                int tel;
+                string tel;
                 cout << "Ingrese nuevo telefono: ";
-                cin >> tel;
-                cin.ignore();
+                getline(cin, tel);
                 reg.setTelefono(tel);
                 break;
             }
@@ -232,7 +249,7 @@ void ClienteManager::editarCliente()
 void ClienteManager::backupArchivo()
 {
     string origen = "Clientes.dat";
-    string copia = "Clientes.bak";
+    string copia = "Clientes.bkp";
 
     string comando = "copy " + origen + " " + copia; 
 
@@ -248,7 +265,7 @@ void ClienteManager::backupArchivo()
 
 void ClienteManager::restaurarBackup()
 {
-    string origen = "Clientes.bak";
+    string origen = "Clientes.bkp";
     string copia = "Clientes.dat";
 
     string comando = "copy " + origen + " " + copia; 

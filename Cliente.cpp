@@ -6,12 +6,9 @@ using namespace std;
 
 Cliente::Cliente() : _direccion()
 {
-    setNombre("NN");
-    setApellido("NN");
-    setDni(1111111);
     strcpy(_email ,"nn");
-    _telefono = 1;
-    _eliminado = false;
+    strcpy(_telefono, "1");
+    setEliminado(false);
 
 }
 
@@ -20,9 +17,9 @@ string Cliente::getEmail()
 	return _email;
 }
 
-int Cliente::getTelefono()
+string Cliente::getTelefono()
 {
-	return _telefono;
+    return _telefono;
 }
 
 Direccion Cliente::getDireccion()
@@ -47,9 +44,9 @@ void Cliente::setEmail(string e)
     }
 }
 
-void Cliente::setTelefono(int tel)
+void Cliente::setTelefono(string tel)
 {
-    _telefono = tel;
+    strcpy(_telefono, tel.c_str());
 }
 
 void Cliente::setDireccion(Direccion d)

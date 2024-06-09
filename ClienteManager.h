@@ -7,9 +7,10 @@ private:
 	ClienteArchivo _archivo;
 public:
 	ClienteManager();
-	void menu();
+	void Menu();
 	Cliente crearCliente();
 	void mostrarCliente(Cliente reg);
+	void mostrarClienteEnLinea(Cliente reg);
 	void agregarCliente();
 	void listarClientes();
 	int buscarCliente(int dni);

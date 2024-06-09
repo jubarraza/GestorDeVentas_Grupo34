@@ -8,19 +8,19 @@ class Cliente :
 {
 private:
     char _email[50];
-    int _telefono;
+    char _telefono[20];
     Direccion _direccion;
     bool _eliminado;
 
 public:
     Cliente();
     std::string getEmail();
-    int getTelefono();
+    std::string getTelefono();
     Direccion getDireccion();
     bool getEliminado();
 
     void setEmail(std::string e);
-    void setTelefono(int tel);
+    void setTelefono(std::string tel);
     void setDireccion(Direccion d);
     void setEliminado(bool e);
 
