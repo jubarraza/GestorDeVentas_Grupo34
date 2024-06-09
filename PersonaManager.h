@@ -9,5 +9,5 @@ public:
 
     void CargarPersona();
     void MostrarPersona();
-
+    void MostrarPersonaEnLinea();
 };
