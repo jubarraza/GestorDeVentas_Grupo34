@@ -296,9 +296,9 @@ void ClienteManager::borrarCliente()
         Cliente reg;
         reg = _archivo.leerCliente(pos);
 
-        cout << endl << "Cliente a Borrar: " << endl;
+        cout << endl << "Cliente a Borrar: " << endl << endl;
         mostrarCliente(reg);
-        cout << endl << "Confirma que desea borrar este Cliente? S/N" << endl;
+        cout << endl << endl << "Confirma que desea borrar este Cliente? S/N" << endl;
         cin >> opc;
 
         if (opc == 's' || opc == 'S') {
