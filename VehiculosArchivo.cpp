@@ -30,7 +30,7 @@ Vehiculo VehiculosArchivo::leerRegistro(int pos) {
 int VehiculosArchivo::contarRegistros() {
     FILE* p;
     p = fopen(_nombreArchivo, "rb");
-    if (p == nullptr) return 0;
+    if (p == nullptr) return -1;
     fseek(p, 0, 2);
     int tam = ftell(p) / sizeof(Vehiculo);
     fclose(p);
