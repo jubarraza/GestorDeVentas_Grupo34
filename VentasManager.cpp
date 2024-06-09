@@ -10,7 +10,7 @@ VentasManager::VentasManager() : _archivo("Ventas.dat")
 
 }
 
-void VentasManager::menu()
+void VentasManager::Menu()
 {
     int opcion;
     do {

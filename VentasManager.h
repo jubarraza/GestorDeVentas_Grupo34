@@ -7,7 +7,7 @@ private:
 	VentasArchivo _archivo;
 public:
 	VentasManager();
-	void menu();
+	void Menu();
 	Venta crearVenta();
 	void mostrarVenta(Venta reg);
 	void mostrarVentaEnLinea(Venta reg);
