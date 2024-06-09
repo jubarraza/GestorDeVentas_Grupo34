@@ -70,10 +70,10 @@ void Fecha::Cargar() {
     cin >> m;
     setMes(m);
     cin.ignore();
-    cout << "Anio: ";
+    cout << "Año: ";
     cin >> a;
     setAnio(a);
-    cin.ignore();
+    //cin.ignore();
 }
 
 
