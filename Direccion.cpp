@@ -84,3 +84,11 @@ void Direccion::MostrarEnLinea()
 {
     cout << _calle << " " <<  _numero << ", " << _provincia << ", CP: #" << _cp;
 }
+
+string Direccion::toString()
+{
+    string valorADevolver;
+    valorADevolver = getCalle() + " #" + to_string(getNumero()) + ", " + getProvincia() + ", CP: " + to_string(getCP());
+
+    return valorADevolver;
+}
