@@ -14,7 +14,7 @@ void Informes::Menu()
         cout << "3. Informe Anual de Ventas por Vendedor " << endl;
         cout << "4. Informe Mensual de Ventas para todos los Vendedores " << endl;
         cout << "5. Informe Anual de Ventas por Sucursal " << endl;
-        cout << "6. Informe Ventas en todas las Sucursales (anual o mensual) " << endl;
+        cout << "6. Informe Ventas en todas las Sucursales (mensual o anual) " << endl;
         cout << "7. Ranking Anual de Ventas por Modelo " << endl;
 
         cout << endl;
