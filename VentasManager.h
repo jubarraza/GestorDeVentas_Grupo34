@@ -13,6 +13,7 @@ public:
 	void mostrarVenta(Venta reg);
 	void mostrarVentaEnLinea(Venta reg);
 	void agregarVenta();
+	void encabezadoListadoVentas();
 	void listarVentas();
 	int buscarVenta(int idVenta);
 	void editarVenta();
@@ -42,7 +43,9 @@ public:
 	
 	std::string formatearNumero(float numero);
 
-
+	void buscadorDeVentas();
+	void buscarVentaPorID();
+	void buscarVentaPorFecha();
 
 
 };

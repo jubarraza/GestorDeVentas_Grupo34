@@ -23,11 +23,12 @@ void VentasManager::Menu()
         cout << "MENU VENTAS " << endl;
         cout << "********************** " << endl;
         cout << "1. Cargar Venta " << endl;
-        cout << "2. Mostrar Ventas " << endl;
-        cout << "3. Crear backup " << endl;
-        cout << "4. Restaurar backup " << endl;
-        cout << "5. Editar Venta " << endl;
-        cout << "6. Borrar Venta " << endl;
+        cout << "2. Listar Ventas " << endl;
+        cout << "3. Busqueda de Ventas " << endl;
+        cout << "4. Editar Venta " << endl;
+        cout << "5. Borrar Venta " << endl;
+        cout << "6. Crear backup " << endl;
+        cout << "7. Restaurar backup " << endl;
 
         cout << endl;
         cout << "0. SALIR DEL PROGRAMA " << endl;
@@ -48,25 +49,28 @@ void VentasManager::Menu()
             break;
 
         case 3:
-            backupArchivo();
+            buscadorDeVentas();
             system("pause");
             break;
 
         case 4:
-            restaurarBackup();
-            system("pause");
-            break;
-
-        case 5:
             editarVenta();
             system("pause");
             break;
 
-        case 6:
+        case 5:
             borrarVenta();
             system("pause");
             break;
 
+        case 6:
+            backupArchivo();
+            system("pause");
+            break;
+        case 7: 
+            restaurarBackup();
+            system("pause");
+            break;
 
         case 0:
             
@@ -254,12 +258,10 @@ void VentasManager::agregarVenta()
     }
 }
 
-void VentasManager::listarVentas()
+void VentasManager::encabezadoListadoVentas() 
 {
-    int i, cantidad = _archivo.contarVentas();
-    Venta reg;
     cout << left;
-    cout << setw(45) << " " << "* Listado de Ventas *" << endl;
+    cout << setw(55) << " " << "* Ventas *" << endl;
     cout << "------------------------------------------------------------------------------------------------------------------------------------------" << endl;
     cout << setw(5) << "#ID";
     cout << setw(14) << "Fecha Venta ";
@@ -270,6 +272,15 @@ void VentasManager::listarVentas()
     cout << setw(19) << "Gastos Adm ";
     cout << setw(16) << "Total Venta ";
     cout << endl;
+
+}
+
+void VentasManager::listarVentas()
+{
+    int i, cantidad = _archivo.contarVentas();
+    Venta reg;
+    
+    encabezadoListadoVentas();
 
     for (i=0; i < cantidad; i++) {
         
@@ -627,6 +638,97 @@ std::string VentasManager::formatearNumero(float numero)
     return parteEnteraFormateada + parteDecimal;
 }
 
+void VentasManager::buscadorDeVentas()
+{
+    int cantReg = _archivo.contarVentas();
+    if (cantReg == -1) {
+        cout << endl << "* Error de Archivo *" << endl;
+    }
+    else {
+        int opc;
+        cout << "- Buscar Venta -" << endl;
+        cout << "-------------------" << endl;
+        cout << "1) Por ID " << endl;
+        cout << "2) Por Fecha de Venta " << endl;
+        cout << endl;
+        cout << "0) Salir " << endl << endl;
+        cout << "Ingrese una Opcion: ";
+        cin >> opc;
+        system("cls");
+        switch (opc) {
+        
+        case 1:buscarVentaPorID();
+            break;
+        case 2:buscarVentaPorFecha();
+            break;
+        case 0:
+            break;
+
+        default:cout << endl << "* Opcion Incorrecta! *" << endl << endl;
+            return;
+        }
+    }
+    cout << endl;
+}
+
+void VentasManager::buscarVentaPorID()
+{
+    int id, pos; 
+    cout << "Ingrese el ID a buscar: ";
+    cin >> id; 
+    cin.ignore();
+    cout << endl;
+    pos = buscarVenta(id);
+    if (pos == -1) {
+        cout << endl << "* No se Encontraron Registros *" << endl;
+    }
+    if (pos >= 0) {
+        Venta reg;
+        reg = _archivo.leerVenta(pos);
+        if (reg.getEliminado() == false) {
+            mostrarVenta(reg);
+            cout << endl;
+        }
+        else {
+            cout << "* El Registro se Encuentra Eliminado *" << endl;
+        }
+    }
+    cout << endl;
+}
+
+void VentasManager::buscarVentaPorFecha()
+{
+    Fecha f;
+    Venta reg;
+    int cantReg, contador = 0;
+
+    cout << "Ingrese fecha a buscar:" << endl;
+    f.Cargar();
+    cin.ignore();
+    cout << endl;
+
+    cantReg = _archivo.contarVentas();
+    for (int i = 0; i < cantReg; i++) {
+        reg = _archivo.leerVenta(i);
+        if (reg.getEliminado() == false && reg.getFechaVenta().getAnio() == f.getAnio() && reg.getFechaVenta().getMes() == f.getMes() && reg.getFechaVenta().getDia() == f.getDia()) {
+            if (contador == 0) {
+                encabezadoListadoVentas();
+                mostrarVentaEnLinea(reg);
+                contador++;
+            }
+            else {
+                mostrarVentaEnLinea(reg);
+                contador++;
+
+            }
+        }
+    }
+    if (contador == 0) {
+        cout << "* No hay ventas para la fecha buscada * " << endl;
+    }
+
+}
+
 std::string VentasManager::mostrarNombreCliente(long dni)
 {
     ClienteManager cm;
@@ -641,3 +743,4 @@ std::string VentasManager::mostrarNombreCliente(long dni)
 
 
 }
+ 
