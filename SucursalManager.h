@@ -10,7 +10,7 @@ public:
 	int buscarPosicion(int codBuscado);
 	void agregarRegistro();
 	void listarRegistros();
-	void menu();
+	void Menu();
 	Sucursal crearRegistro();
 	void mostrarRegistro(Sucursal reg);
 	void editarRegistro();

@@ -10,7 +10,7 @@ SucursalManager::SucursalManager() : _archivo()
  
 }
 
-void SucursalManager::menu()
+void SucursalManager::Menu()
 {
     int opcion;
     do {
@@ -120,9 +120,6 @@ Sucursal SucursalManager::crearRegistro()
 
 void SucursalManager::mostrarRegistro(Sucursal reg)
 {
-
-    cout << "---- Mostrar Registro ----" << endl;
-    cout << endl;
     reg.Mostrar();
 
 }
