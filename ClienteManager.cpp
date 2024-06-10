@@ -1,6 +1,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <iomanip>
+#include <vector>
+#include <locale>
 #include "ClienteManager.h"
 using namespace std;
 
@@ -37,8 +39,7 @@ void ClienteManager::Menu()
             break;
 
         case 2:
-            listarClientes();
-            system("pause");
+            menuListado();
             break;
 
         case 3:
@@ -123,22 +124,53 @@ void ClienteManager::agregarCliente()
     }
 }
 
-void ClienteManager::listarClientes()
+void ClienteManager::encabezadoClientes()
+{
+    cout << left;
+    cout << setw(55) << " " << "* Listado de Clientes *" << endl;
+    cout << "-------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+    cout << setw(14) << "DNI";
+    cout << setw(20) << "Nombre ";
+    cout << setw(20) << "Apellido ";
+    cout << setw(23) << "Fecha de Nacimiento ";
+    cout << setw(33) << "Email ";
+    cout << setw(20) << "Telefono ";
+    cout << setw(30) << "Direccion ";
+    cout << endl;
+}
+
+void ClienteManager::menuListado()
+{
+    int opc;
+    cout << "Como desea ordenar el listado de Clientes?" << endl;
+    cout << "(1) por orden de Carga o (2) por Apellido " << endl;
+    cin >> opc;
+    cin.ignore();
+    cout << endl;
+
+    switch (opc)
+    {
+    case 1:
+        listarClientes();
+        system("pause");
+        break;
+
+    case 2:
+        listarClientesXApellido();
+        system("pause");
+        break;
+
+    default:
+        break;
+    }
+}
+
+void ClienteManager::listarClientes() //por oden de carga
 {
     int i, cantidad = _archivo.contarClientes();
     Cliente reg;
 
-        cout << left;
-        cout << setw(55) << " " << "* Listado de Clientes *" << endl;
-        cout << "-------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
-        cout << setw(13) << "DNI";
-        cout << setw(20) << "Nombre ";
-        cout << setw(20) << "Apellido ";
-        cout << setw(24) << "Fecha de Nacimiento ";
-        cout << setw(33) << "Email ";
-        cout << setw(20) << "Telefono ";
-        cout << setw(30) << "Direccion ";
-        cout << endl;
+    encabezadoClientes();
 
         for (i = 0; i < cantidad; i++) {
             reg = _archivo.leerCliente(i);
@@ -147,6 +179,51 @@ void ClienteManager::listarClientes()
             }
         
         }
+
+}
+
+void ClienteManager::listarClientesXApellido()
+{
+
+    int i, cantidad = _archivo.contarClientes();
+    Cliente reg;
+    vector <Cliente> vec;
+
+    if (cantidad == 0) {
+        cout << "* No hay Clientes para mostrar *" << endl;
+    }
+    else {
+        encabezadoClientes();
+        for (i = 0; i < cantidad; i++) {
+            reg = _archivo.leerCliente(i);
+            vec.push_back(reg);
+        }
+        ordenar(vec, cantidad);
+        for (i = 0; i < cantidad; i++) {
+            if (vec[i].getEliminado() == false) {
+                mostrarClienteEnLinea(vec[i]);
+            }
+        }
+        cout << endl;
+
+    }
+}
+void ClienteManager::ordenar(vector<Cliente>& vec, int cantidad) {
+    Cliente aux;
+
+    for (int i = 0; i < cantidad; i++) {
+
+        for (int j = i; j < cantidad; j++) {
+
+            if (vec[i].getApellido() > vec[j].getApellido()) {
+
+                aux = vec[i];
+                vec[i] = vec[j];
+                vec[j] = aux;
+
+            }
+        }
+    }
 
 }
 
