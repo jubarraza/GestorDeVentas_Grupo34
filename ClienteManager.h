@@ -18,5 +18,6 @@ public:
 	void backupArchivo();
 	void restaurarBackup();
 	void borrarCliente();
+	void buscadorDeClientes();
 };
 

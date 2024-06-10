@@ -16,11 +16,12 @@ void ClienteManager::Menu()
         cout << "MENU CLIENTES " << endl;
         cout << "********************** " << endl;
         cout << "1. Cargar Cliente " << endl;
-        cout << "2. Mostrar Clientes " << endl;
-        cout << "3. Crear backup " << endl;
-        cout << "4. Restaurar backup " << endl;
-        cout << "5. Editar Cliente " << endl;
-        cout << "6. Borrar Cliente " << endl;
+        cout << "2. Listar Clientes " << endl;
+        cout << "3. Buscador de Clientes " << endl;
+        cout << "4. Editar Cliente " << endl;
+        cout << "5. Borrar Cliente " << endl;
+        cout << "6. Crear backup " << endl;
+        cout << "7. Restaurar backup " << endl;
 
         cout << endl;
         cout << "0. SALIR DEL PROGRAMA " << endl;
@@ -41,25 +42,28 @@ void ClienteManager::Menu()
             break;
 
         case 3:
-            backupArchivo();
+            buscadorDeClientes();
             system("pause");
             break;
 
         case 4:
-            restaurarBackup();
-            system("pause");
-            break;
-
-        case 5:
             editarCliente();
             system("pause");
             break;
 
-        case 6:
+        case 5:
             borrarCliente();
             system("pause");
             break;
 
+        case 6:
+            backupArchivo();
+            system("pause");
+            break;
+        case 7:
+            restaurarBackup();
+            system("pause");
+            break;
 
         case 0:
 
@@ -312,5 +316,38 @@ void ClienteManager::borrarCliente()
     }
     else {
         cout << "El cliente buscado no existe" << endl;
+    }
+}
+
+void ClienteManager::buscadorDeClientes()
+{
+    int cantReg = _archivo.contarClientes();
+    if (cantReg == -1) {
+        cout << endl << "* Error de Archivo *" << endl;
+    }
+    else {
+        int pos;
+        long dni;
+        cout << "Ingrese el DNI a buscar: ";
+        cin >> dni;
+        cin.ignore();
+        cout << endl;
+        pos = buscarCliente(dni);
+        if (pos == -1) {
+            cout << endl << "* No se Encontraron Clientes con el DNI buscado *" << endl;
+        }
+        if (pos >= 0) {
+            Cliente reg = _archivo.leerCliente(pos);
+            if (reg.getEliminado() == false) {
+                mostrarCliente(reg);
+                cout << endl;
+            }
+            else {
+                cout << "* El Registro se Encuentra Eliminado *" << endl;
+            }
+        }
+        cout << endl;
+    
+    
     }
 }
