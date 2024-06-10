@@ -1,5 +1,9 @@
 #define _CRT_SECURE_NO_WARNINGS 
 #include "VentasManager.h"
+#include "ClienteManager.h"
+#include "SucursalManager.h"
+#include "VendedorManager.h"
+#include "VehiculosManager.h"
 #include <iostream>
 #include <iomanip>
 using namespace std;
@@ -80,34 +84,125 @@ Venta VentasManager::crearVenta()
 
     cout << "Venta: #" << id << endl;
     reg.setIdVenta(id);
+    
     cout << "Ingrese fecha de Venta: " << endl;
     f.Cargar();
     reg.setFechaVenta(f);
     cout << endl;
+    
     cout << "Ingrese DNI del Cliente: " << endl;
     cin >> dni;
     cin.ignore();
-    reg.setDniCliente(dni);
+    cout << endl;
+    
+    //Validacion del cliente
+    int posCliente = validarCliente(dni);
+    if (posCliente >= 0) {
+        reg.setDniCliente(dni);
+    }
+    else {
+        char opc;
+        cout << "El cliente no existe. Desea agregarlo? S/N: " << endl;
+        cin >> opc;
+        switch (opc) {
+        case 'S':
+        case 's':
+            crearNuevoCliente();
+            reg.setDniCliente(dni);
+            system("cls");
+            break;
+
+        case 'N':
+        case 'n':
+            cout << "No se pudo finalizar la creacion de la venta." << endl;
+            exit(1);
+        }
+    }
+    mostrarClienteAsociado(posCliente);
+    cout << endl;
+    
     cout << "Ingrese ID de Sucursal: " << endl;
     cin >> idSucursal;
     cin.ignore();
-    reg.setIdSucursal(idSucursal);
+    cout << endl;
+    
+    //Validacion Sucursal
+    int posSucursal = validarSucursal(idSucursal);
+    if (posSucursal >= 0) {
+        reg.setIdSucursal(idSucursal);
+    }
+    else {
+        do {
+            cout << "La sucursal no existe. Intente nuevamente: " << endl;
+            cin >> idSucursal; 
+            cin.ignore(); 
+            posSucursal = validarSucursal(idSucursal); 
+        } while (posSucursal < 0);
+        system("cls");
+        reg.setIdSucursal(idSucursal);
+        
+    }
+    mostrarSucursalAsociada(posSucursal);
+    cout << endl;
+
+    
+    
     cout << "Ingrese Legajo del Vendedor: " << endl;
     cin >> nroLegajo;
     cin.ignore();
-    reg.setNroLegajo(nroLegajo);
+    cout << endl; 
+
+    //Validacion Vendedor
+    int posVendedor = validarVendedor(nroLegajo);
+    if (posVendedor >= 0) {
+        reg.setNroLegajo(nroLegajo);
+    }
+    else {
+        do {
+            cout << "El vendedor no existe. Intente nuevamente: " << endl;
+            cin >> nroLegajo; 
+            cin.ignore();
+            posVendedor = validarVendedor(nroLegajo);
+        } while (posVendedor < 0);
+        system("cls");
+        reg.setNroLegajo(nroLegajo); 
+
+    }
+    mostrarVendedorAsociado(posVendedor);
+    cout << endl;
+    
     cout << "Ingrese ID del Vehiculo comprado: " << endl;
     cin >> idVehiculo;
     cin.ignore();
-    reg.setIdVehiculo(idVehiculo);
+    cout << endl;
+
+    //Validacion Vehiculo
+    int posVehiculo = validarVehiculo(idVehiculo);
+    if (posVehiculo >= 0) { 
+        reg.setIdVehiculo(idVehiculo); 
+    }
+    else {
+        do {
+            cout << "El vehiculo no existe. Intente nuevamente: " << endl;
+            cin >> idVehiculo; 
+            cin.ignore(); 
+            posVehiculo = validarVehiculo(idVehiculo);
+        } while (posVehiculo < 0);
+        system("cls");
+        reg.setIdVehiculo(idVehiculo);
+
+    }
+    mostrarVehiculoAsociado(posVehiculo);
+    cout << endl; 
+    
     cout << "Gastos Administrativos: $" << endl;
     cin >> gastos;
     cin.ignore();
     reg.setGastosAdm(gastos);
-    cout << "Total Venta: $" << endl;
-    cin >> total;
-    cin.ignore();
+
+    total = calcularPrecioTotal(gastos, obtenerPrecioVehiculo(posVehiculo));
     reg.setTotalVentas(total);
+    cout << "Total Venta: $" << total << endl;
     cout << endl;
     reg.setEliminado(false);
 
@@ -339,4 +434,128 @@ void VentasManager::borrarVenta()
         cout << "La venta buscada no existe" << endl;
     }
 
+}
+
+int VentasManager::validarCliente(int dni)
+{
+    ClienteManager cm; 
+    int resultado = cm.buscarCliente(dni);
+    if (resultado >= 0) {
+        return resultado;
+    }
+    else {
+        return -1;
+    }
+}
+
+void VentasManager::crearNuevoCliente()
+{
+    ClienteManager cm;
+    
+    cm.crearCliente();
+
+    
+}
+
+void VentasManager::mostrarClienteAsociado(int pos)
+{
+    ClienteManager cm;
+    ClienteArchivo ca; 
+    Cliente aux;
+
+    aux = ca.leerCliente(pos); 
+    cout << "Cliente que realiza la compra: " << endl;
+    cm.mostrarCliente(aux);
+    cout << endl;
+
+}
+
+int VentasManager::validarSucursal(int id)
+{
+    SucursalManager sm;
+    int resultado = sm.buscarPosicion(id);
+    if (resultado >= 0) {
+        return resultado;
+    }
+    else {
+        return -1;
+    }
+}
+
+void VentasManager::mostrarSucursalAsociada(int pos)
+{
+    SucursalManager sm;
+    SucursalArchivo sa;
+    Sucursal aux;
+
+    aux = sa.leerRegistro(pos); 
+    cout << "Sucursal asignada: " << endl;
+    sm.mostrarRegistro(aux);
+    cout << endl;
+}
+
+int VentasManager::validarVendedor(int nroLegajo)
+{
+    VendedorArchivo va;
+
+    int resultado = va.BuscarId(nroLegajo);
+    if (resultado >= 0) {
+        return resultado;
+    }
+    else {
+        return -1;
+    }
+}
+
+void VentasManager::mostrarVendedorAsociado(int pos)
+{
+    VendedorManager vm; 
+    VendedorArchivo va; 
+    Vendedor aux; 
+
+    aux = va.leerRegistro(pos);
+    cout << "Vendedor asignado: " << endl;
+    vm.MostrarVendedor(aux);
+    cout << endl;
+}
+
+int VentasManager::validarVehiculo(int id)
+{
+    VehiculosArchivo va;
+
+    int resultado = va.buscarRegistro(id);
+    if (resultado >= 0) {
+        return resultado;
+    }
+    else {
+        return -1;
+    }
+}
+
+void VentasManager::mostrarVehiculoAsociado(int pos)
+{
+    VehiculosManager vm;
+    VehiculosArchivo va;
+    Vehiculo aux;
+
+    aux = va.leerRegistro(pos); 
+    cout << "Vehiculo vendido: " << endl;
+    vm.mostrarVehiculo(aux);
+    cout << endl;
+}
+
+float VentasManager::obtenerPrecioVehiculo(int pos)
+{
+    VehiculosArchivo va;
+    Vehiculo aux;
+
+    aux = va.leerRegistro(pos); 
+
+    return aux.getPrecioUnidad();
+}
+
+float VentasManager::calcularPrecioTotal(float gastos, float precio)
+{
+
+    return gastos + precio;
 }
