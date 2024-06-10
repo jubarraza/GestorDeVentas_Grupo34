@@ -7,6 +7,7 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <vector>
 using namespace std;
 
 
@@ -44,8 +45,7 @@ void VentasManager::Menu()
             break;
 
         case 2:
-            listarVentas();
-            system("pause");
+            menuListados();
             break;
 
         case 3:
@@ -275,22 +275,100 @@ void VentasManager::encabezadoListadoVentas()
 
 }
 
+void VentasManager::menuListados()
+{
+    int opc;
+    cout << "Como desea ordenar el listado de Ventas?" << endl;
+    cout << "(1) por ID o (2) por Fecha de Venta " << endl;
+    cin >> opc;
+    cin.ignore();
+    cout << endl;
+
+    switch (opc)
+    {
+    case 1:
+        listarVentas();
+        system("pause");
+        break;
+
+    case 2:
+        listarVentasXFecha();
+        system("pause");
+        break;
+
+    default:
+        break;
+    }
+}
+
 void VentasManager::listarVentas()
 {
     int i, cantidad = _archivo.contarVentas();
     Venta reg;
-    
-    encabezadoListadoVentas();
 
-    for (i=0; i < cantidad; i++) {
-        
-        reg = _archivo.leerVenta(i);
-        if (reg.getEliminado() == false) {
-            mostrarVentaEnLinea(reg); 
-        }
-        
+    if (cantidad == 0) {
+        cout << "* No hay Ventas para mostrar *" << endl;
     }
-    cout << endl;
+    else {
+        encabezadoListadoVentas();
+
+        for (i=0; i < cantidad; i++) {
+        
+            reg = _archivo.leerVenta(i);
+            if (reg.getEliminado() == false) {
+                mostrarVentaEnLinea(reg); 
+            }
+        
+        }
+        cout << endl;
+
+    }
+    
+}
+
+void VentasManager::ordenar(vector<Venta>& vec, int cantidad) {
+    Venta aux;
+
+    for (int i = 0; i < cantidad; i++) {
+
+        for (int j = i; j < cantidad; j++) {
+
+            if (vec[i].getFechaVenta() > vec[j].getFechaVenta()) {
+                 
+                aux = vec[i];
+                vec[i] = vec[j];
+                vec[j] = aux;
+
+            }
+        }
+    }
+}
+
+void VentasManager::listarVentasXFecha()
+{
+    int i, cantidad = _archivo.contarVentas();
+    Venta reg;
+    vector <Venta> vec;
+
+    if (cantidad == 0) {
+        cout << "* No hay Ventas para mostrar *" << endl;
+    }
+    else {
+        encabezadoListadoVentas();
+        for (i = 0; i < cantidad; i++) {
+            reg = _archivo.leerVenta(i);
+            vec.push_back(reg);
+        }
+
+        ordenar(vec, cantidad); 
+        for (i = 0; i < cantidad; i++) {
+            if (vec[i].getEliminado() == false) {
+                mostrarVentaEnLinea(vec[i]);
+            }
+        }
+        cout << endl;
+
+    }
 }
 
 int VentasManager::buscarVenta(int idVenta)

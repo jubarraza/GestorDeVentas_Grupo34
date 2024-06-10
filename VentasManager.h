@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include "VentasArchivo.h"
 
 class VentasManager
@@ -14,7 +15,10 @@ public:
 	void mostrarVentaEnLinea(Venta reg);
 	void agregarVenta();
 	void encabezadoListadoVentas();
+	void menuListados();
 	void listarVentas();
+	void ordenar(std::vector<Venta>& vec, int cant);  
+	void listarVentasXFecha();
 	int buscarVenta(int idVenta);
 	void editarVenta();
 	void backupArchivo();
