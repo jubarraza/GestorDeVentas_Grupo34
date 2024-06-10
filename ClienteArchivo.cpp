@@ -3,6 +3,10 @@
 #include "ClienteArchivo.h"
 using namespace std;
 
+ClienteArchivo::ClienteArchivo() {
+    strcpy(_nombreArchivo, "Clientes.dat");
+}
+
 ClienteArchivo::ClienteArchivo(std::string n = "Clientes.dat")
 {
     if (n.size() < 40) {

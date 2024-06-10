@@ -7,6 +7,7 @@ class ClienteArchivo
 private:
 	char _nombreArchivo[40];
 public:
+	ClienteArchivo();
 	ClienteArchivo(std::string n);
 	std::string getNombreArchivo();
 	Cliente leerCliente(int pos);
