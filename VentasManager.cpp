@@ -78,7 +78,8 @@ void VentasManager::Menu()
 Venta VentasManager::crearVenta()
 {
     int id = _archivo.leerUltimoId() + 1;
-    int dni, nroLegajo, idSucursal, idVehiculo;
+    int nroLegajo, idSucursal, idVehiculo;
+    long dni;
     float gastos, total;
     Fecha f(1,1,1990);
     Venta reg;
@@ -215,10 +216,10 @@ void VentasManager::mostrarVenta(Venta reg)
     cout << left;
     cout << setw(0) << "Venta: #" << reg.getIdVenta() << "         " << "Fecha de Venta: " << reg.getFechaVenta().toString();
     cout << endl << endl;
-    cout << "Cliente: " << reg.getDniCliente() << endl;
-    cout << "Sucursal: " << reg.getIdSucursal() << endl;
-    cout << "Vendedor: " << reg.getNroLegajo() << endl;
-    cout << "Vehiculo comprado: " << reg.getIdVehiculo() << endl;
+    cout << "Cliente: " << mostrarNombreCliente(reg.getDniCliente()) << " - DNI: " << reg.getDniCliente() << endl;
+    cout << "Sucursal: " << mostrarNombreSucursal(reg.getIdSucursal()) << endl;
+    cout << "Vendedor: " << mostrarNombreVendedor(reg.getNroLegajo()) << endl;
+    cout << "Vehiculo comprado: " << mostrarNombreVehiculo(reg.getIdVehiculo()) << endl;
     string gastosFormateado = formatearNumero(reg.getGastosAdm());
     cout << "Gastos Administrativos: $" << gastosFormateado << endl;
     string totalFormateado = formatearNumero(reg.getTotalVenta());
@@ -231,10 +232,10 @@ void VentasManager::mostrarVentaEnLinea(Venta reg)
     cout << endl;
     cout << setw(5) << reg.getIdVenta();
     cout << setw(14) << reg.getFechaVenta().toString();
-    cout << setw(15) << reg.getDniCliente();
-    cout << setw(16) << reg.getIdSucursal();
-    cout << setw(17) << reg.getNroLegajo();
-    cout << setw(17) << reg.getIdVehiculo();
+    cout << setw(17) << mostrarNombreCliente(reg.getDniCliente());
+    cout << setw(25) << mostrarNombreSucursal(reg.getIdSucursal());
+    cout << setw(19) << mostrarNombreVendedor(reg.getNroLegajo());
+    cout << setw(22) << mostrarNombreVehiculo(reg.getIdVehiculo());
     string gastosFormateado = formatearNumero(reg.getGastosAdm());
     cout << setw(2) << "$ " << setw(16) << gastosFormateado;
     string totalFormateado = formatearNumero(reg.getTotalVenta());
@@ -259,13 +260,13 @@ void VentasManager::listarVentas()
     Venta reg;
     cout << left;
     cout << setw(45) << " " << "* Listado de Ventas *" << endl;
-    cout << "-------------------------------------------------------------------------------------------------------------------" << endl;
+    cout << "------------------------------------------------------------------------------------------------------------------------------------------" << endl;
     cout << setw(5) << "#ID";
     cout << setw(14) << "Fecha Venta ";
-    cout << setw(13) << "Dni Cliente ";
-    cout << setw(14) << "Id Sucursal ";
-    cout << setw(18) << "Legajo Vendedor ";
-    cout << setw(20) << "Vehiculo comprado ";
+    cout << setw(17) << "Cliente ";
+    cout << setw(25) << "Sucursal ";
+    cout << setw(19) << "Vendedor ";
+    cout << setw(22) << "Vehiculo comprado ";
     cout << setw(19) << "Gastos Adm ";
     cout << setw(16) << "Total Venta ";
     cout << endl;
@@ -278,6 +279,7 @@ void VentasManager::listarVentas()
         }
         
     }
+    cout << endl;
 }
 
 int VentasManager::buscarVenta(int idVenta)
@@ -441,7 +443,7 @@ void VentasManager::borrarVenta()
 
 }
 
-int VentasManager::validarCliente(int dni)
+int VentasManager::validarCliente(long dni)
 {
     ClienteManager cm; 
     int resultado = cm.buscarCliente(dni);
@@ -499,6 +501,21 @@ void VentasManager::mostrarSucursalAsociada(int pos)
     cout << endl;
 }
 
+std::string VentasManager::mostrarNombreSucursal(int id)
+{
+    SucursalManager sm;
+    SucursalArchivo sa; 
+    
+
+    int pos = sm.buscarPosicion(id);
+
+    Sucursal aux = sa.leerRegistro(pos); 
+
+    string valor = to_string(aux.getIdSucursal()) + " - " + aux.getNombre();
+    
+    return valor;
+}
+
 int VentasManager::validarVendedor(int nroLegajo)
 {
     VendedorArchivo va;
@@ -524,6 +541,18 @@ void VentasManager::mostrarVendedorAsociado(int pos)
     cout << endl;
 }
 
+std::string VentasManager::mostrarNombreVendedor(int nrolegajo)
+{
+    VendedorArchivo va;
+    int pos = va.BuscarId(nrolegajo);
+
+    Vendedor aux = va.leerRegistro(pos);
+
+    string valor = aux.getApellido() + ", " + aux.getNombre();
+
+    return valor;
+}
+
 int VentasManager::validarVehiculo(int id)
 {
     VehiculosArchivo va;
@@ -547,6 +576,20 @@ void VentasManager::mostrarVehiculoAsociado(int pos)
     cout << "Vehiculo vendido: " << endl;
     vm.mostrarVehiculo(aux);
     cout << endl;
+}
+
+std::string VentasManager::mostrarNombreVehiculo(int id)
+{
+    VehiculosArchivo va;
+    VehiculosManager vm;
+
+    int pos = va.buscarRegistro(id);
+
+    Vehiculo aux = va.leerRegistro(pos);
+
+    string valor = to_string(id)+ " - " + aux.getMarca() + " " + aux.getModelo();
+
+    return valor;
 }
 
 float VentasManager::obtenerPrecioVehiculo(int pos)
@@ -582,4 +625,19 @@ std::string VentasManager::formatearNumero(float numero)
         }
     }
     return parteEnteraFormateada + parteDecimal;
+}
+
+std::string VentasManager::mostrarNombreCliente(long dni)
+{
+    ClienteManager cm;
+    ClienteArchivo ca;
+    
+
+    int pos = cm.buscarCliente(dni);
+
+    Cliente aux = ca.leerCliente(pos);
+    
+    return aux.getApellidoNombre();
+
+
 }
