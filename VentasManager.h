@@ -38,11 +38,11 @@ public:
 	void mostrarVendedorAsociado(int pos);
 	std::string mostrarNombreVendedor(int nrolegajo);
 	
-	int validarVehiculo(int id);
-	void mostrarVehiculoAsociado(int pos);
+	bool validarVehiculo(int& id);
+	void mostrarVehiculoAsociado(int id);
 	std::string mostrarNombreVehiculo(int id);
 	
-	float obtenerPrecioVehiculo(int pos);
+	float obtenerPrecioVehiculo(int id);
 	float calcularPrecioTotal(float gastos, float precio);
 	
 	std::string formatearNumero(float numero);

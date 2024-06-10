@@ -183,22 +183,12 @@ Venta VentasManager::crearVenta()
     cout << endl;
 
     //Validacion Vehiculo
-    int posVehiculo = validarVehiculo(idVehiculo);
-    if (posVehiculo >= 0) { 
-        reg.setIdVehiculo(idVehiculo); 
-    }
-    else {
-        do {
-            cout << "El vehiculo no existe. Intente nuevamente: " << endl;
-            cin >> idVehiculo; 
-            cin.ignore(); 
-            posVehiculo = validarVehiculo(idVehiculo);
-        } while (posVehiculo < 0);
-        system("cls");
+    bool vehiculoDisponible = validarVehiculo(idVehiculo);
+    
+    if (vehiculoDisponible == true) { 
         reg.setIdVehiculo(idVehiculo);
-
     }
-    mostrarVehiculoAsociado(posVehiculo);
+    mostrarVehiculoAsociado(idVehiculo);
     cout << endl; 
     
     cout << "Gastos Administrativos: $" << endl;
@@ -206,7 +196,7 @@ Venta VentasManager::crearVenta()
     cin.ignore();
     reg.setGastosAdm(gastos);
 
-    total = calcularPrecioTotal(gastos, obtenerPrecioVehiculo(posVehiculo));
+    total = calcularPrecioTotal(gastos, obtenerPrecioVehiculo(idVehiculo));
     reg.setTotalVentas(total);
     cout << "Total Venta: $" << fixed << setprecision(0) << total << endl;
     cout << endl;
@@ -626,7 +616,10 @@ void VentasManager::mostrarVendedorAsociado(int pos)
 
     aux = va.leerRegistro(pos);
     cout << "Vendedor asignado: " << endl;
-    vm.MostrarVendedor(aux);
+    aux.MostrarPersona();
+    cout << "NRO LEGAJO: " << aux.getNroLegajo() << endl;
+    cout << "FECHA DE INGRESO: " << aux.getFechaIngreso().toString() << endl;
+    cout << "ANTIGUEDAD: " << aux.getAntiguedad();
     cout << endl;
 }
 
@@ -642,28 +635,63 @@ std::string VentasManager::mostrarNombreVendedor(int nrolegajo)
     return valor;
 }
 
-int VentasManager::validarVehiculo(int id)
+bool VentasManager::validarVehiculo(int& id)
 {
     VehiculosArchivo va;
+    bool resultado = false;
 
-    int resultado = va.buscarRegistro(id);
-    if (resultado >= 0) {
-        return resultado;
+    int pos = va.buscarRegistro(id);
+    
+    if (pos >= 0) {
+        Vehiculo aux = va.leerRegistro(pos);
+        if (aux.getStock() > 0) {
+            return true;
+
+        }
+        else {
+            do {
+                cout << "* El vehiculo no tiene stock y no puede ser vendido. *" << endl;
+                cout << "Ingrese un nuevo id de vehiculo: ";
+                cin >> id;
+                cin.ignore();
+                resultado = validarVehiculo(id);
+
+            } while (resultado == false);
+            system("cls");
+        }
+        
+
     }
     else {
-        return -1;
+        do {
+            cout << "El vehiculo no existe. Intente nuevamente: " << endl;
+            cin >> id; 
+            cin.ignore(); 
+            resultado = validarVehiculo(id);
+        } while (resultado == false);
+        
+        return true;
     }
+    
+    
 }
 
-void VentasManager::mostrarVehiculoAsociado(int pos)
+void VentasManager::mostrarVehiculoAsociado(int id)
 {
     VehiculosManager vm;
     VehiculosArchivo va;
     Vehiculo aux;
+    int pos = va.buscarRegistro(id);
 
     aux = va.leerRegistro(pos); 
     cout << "Vehiculo vendido: " << endl;
-    vm.mostrarVehiculo(aux);
+    cout << "ID Vehiculo: " << aux.getIdVehiculo() << endl;
+    cout << "Marca y Modelo: " << aux.getMarca() << " " << aux.getModelo() << endl;
+    cout << "Version: " << aux.getVersion() << endl;
+    cout << "Color: " << aux.getColor();
+    cout << "Año de fabricación: " << aux.getAnioFabricacion() << endl;
+    cout << "Stock actual: " << aux.getStock() << endl;
+    cout << "Precio unidad: $" << formatearNumero(aux.getPrecioUnidad());
     cout << endl;
 }
 
@@ -681,11 +709,11 @@ std::string VentasManager::mostrarNombreVehiculo(int id)
     return valor;
 }
 
-float VentasManager::obtenerPrecioVehiculo(int pos)
+float VentasManager::obtenerPrecioVehiculo(int id)
 {
     VehiculosArchivo va;
     Vehiculo aux;
-
+    int pos = va.buscarRegistro(id);
     aux = va.leerRegistro(pos); 
 
     return aux.getPrecioUnidad();
