@@ -146,7 +146,7 @@ void ClienteManager::listarClientes()
 
 }
 
-int ClienteManager::buscarCliente(int dni)
+int ClienteManager::buscarCliente(long dni)
 {
     Cliente reg;
     FILE* p;

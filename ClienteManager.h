@@ -13,7 +13,7 @@ public:
 	void mostrarClienteEnLinea(Cliente reg);
 	void agregarCliente();
 	void listarClientes();
-	int buscarCliente(int dni);
+	int buscarCliente(long dni);
 	void editarCliente();
 	void backupArchivo();
 	void restaurarBackup();
