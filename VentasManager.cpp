@@ -6,6 +6,7 @@
 #include "VehiculosManager.h"
 #include <iostream>
 #include <iomanip>
+#include <sstream>
 using namespace std;
 
 
@@ -218,8 +219,10 @@ void VentasManager::mostrarVenta(Venta reg)
     cout << "Sucursal: " << reg.getIdSucursal() << endl;
     cout << "Vendedor: " << reg.getNroLegajo() << endl;
     cout << "Vehiculo comprado: " << reg.getIdVehiculo() << endl;
-    cout << "Gastos Administrativos: $" << reg.getGastosAdm() << endl;
-    cout << "Total Venta: $" << fixed << setprecision(0) << reg.getTotalVenta() << endl;
+    string gastosFormateado = formatearNumero(reg.getGastosAdm());
+    cout << "Gastos Administrativos: $" << gastosFormateado << endl;
+    string totalFormateado = formatearNumero(reg.getTotalVenta());
+    cout << "Total Venta: $" << totalFormateado << endl;
 }
 
 void VentasManager::mostrarVentaEnLinea(Venta reg)
@@ -232,9 +235,11 @@ void VentasManager::mostrarVentaEnLinea(Venta reg)
     cout << setw(16) << reg.getIdSucursal();
     cout << setw(17) << reg.getNroLegajo();
     cout << setw(17) << reg.getIdVehiculo();
-    cout << setw(2) << "$ " << setw(16) << fixed << setprecision(2) << reg.getGastosAdm();
-    cout << setw(2) << "$ " << setw(16) << fixed << setprecision(2) << reg.getTotalVenta();
-    cout << endl;
+    string gastosFormateado = formatearNumero(reg.getGastosAdm());
+    cout << setw(2) << "$ " << setw(16) << gastosFormateado;
+    string totalFormateado = formatearNumero(reg.getTotalVenta());
+    cout << setw(2) << "$ " << setw(16) << totalFormateado;
+    
     
 }
 
@@ -271,7 +276,7 @@ void VentasManager::listarVentas()
         if (reg.getEliminado() == false) {
             mostrarVentaEnLinea(reg); 
         }
-        cout << endl;
+        
     }
 }
 
@@ -558,4 +563,23 @@ float VentasManager::calcularPrecioTotal(float gastos, float precio)
 {
 
     return gastos + precio;
+}
+
+std::string VentasManager::formatearNumero(float numero)
+{
+    ostringstream oss{};
+    oss << fixed << setprecision(2) << numero;
+    string numeroStr = oss.str();
+    size_t punto = numeroStr.find('.');
+    string parteEntera = numeroStr.substr(0, punto);
+    string parteDecimal = numeroStr.substr(punto);
+    string parteEnteraFormateada;
+    int longitud = parteEntera.length();
+    for (int i = 0; i < longitud; ++i) {
+        parteEnteraFormateada += parteEntera[i];
+        if ((longitud - i - 1) % 3 == 0 && (i != longitud - 1)) {
+            parteEnteraFormateada += ',';
+        }
+    }
+    return parteEnteraFormateada + parteDecimal;
 }

@@ -29,5 +29,6 @@ public:
 	void mostrarVehiculoAsociado(int pos);
 	float obtenerPrecioVehiculo(int pos);
 	float calcularPrecioTotal(float gastos, float precio);
+	std::string formatearNumero(float numero);
 };
 
