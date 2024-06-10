@@ -26,11 +26,11 @@ int main()
 
     //inf.Menu();
 
-    vehiculom.Menu();
-    //clientem.menu();
-    //ventam.menu();
+    //vehiculom.Menu();
+    //clientem.Menu();
+    ventam.Menu();
     //vendedorm.Menu();
-    //sucursalm.menu();
+    //sucursalm.Menu();
 
     return 0;
 }
