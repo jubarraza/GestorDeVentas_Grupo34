@@ -4,15 +4,18 @@
 class VendedorManager {
 private:
     VendedorArchivo _archivo;
-
 public:
     VendedorManager();
+
     Vendedor CrearVendedor();
-    void MostrarVendedor(Vendedor reg);
+    void MostrarVendedor(Vendedor vendedor);
     void AgregarVendedor();
     void ListarVendedor();
+    void BuscarVendedor();
+    void EditarVendedor();
     void EliminarVendedor();
-    //falta editarVendedor si es que la desarrollamos.
+    void realizarBackupVendedores();
+    void restaurarBackupVendedores();
 
     void Menu();
 };
