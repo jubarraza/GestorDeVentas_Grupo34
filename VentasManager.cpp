@@ -202,7 +202,7 @@ Venta VentasManager::crearVenta()
 
     total = calcularPrecioTotal(gastos, obtenerPrecioVehiculo(posVehiculo));
     reg.setTotalVentas(total);
-    cout << "Total Venta: $" << total << endl;
+    cout << "Total Venta: $" << fixed << setprecision(0) << total << endl;
     cout << endl;
     reg.setEliminado(false);
 
