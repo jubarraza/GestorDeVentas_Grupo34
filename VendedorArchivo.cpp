@@ -2,6 +2,13 @@
 #include <cstring>
 #include "VendedorArchivo.h"
 
+
+
+VendedorArchivo::VendedorArchivo()
+{
+    strcpy(_nombreArchivo, "Vendedores.dat");
+}
+
 VendedorArchivo::VendedorArchivo(std::string nombreArchivo = "Vendedores.dat") {
     strcpy(_nombreArchivo, nombreArchivo.c_str());
 }

@@ -5,6 +5,7 @@ class VendedorArchivo {
 private:
     char _nombreArchivo[40];
 public:
+    VendedorArchivo();
     VendedorArchivo(std::string nombreArchivo);
 
     Vendedor leerRegistro(int pos);
