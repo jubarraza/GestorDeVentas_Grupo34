@@ -61,12 +61,3 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
-
-
-# Auto detect text files and normalize them to LF
-* text=auto
-
-# Explicitly set the line endings for specific files
-*.cpp text eol=lf
-*.h text eol=lf
-*.txt text eol=lf
