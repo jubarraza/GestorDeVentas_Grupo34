@@ -91,12 +91,12 @@ Venta VentasManager::crearVenta()
     cout << "Venta: #" << id << endl;
     reg.setIdVenta(id);
     
-    cout << "Ingrese fecha de Venta: " << endl;
+    cout << "* Ingrese fecha de Venta: " << endl;
     f.Cargar();
     reg.setFechaVenta(f);
     cout << endl;
     
-    cout << "Ingrese DNI del Cliente: " << endl;
+    cout << "* Ingrese DNI del Cliente: ";
     cin >> dni;
     cin.ignore();
     cout << endl;
@@ -127,7 +127,7 @@ Venta VentasManager::crearVenta()
     mostrarClienteAsociado(posCliente);
     cout << endl;
     
-    cout << "Ingrese ID de Sucursal: " << endl;
+    cout << "* Ingrese ID de Sucursal: " ;
     cin >> idSucursal;
     cin.ignore();
     cout << endl;
@@ -153,7 +153,7 @@ Venta VentasManager::crearVenta()
 
     
     
-    cout << "Ingrese Legajo del Vendedor: " << endl;
+    cout << "* Ingrese Legajo del Vendedor: " ;
     cin >> nroLegajo;
     cin.ignore();
     cout << endl; 
@@ -177,7 +177,7 @@ Venta VentasManager::crearVenta()
     mostrarVendedorAsociado(posVendedor);
     cout << endl;
     
-    cout << "Ingrese ID del Vehiculo comprado: " << endl;
+    cout << "* Ingrese ID del Vehiculo comprado: ";
     cin >> idVehiculo;
     cin.ignore();
     cout << endl;
@@ -191,14 +191,15 @@ Venta VentasManager::crearVenta()
     mostrarVehiculoAsociado(idVehiculo);
     cout << endl; 
     
-    cout << "Gastos Administrativos: $" << endl;
+    cout << "Gastos Administrativos: $" ;
     cin >> gastos;
     cin.ignore();
     reg.setGastosAdm(gastos);
 
     total = calcularPrecioTotal(gastos, obtenerPrecioVehiculo(idVehiculo));
     reg.setTotalVentas(total);
-    cout << "Total Venta: $" << fixed << setprecision(0) << total << endl;
+    cout << endl;
+    cout << "Total Venta: $" << formatearNumero(reg.getTotalVenta()) << endl; 
     cout << endl;
     reg.setEliminado(false);
 
@@ -220,16 +221,33 @@ void VentasManager::mostrarVenta(Venta reg)
     cout << "Total Venta: $" << totalFormateado << endl;
 }
 
+void VentasManager::encabezadoListadoVentas() 
+{
+    cout << left;
+    cout << setw(55) << " " << "* Ventas *" << endl;
+    cout << "------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+    cout << setw(5) << "#ID";
+    cout << setw(14) << "Fecha Venta ";
+    cout << setw(19) << "Cliente ";
+    cout << setw(25) << "Sucursal ";
+    cout << setw(20) << "Vendedor ";
+    cout << setw(26) << "Vehiculo comprado ";
+    cout << setw(19) << "Gastos Adm ";
+    cout << setw(16) << "Total Venta ";
+    cout << endl;
+
+}
+
 void VentasManager::mostrarVentaEnLinea(Venta reg)
 {
     cout << left;
     cout << endl;
     cout << setw(5) << reg.getIdVenta();
     cout << setw(14) << reg.getFechaVenta().toString();
-    cout << setw(17) << mostrarNombreCliente(reg.getDniCliente());
+    cout << setw(19) << mostrarNombreCliente(reg.getDniCliente());
     cout << setw(25) << mostrarNombreSucursal(reg.getIdSucursal());
-    cout << setw(19) << mostrarNombreVendedor(reg.getNroLegajo());
-    cout << setw(22) << mostrarNombreVehiculo(reg.getIdVehiculo());
+    cout << setw(20) << mostrarNombreVendedor(reg.getNroLegajo());
+    cout << setw(26) << mostrarNombreVehiculo(reg.getIdVehiculo());
     string gastosFormateado = formatearNumero(reg.getGastosAdm());
     cout << setw(2) << "$ " << setw(16) << gastosFormateado;
     string totalFormateado = formatearNumero(reg.getTotalVenta());
@@ -248,22 +266,6 @@ void VentasManager::agregarVenta()
     }
 }
 
-void VentasManager::encabezadoListadoVentas() 
-{
-    cout << left;
-    cout << setw(55) << " " << "* Ventas *" << endl;
-    cout << "------------------------------------------------------------------------------------------------------------------------------------------" << endl;
-    cout << setw(5) << "#ID";
-    cout << setw(14) << "Fecha Venta ";
-    cout << setw(17) << "Cliente ";
-    cout << setw(25) << "Sucursal ";
-    cout << setw(19) << "Vendedor ";
-    cout << setw(22) << "Vehiculo comprado ";
-    cout << setw(19) << "Gastos Adm ";
-    cout << setw(16) << "Total Venta ";
-    cout << endl;
-
-}
 
 void VentasManager::menuListados()
 {
