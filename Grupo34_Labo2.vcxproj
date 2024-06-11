@@ -138,6 +138,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Persona.cpp" />
     <ClCompile Include="PersonaManager.cpp" />
+    <ClCompile Include="Sistema.cpp" />
     <ClCompile Include="Sucursal.cpp" />
     <ClCompile Include="SucursalArchivo.cpp" />
     <ClCompile Include="SucursalManager.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Informes.h" />
     <ClInclude Include="Persona.h" />
     <ClInclude Include="PersonaManager.h" />
+    <ClInclude Include="Sistema.h" />
     <ClInclude Include="Sucursal.h" />
     <ClInclude Include="SucursalArchivo.h" />
     <ClInclude Include="SucursalManager.h" />
