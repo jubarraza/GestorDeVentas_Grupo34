@@ -17,6 +17,7 @@ void Configuracion::Menu() {
     cout << "9) Restaurar Backup Clientes " << endl;
     cout << "10) Restaurar Backup Vendedores " << endl;
     cout << "------------------------------" << endl;
+    cout << "0) Volver al menu principal " << endl << endl;
     cout << "Selecion una Opcion: ";
     cin >> opc;
     switch (opc) {
@@ -39,6 +40,8 @@ void Configuracion::Menu() {
     case 9:restaurarBackupClientes();
         break;
     case 10:restaurarBackupVendedores();
+        break;
+    case 0 : 
         break;
     default:cout << endl << "* Opcion Incorrecta! *" << endl;
         return;

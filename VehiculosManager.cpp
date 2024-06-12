@@ -72,7 +72,7 @@ void VehiculosManager::Menu() {
         case 8: restaurarBackup();
             system("pause");
             break;
-        case 0:cout << endl << " Adios!! " << endl;
+        case 0:
             break;
         default:cout << endl << "* Selecione una Opcion Correcta! *" << endl << endl;;
             system("pause");
