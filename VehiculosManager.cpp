@@ -42,7 +42,7 @@ void VehiculosManager::Menu() {
         cout << "6) Restaurar " << endl;
         cout << "7) Realizar Backup " << endl;
         cout << "8) Restaurar Backup " << endl;
-        cout << "0) Salir " << endl;
+        cout << "0) Regresar al menu anterior " << endl;
         cout << "----------------------" << endl;
         cout << "Selecione una Opcion: ";
         cin >> opc;

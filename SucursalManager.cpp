@@ -25,7 +25,7 @@ void SucursalManager::Menu()
         cout << "5. Backup              ";
 
         cout << endl;
-        cout << "0. SALIR DEL PROGRAMA " << endl;
+        cout << "0. Regresar al menu anterior " << endl;
         cout << "********************** " << endl;
         cout << "OPCION: " << endl;
         cin >> opcion;

@@ -18,7 +18,7 @@ void Informes::Menu()
         cout << "7. Ranking Anual de Ventas por Modelo " << endl;
 
         cout << endl;
-        cout << "0. SALIR DEL PROGRAMA " << endl;
+        cout << "0. Volver al menu principal " << endl;
         cout << "********************** " << endl;
         cout << "OPCION: " << endl;
         cin >> opcion;

@@ -4,13 +4,14 @@ using namespace std;
 
 void Configuracion::Menu() {
     int opc;
-    cout << "------- Confirugarcion -------" << endl;
+    system("cls");
+    cout << "------- Configuracion -------" << endl;
     cout << "------------------------------" << endl;
     cout << "1) Realizar Backup Vehiculos " << endl;
     cout << "2) Realizar Backup Ventas " << endl;
     cout << "3) Realizar Backup Sucursales " << endl;
     cout << "4) Realizar Backup Clientes " << endl;
-    cout << "5) Realizar Backup Vendedores " << endl;
+    cout << "5) Realizar Backup Vendedores " << endl << endl;
     cout << "6) Restaurar Backup Vehiculos " << endl;
     cout << "7) Restaurar Backup Ventas " << endl;
     cout << "8) Restaurar Backup Sucursales " << endl;
@@ -20,30 +21,44 @@ void Configuracion::Menu() {
     cout << "0) Volver al menu principal " << endl << endl;
     cout << "Selecion una Opcion: ";
     cin >> opc;
+    system("cls");
+
     switch (opc) {
     case 1:realizarBackupVehiculos();
+        system("pause");
         break;
     case 2:realizarBackupVentas();
+        system("pause");
         break;
     case 3:realizarBackupSucursales();
+        system("pause");
         break;
     case 4:realizarBackupClientes();
+        system("pause");
         break;
     case 5:realizarBackupVendedores();
+        system("pause");
         break;
     case 6:restaurarBackupVehiculos();
+        system("pause");
         break;
     case 7:restaurarBackupVentas();
+        system("pause");
         break;
     case 8:restaurarBackupSucursales();
+        system("pause");
         break;
     case 9:restaurarBackupClientes();
+        system("pause");
         break;
     case 10:restaurarBackupVendedores();
+        system("pause");
         break;
     case 0 : 
+        system("pause");
         break;
     default:cout << endl << "* Opcion Incorrecta! *" << endl;
+        system("pause");
         return;
     }
 }
@@ -57,10 +72,11 @@ void Configuracion::realizarBackupVehiculos() {
     switch (opc) {
     case 1: system("copy Vehiculos.dat Vehiculos.bkp");
         cout << "* Backup Realizado con Exito! *" << endl;
+        break;
     case 2:
-        return;
+        break;
     default:cout << endl << "* Opcion Incorrecta! *" << endl;
-        return;
+        break;
     }
 }
 
@@ -73,10 +89,11 @@ void Configuracion::realizarBackupVentas() {
     switch (opc) {
     case 1: system("copy Ventas.dat Ventas.bkp");
         cout << "* Backup Realizado con Exito! *" << endl;
+        break;
     case 2:
-        return;
+        break;
     default:cout << endl << "* Opcion Incorrecta! *" << endl;
-        return;
+        break;
     }
 }
 
@@ -89,10 +106,11 @@ void Configuracion::realizarBackupSucursales() {
     switch (opc) {
     case 1: system("copy Sucursales.dat Sucursales.bkp");
         cout << "* Backup Realizado con Exito! *" << endl;
+        break;
     case 2:
-        return;
+        break;
     default:cout << endl << "* Opcion Incorrecta! *" << endl;
-        return;
+        break;
     }
 }
 
@@ -105,10 +123,11 @@ void Configuracion::realizarBackupClientes() {
     switch (opc) {
     case 1: system("copy Clientes.dat Clientes.bkp");
         cout << "* Backup Realizado con Exito! *" << endl;
+        break;
     case 2:
-        return;
+        break;
     default:cout << endl << "* Opcion Incorrecta! *" << endl;
-        return;
+        break;
     }
 }
 
@@ -121,10 +140,11 @@ void Configuracion::realizarBackupVendedores() {
     switch (opc) {
     case 1: system("copy Vendedores.dat Vendedores.bkp");
         cout << "* Backup Realizado con Exito! *" << endl;
+        break;
     case 2:
-        return;
+        break;
     default:cout << endl << "* Opcion Incorrecta! *" << endl;
-        return;
+        break;
     }
 }
 
@@ -137,10 +157,11 @@ void Configuracion::restaurarBackupVehiculos() {
     switch (opc) {
     case 1: system("copy Vehiculos.bkp Vehiculos.dat");
         cout << "* Restauracion Realizado con Exito! *" << endl;
+        break;
     case 2:
         break;
     default:cout << endl << "* Opcion Incorrecta! *" << endl;
-        return;
+        break;
     }
 }
 
@@ -153,10 +174,11 @@ void Configuracion::restaurarBackupVentas() {
     switch (opc) {
     case 1: system("copy Ventas.bkp Ventas.dat");
         cout << "* Restauracion Realizado con Exito! *" << endl;
+        break;
     case 2:
         break;
     default:cout << endl << "* Opcion Incorrecta! *" << endl;
-        return;
+        break;
     }
 }
 
@@ -169,10 +191,11 @@ void Configuracion::restaurarBackupSucursales() {
     switch (opc) {
     case 1: system("copy Sucursales.bkp Sucursales.dat");
         cout << "* Restauracion Realizado con Exito! *" << endl;
+        break;
     case 2:
         break;
     default:cout << endl << "* Opcion Incorrecta! *" << endl;
-        return;
+        break;
     }
 }
 
@@ -185,10 +208,11 @@ void Configuracion::restaurarBackupClientes() {
     switch (opc) {
     case 1: system("copy Clientes.bkp Clientes.dat");
         cout << "* Restauracion Realizado con Exito! *" << endl;
+        break;
     case 2:
         break;
     default:cout << endl << "* Opcion Incorrecta! *" << endl;
-        return;
+        break;
     }
 }
 
@@ -201,9 +225,10 @@ void Configuracion::restaurarBackupVendedores() {
     switch (opc) {
     case 1: system("copy Vendedores.bkp Vendedores.dat");
         cout << "* Restauracion Realizado con Exito! *" << endl;
+        break;
     case 2:
         break;
     default:cout << endl << "* Opcion Incorrecta! *" << endl;
-        return;
+        break;
     }
 }

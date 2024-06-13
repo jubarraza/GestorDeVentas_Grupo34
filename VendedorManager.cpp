@@ -271,7 +271,7 @@ void VendedorManager::Menu(){
         std::cout<<"4- EDITAR VENDEDOR"<<std::endl;
         std::cout<<"5- ELIMINAR VENDEDOR"<<std::endl;
         std::cout<<"6- BACKUP"<<std::endl;
-        std::cout<<"0- SALIR"<<std::endl;
+        std::cout<<"0- REGRESAR AL MENU ANTERIOR"<<std::endl;
         std::cout<<"-----------------------------"<<std::endl;
         std::cout<<"Opcion: ";
         std::cin>>option;

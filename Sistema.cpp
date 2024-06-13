@@ -10,6 +10,7 @@ void Sistema::Menu()
 {
     int opc;
     do {
+        system("cls");
         cout << "--- Sistema de Gestion ---" << endl;
         cout << "-----> Lab2 Grupo34 <-----" << endl;
         cout << "----- Menu Principal -----" << endl;
@@ -21,7 +22,7 @@ void Sistema::Menu()
         cout << " 5) Clientes " << endl;
         cout << " 6) Informes " << endl;
         cout << " 7) Configuracion " << endl;
-        cout << " 0) Salir " << endl;
+        cout << " 0) Salir del Programa" << endl;
         cout << "---------------------------" << endl;
         cout << "- Selecione una opcion: ";
         cin >> opc;
