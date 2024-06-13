@@ -23,5 +23,6 @@ public:
 	void restaurarBackup();
 	void borrarCliente();
 	void buscadorDeClientes();
+	bool DniRepetido(long long idPersona);
 };
 

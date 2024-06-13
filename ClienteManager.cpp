@@ -78,9 +78,33 @@ Cliente ClienteManager::crearCliente()
     string email, tel;
     Direccion d;
     Cliente reg;
-
+    char opc;
     cout << "------------- Ingreso de nuevo Cliente -------------" << endl;
+    regreso:
     reg.CargarPersona();
+    bool resultado = DniRepetido(reg.getDni());
+    if (resultado) {
+        std::cout << "Cliente ya existente. Desea cargar un nuevo cliente? S/N : ";
+        cin >> opc;
+
+        switch (opc)
+        {
+        case 's':
+        case 'S':
+            system("cls");
+            goto regreso;
+            break;
+        case 'n':
+        case 'N':
+            Menu();
+            break;
+        
+        default:
+            break;
+        }
+
+    }
+
     cin.ignore();
     cout << "EMAIL: ";
     getline(cin, email);
@@ -208,6 +232,7 @@ void ClienteManager::listarClientesXApellido()
 
     }
 }
+
 void ClienteManager::ordenar(vector<Cliente>& vec, int cantidad) {
     Cliente aux;
 
@@ -427,4 +452,19 @@ void ClienteManager::buscadorDeClientes()
     
     
     }
+}
+
+bool ClienteManager::DniRepetido(long long idPersona) {
+    ClienteArchivo ca;
+    Cliente registro;
+    int cantidad = ca.contarClientes();
+
+    for (int i = 0; i < cantidad; i++) {
+        registro = ca.leerCliente(i);
+
+        if (registro.getDni() == idPersona) {
+            return true;
+        }
+    }
+    return false;
 }
