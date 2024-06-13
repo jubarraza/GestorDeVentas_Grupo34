@@ -23,4 +23,9 @@ public:
     void setAntiguedad(int antiguedad); 
     int calcularAntiguedad(); //calcula segun el año de ingreso
     void setEliminado(bool eliminado);
+
+    int contarDigitos(int num);
+    bool validar(int legajo);
+
+
 };

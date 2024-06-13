@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Vendedor.h"
+using namespace std;
 
 //Constructores
 
@@ -38,6 +39,14 @@ bool Vendedor::getEliminado() {
 //Setters
 
 void Vendedor::setNroLegajo(int nroLegajo) {
+    
+    while (!validar(nroLegajo)) {
+        cin.clear();//limpia el estado de error
+        cin.ignore(numeric_limits<int>::max(), '\n');
+        cout << "Legajo no valido." << endl;
+        cout << "LEGAJO: ";
+        cin >> nroLegajo;
+    }
     _nroLegajo = nroLegajo;
 }
 
@@ -60,3 +69,24 @@ int Vendedor::calcularAntiguedad()
 void Vendedor::setEliminado(bool eliminado) {
     _eliminado = eliminado;
 }
+
+int Vendedor::contarDigitos(int num) {
+    int contador = 0;
+    while (num > 0) {
+        num /= 10;
+        contador++;
+    }
+    return contador;
+}
+
+bool Vendedor::validar(int legajo) {
+    int numDigitos = contarDigitos(legajo);
+    int minimoDigito = 4;
+    int maximoDigito = 6;
+
+    if (numDigitos >= minimoDigito && numDigitos <= maximoDigito) {
+        return true;
+    }
+    return false;
+}
+
