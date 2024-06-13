@@ -271,7 +271,9 @@ void VentasManager::menuListados()
 {
     int opc;
     cout << "Como desea ordenar el listado de Ventas?" << endl;
-    cout << "(1) por ID o (2) por Fecha de Venta " << endl;
+    cout << "(1) por ID" << endl;
+    cout << "(2) por Fecha de Venta " << endl << endl;
+    cout << "Ingrese opcion: ";
     cin >> opc;
     cin.ignore();
     cout << endl;
