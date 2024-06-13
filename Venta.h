@@ -10,12 +10,12 @@ private:
 	int _nroLegajo;
 	int _idVehiculo;
 	float _gastosAdm;
-	float _totalVenta;
+	double _totalVenta;
 	bool _eliminado;
 
 public:
 	Venta();
-	Venta(int idVenta, Fecha fechaVenta, long long dni, int idSucursal, int nroLegajo, int idVehiculo, float gastos, float total, bool eliminado);
+	Venta(int idVenta, Fecha fechaVenta, long long dni, int idSucursal, int nroLegajo, int idVehiculo, float gastos, double total, bool eliminado);
 	
 	//getters
 	int getIdVenta();
@@ -25,7 +25,7 @@ public:
 	int getNroLegajo();
 	int getIdVehiculo();
 	float getGastosAdm();
-	float getTotalVenta();
+	double getTotalVenta();
 	bool getEliminado();
 	
 	//setters
@@ -36,7 +36,7 @@ public:
 	void setNroLegajo(int nro);
 	void setIdVehiculo(int id); 
 	void setGastosAdm(float gastos);
-	void setTotalVentas(float total);
+	void setTotalVentas(double total);
 	void setEliminado(bool e);
 
 	int contarDigitos(long long num);

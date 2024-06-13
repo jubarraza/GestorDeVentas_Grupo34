@@ -16,7 +16,7 @@ Venta::Venta()
     _eliminado = 0;
 }
 
-Venta::Venta(int idVenta, Fecha fechaVenta, long long dni, int idSucursal, int nroLegajo, int idVehiculo, float gastos, float total, bool eliminado)
+Venta::Venta(int idVenta, Fecha fechaVenta, long long dni, int idSucursal, int nroLegajo, int idVehiculo, float gastos, double total, bool eliminado)
 {
     setIdVenta(idVenta);
     setFechaVenta(fechaVenta);
@@ -67,7 +67,7 @@ float Venta::getGastosAdm()
     return _gastosAdm;
 }
 
-float Venta::getTotalVenta()
+double Venta::getTotalVenta()
 {
     return _totalVenta;
 }
@@ -136,7 +136,7 @@ void Venta::setGastosAdm(float gastos)
     _gastosAdm = gastos;
 }
 
-void Venta::setTotalVentas(float total)
+void Venta::setTotalVentas(double total)
 {
     if (total >= 0) {
         _totalVenta = total;
