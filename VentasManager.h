@@ -45,7 +45,7 @@ public:
 	float obtenerPrecioVehiculo(int id);
 	float calcularPrecioTotal(float gastos, float precio);
 	
-	std::string formatearNumero(float numero);
+	std::string formatearNumero(double numero);
 
 	void buscadorDeVentas();
 	void buscarVentaPorID();

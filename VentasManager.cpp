@@ -317,6 +317,7 @@ void VentasManager::listarVentas()
         cout << endl;
 
     }
+    cout << endl;
     
 }
 
@@ -744,7 +745,7 @@ float VentasManager::calcularPrecioTotal(float gastos, float precio)
     return gastos + precio;
 }
 
-std::string VentasManager::formatearNumero(float numero)
+std::string VentasManager::formatearNumero(double numero)
 {
     ostringstream oss{};
     oss << fixed << setprecision(2) << numero;
