@@ -6,7 +6,7 @@ using namespace std;
 
 //Constructores
 
-Persona::Persona() : _fechaNacimiento()
+Persona::Persona() : _fechaNacimiento(1,1,1900)
 {
     setDni(1000000);
     strcpy(_nombre, "NN");
@@ -48,7 +48,7 @@ Fecha Persona::getFechaNacimiento() {
 //Setters
 
 void Persona::setDni(long long dni) {
-    
+
     while (!validar(dni)) {
         cin.clear();//limpia el estado de error
         cin.ignore(numeric_limits<long long>::max(), '\n');
@@ -61,7 +61,7 @@ void Persona::setDni(long long dni) {
 }
 
 void Persona::setNombre(std::string nombre) {
-    if (nombre.size() <= 39) { 
+    if (nombre.size() <= 39 && caracterValido(nombre)) {
         strcpy(_nombre, nombre.c_str()); 
     }
     else {
@@ -72,7 +72,7 @@ void Persona::setNombre(std::string nombre) {
 }
 
 void Persona::setApellido(std::string apellido) {
-    if (apellido.size() <= 39) {
+    if (apellido.size() <= 39 && caracterValido(apellido)) {
         strcpy(_apellido, apellido.c_str()); 
     }
     else {
@@ -106,4 +106,13 @@ bool Persona::validar(long long  dni) {
         return true;
     }
     return false;
+}
+
+bool Persona::caracterValido(std::string& cad) {
+    for (int i = 0; i < cad.size(); i++) {//Recorre cada carácter de la cadena desde el índice 0 hasta cad.size()
+        if (!isalpha(cad[i]) && cad[i] != ' ') {//Si se encuentra un carácter no alfabético, la función devuelve false
+            return false;
+        }
+    }
+    return true;///Si el bucle completa la iteración sin encontrar caracteres no alfabéticos, la función devuelve true.
 }

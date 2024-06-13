@@ -26,5 +26,6 @@ public:
         int contarDigitos(long long num);
         bool validar(long long dni);
 
+        bool caracterValido(std::string& cad);
 };
 
