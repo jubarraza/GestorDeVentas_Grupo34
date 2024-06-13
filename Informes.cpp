@@ -84,10 +84,12 @@ void Informes::Menu()
     } while (opcion != 0);
 }
 
+//1
 void Informes::Inventario()
 {
 }
 
+//2
 void Informes::recaudacionAnual()
 {
     VentasManager vm;
@@ -134,26 +136,79 @@ void Informes::recaudacionAnual()
 
 }
 
+//3
 void Informes::ventasXVendedorAnual()
 {
 }
 
+//4
 void Informes::ventasXVendedoresMensual()
 {
 }
 
+//5
 void Informes::ventasXSucursalAnual()
 {
+    VentasManager vm; 
+    VentasArchivo va; 
+    int i;
+    double recaudacion[13] = { 0 };
+    string meses[12] = { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" };
+
+    int anio, id;
+
+    cout << "** INFORME ANUAL DE VENTAS POR SUCURSAL ** " << endl;
+    cout << "Ingrese año a revisar: ";
+    cin >> anio;
+    cout << endl << "Ingrese Id de Sucursal: ";
+    cin >> id;
+    system("cls");
+
+    int cantidad = va.contarVentas();
+    for (i = 0; i < cantidad; i++) {
+        Venta reg = va.leerVenta(i); 
+        if (reg.getFechaVenta().getAnio() == anio && reg.getIdSucursal() == id) {
+            recaudacion[reg.getFechaVenta().getMes() - 1] += reg.getTotalVenta(); 
+            recaudacion[12] += reg.getTotalVenta(); 
+
+        }
+
+    }
+
+
+    cout << "** INFORME ANUAL DE VENTAS POR SUCURSAL ** " << endl << endl;
+    cout << "Año: " << anio << endl;
+    cout << "Sucursal: " << vm.mostrarNombreSucursal(id) << endl;
+    cout << endl;
+
+    cout << left;
+    cout << setw(12) << "MES";
+    cout << setw(20) << "RECAUDACION" << endl;
+    cout << "------------------------------------------------------------" << endl;
+
+    for (i = 0; i < 12; i++) {
+
+        cout << setw(12) << meses[i];
+        cout << "$ " << setw(20) << vm.formatearNumero(recaudacion[i]);
+        cout << endl;
+
+    }
+    cout << endl << endl;
+
+    cout << "** TOTAL ANUAL : $" << vm.formatearNumero(recaudacion[12]) << " **" << endl << endl;
 }
 
+//6.1
 void Informes::ventasTodasLasSucursalesMensual()
 {
 }
 
+//6.2
 void Informes::ventasTodasLasSucursalesAnual()
 {
 }
 
+//7
 void Informes::rankingVentasXModelo()
 {
 }
