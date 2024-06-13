@@ -15,8 +15,8 @@ void ClienteManager::Menu()
     int opcion;
     do {
         system("cls");
-        cout << "MENU CLIENTES " << endl;
-        cout << "********************** " << endl;
+        cout << "--- Menu Clientes ---" << endl;
+        cout << "----------------------" << endl;
         cout << "1. Cargar Cliente " << endl;
         cout << "2. Listar Clientes " << endl;
         cout << "3. Buscador de Clientes " << endl;
@@ -27,7 +27,7 @@ void ClienteManager::Menu()
 
         cout << endl;
         cout << "0. Regresar al menu anterior " << endl;
-        cout << "********************** " << endl;
+        cout << "----------------------" << endl;
         cout << "OPCION: " << endl;
         cin >> opcion;
         system("cls");

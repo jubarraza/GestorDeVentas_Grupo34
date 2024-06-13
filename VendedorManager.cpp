@@ -265,6 +265,7 @@ void VendedorManager::Menu(){
         system("cls");
 
         std::cout<<"------ MENU VENDEDOR ------- "<<std::endl;
+        std::cout << "----------------------" << std::endl;
         std::cout<<"1- AGREGAR VENDEDOR"<<std::endl;
         std::cout<<"2- LISTAR TODOS LOS VENDEDORES"<<std::endl;
         std::cout<<"3- BUSCAR VENDEDOR"<<std::endl;

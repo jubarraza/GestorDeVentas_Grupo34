@@ -21,8 +21,8 @@ void VentasManager::Menu()
     int opcion;
     do {
         system("cls");
-        cout << "MENU VENTAS " << endl;
-        cout << "********************** " << endl;
+        cout << "--- Menu Ventas ---" << endl;
+        cout << "----------------------" << endl;
         cout << "1. Cargar Venta " << endl;
         cout << "2. Listar Ventas " << endl;
         cout << "3. Busqueda de Ventas " << endl;
@@ -33,7 +33,7 @@ void VentasManager::Menu()
 
         cout << endl;
         cout << "0. Regresar al menu anterior " << endl;
-        cout << "********************** " << endl;
+        cout << "----------------------" << endl;
         cout << "OPCION: " << endl;
         cin >> opcion;
         system("cls");

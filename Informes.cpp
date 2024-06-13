@@ -12,8 +12,8 @@ void Informes::Menu()
     int opcion;
     do {
         system("cls");
-        cout << " INFORMES " << endl;
-        cout << "********************** " << endl;
+        cout << "--- INFORMES ---" << endl;
+        cout << "----------------------" << endl;
         cout << "1. Informe del Inventario " << endl;
         cout << "2. Informe de Recaudación Anual " << endl;
         cout << "3. Informe Anual de Ventas por Vendedor " << endl;
@@ -24,7 +24,7 @@ void Informes::Menu()
 
         cout << endl;
         cout << "0. Volver al menu principal " << endl;
-        cout << "********************** " << endl;
+        cout << "----------------------" << endl;
         cout << "OPCION: " << endl;
         cin >> opcion;
         system("cls");
