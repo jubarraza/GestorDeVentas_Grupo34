@@ -6,7 +6,7 @@
 
 
 void PersonaManager::CargarPersona() {
-    long dni;
+    long long dni;
     std::string nombre, apellido;
     Fecha fechaN;
 

@@ -13,7 +13,7 @@ Persona::Persona() : _fechaNacimiento()
     strcpy(_apellido, "NN");
 }
 
-Persona::Persona(long dni, std::string nombre, std::string apellido, Fecha fechaNacimiento) {
+Persona::Persona(long long dni, std::string nombre, std::string apellido, Fecha fechaNacimiento) {
     setDni(dni);
     setNombre(nombre);
     setApellido(apellido);
@@ -22,7 +22,7 @@ Persona::Persona(long dni, std::string nombre, std::string apellido, Fecha fecha
 
 //Getters
 
-long Persona::getDni() {
+long long Persona::getDni() {
     return _dni;
 }
 
@@ -47,16 +47,17 @@ Fecha Persona::getFechaNacimiento() {
 
 //Setters
 
-void Persona::setDni(long dni) {
-    if (dni > 999999) {
-        _dni = dni;
-    }
-    else {
-        cout << "DNI con formato incorrecto. Intente nuevamente:" << endl;
+void Persona::setDni(long long dni) {
+    
+    while (!validar(dni)) {
+        cin.clear();//limpia el estado de error
+        cin.ignore(numeric_limits<long long>::max(), '\n');
+        cout << "DNI no valido. Intente nuevamente: " << endl;
         cin >> dni;
-        cin.ignore();
-        this->setDni(dni);
     }
+
+    _dni = dni;
+    
 }
 
 void Persona::setNombre(std::string nombre) {
@@ -84,4 +85,25 @@ void Persona::setApellido(std::string apellido) {
 
 void Persona::setFechaNacimiento(Fecha fechaNacimiento) {
     _fechaNacimiento = fechaNacimiento;
+}
+
+int Persona::contarDigitos(long long num)
+{
+    int contador = 0;
+    while (num > 0) {
+        num /= 10;
+        contador++;
+    }
+    return contador;
+}
+
+bool Persona::validar(long long  dni) {
+    int numDigitos = contarDigitos(dni);
+    int  minimoDigito = 7;
+    int maximoDigito = 10;
+
+    if (numDigitos >= minimoDigito && numDigitos <= maximoDigito) {
+        return true;
+    }
+    return false;
 }
