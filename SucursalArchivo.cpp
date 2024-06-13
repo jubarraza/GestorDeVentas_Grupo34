@@ -65,6 +65,27 @@ int SucursalArchivo::contarRegistro()
     return tam;
 }
 
+int SucursalArchivo::buscarPosicion(int id)
+{
+    Sucursal reg;
+    FILE* p;
+    int pos = 0;
+    p = fopen("Sucursales.dat", "rb");
+    if (p == nullptr) {
+        return -2; //no se abrio el archivo
+    }
+    while (fread(&reg, sizeof reg, 1, p) == 1) {
+        if (reg.getIdSucursal() == id) {
+            fclose(p); //cierro el archivo porque ya encontre la empresa
+            return pos;
+        }
+        pos++;
+    }
+    fclose(p);
+
+    return -1; //se recorrio el archivo y no existe el codigo
+}
+
 bool SucursalArchivo::guardarRegistro(Sucursal reg)
 {
     FILE* p;
