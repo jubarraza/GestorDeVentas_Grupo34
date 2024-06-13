@@ -32,7 +32,7 @@ void VentasManager::Menu()
         cout << "7. Restaurar backup " << endl;
 
         cout << endl;
-        cout << "0. SALIR DEL PROGRAMA " << endl;
+        cout << "0. Regresar al menu anterior " << endl;
         cout << "********************** " << endl;
         cout << "OPCION: " << endl;
         cin >> opcion;
@@ -83,7 +83,7 @@ Venta VentasManager::crearVenta()
 {
     int id = _archivo.leerUltimoId() + 1;
     int nroLegajo, idSucursal, idVehiculo;
-    long dni;
+    long long dni;
     float gastos, total;
     Fecha f(1,1,1990);
     Venta reg;
@@ -524,7 +524,7 @@ void VentasManager::borrarVenta()
 
 }
 
-int VentasManager::validarCliente(long dni)
+int VentasManager::validarCliente(long long dni)
 {
     ClienteManager cm; 
     int resultado = cm.buscarCliente(dni);
@@ -555,6 +555,21 @@ void VentasManager::mostrarClienteAsociado(int pos)
     cout << "Cliente que realiza la compra: " << endl;
     cm.mostrarCliente(aux);
     cout << endl;
+
+}
+
+std::string VentasManager::mostrarNombreCliente(long long dni)
+{
+    ClienteManager cm;
+    ClienteArchivo ca;
+    
+
+    int pos = cm.buscarCliente(dni);
+
+    Cliente aux = ca.leerCliente(pos);
+    
+    return aux.getApellidoNombre();
+
 
 }
 
@@ -837,18 +852,4 @@ void VentasManager::buscarVentaPorFecha()
 
 }
 
-std::string VentasManager::mostrarNombreCliente(long dni)
-{
-    ClienteManager cm;
-    ClienteArchivo ca;
-    
-
-    int pos = cm.buscarCliente(dni);
-
-    Cliente aux = ca.leerCliente(pos);
-    
-    return aux.getApellidoNombre();
-
-
-}
  

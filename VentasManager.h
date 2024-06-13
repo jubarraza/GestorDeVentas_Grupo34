@@ -25,10 +25,10 @@ public:
 	void restaurarBackup();
 	void borrarVenta();
 	
-	int validarCliente(long dni);
+	int validarCliente(long long dni);
 	void crearNuevoCliente();
 	void mostrarClienteAsociado(int pos);
-	std::string mostrarNombreCliente(long dni);
+	std::string mostrarNombreCliente(long long dni);
 	
 	int validarSucursal(int id);
 	void mostrarSucursalAsociada(int pos);
