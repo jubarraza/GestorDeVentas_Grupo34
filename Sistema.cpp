@@ -20,8 +20,10 @@ void Sistema::Menu()
         cout << " 3) Vendedores " << endl;
         cout << " 4) Sucursales " << endl;
         cout << " 5) Clientes " << endl;
+        cout << endl;
         cout << " 6) Informes " << endl;
         cout << " 7) Configuracion " << endl;
+        cout << endl;
         cout << " 0) Salir del Programa" << endl;
         cout << "---------------------------" << endl;
         cout << "- Selecione una opcion: ";
