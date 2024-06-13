@@ -3,6 +3,11 @@
 #include "VentasArchivo.h"
 using namespace std;
 
+VentasArchivo::VentasArchivo() 
+{
+    strcpy(_nombreArchivo, "Ventas.dat");
+}
+
 VentasArchivo::VentasArchivo(std::string n = "Ventas.dat")
 {
     if (n.size() <= 40) {
