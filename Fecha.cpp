@@ -12,9 +12,9 @@ Fecha::Fecha(int dia, int mes, int anio) {
 }
 
 Fecha::Fecha() {
-    _dia = 1;
-    _mes = 1;
-    _anio = 1900;
+    setDia(1);
+    setMes(1);
+    setAnio(1900);
   
 }
 
