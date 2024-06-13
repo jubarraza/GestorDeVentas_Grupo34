@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Vendedor.h"
+#include "VendedorManager.h"
 using namespace std;
 
 //Constructores
@@ -40,7 +41,8 @@ bool Vendedor::getEliminado() {
 
 void Vendedor::setNroLegajo(int nroLegajo) {
     
-    while (!validar(nroLegajo)) {
+    VendedorManager vm;
+    while (!validar(nroLegajo) || vm.LegajoRepetido(nroLegajo)) {
         cin.clear();//limpia el estado de error
         cin.ignore(numeric_limits<int>::max(), '\n');
         cout << "Legajo no valido." << endl;
