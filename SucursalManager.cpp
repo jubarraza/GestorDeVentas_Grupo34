@@ -1,13 +1,12 @@
-#define _CRT_SECURE_NO_WARNINGS 
+ï»¿#define _CRT_SECURE_NO_WARNINGS 
+#include "SucursalManager.h"
 #include <iostream>
 #include <iomanip>
 using namespace std;
-#include "SucursalManager.h"
-
 
 SucursalManager::SucursalManager() : _archivo()
 {
- 
+
 }
 
 void SucursalManager::Menu()
@@ -16,17 +15,19 @@ void SucursalManager::Menu()
     do {
         system("cls");
         cout << "----- MENU SUCURSAL -----" << endl;
-        cout << "********************** " << endl;
+        cout << "---------------------------- " << endl;
         cout << endl;
         cout << "1. Agregar Registro    " << endl;
         cout << "2. Listar Registros    " << endl;
         cout << "3. Modificar Registros " << endl;
-        cout << "4. Borrar Sucursal     " << endl;
-        cout << "5. Backup              ";
+        cout << "4. Buscar Sucursal     " << endl;
+        cout << "5. Borrar Sucursal     " << endl;
+        cout << "6. Backup              " << endl;
+        cout << "7. Restaurar backup    ";
 
         cout << endl;
-        cout << "0. Regresar al menu anterior " << endl;
-        cout << "********************** " << endl;
+        cout << "0. SALIR DEL PROGRAMA " << endl;
+        cout << "---------------------------- " << endl;
         cout << "OPCION: " << endl;
         cin >> opcion;
         system("cls");
@@ -46,11 +47,19 @@ void SucursalManager::Menu()
             system("pause");
             break;
         case 4:
-            bajaLogica();
+            buscarSucursal();
             system("pause");
             break;
         case 5:
+            bajaLogica();
+            system("pause");
+            break;
+        case 6:
             backupArchivo();
+            system("pause");
+            break;
+        case 7:
+            restaurarBackup();
             system("pause");
             break;
         case 0:
@@ -60,31 +69,35 @@ void SucursalManager::Menu()
     } while (opcion != 0);
 }
 
-int SucursalManager::buscarPosicion(int codBuscado)
+void SucursalManager::salidaEnPantalla()
 {
-    Sucursal reg;
-    FILE* p;
-    int pos = 0;
-    p = fopen("Sucursales.dat", "rb");
-    if (p == nullptr) {
-        return -2; //no se abrio el archivo
-    }
-    while (fread(&reg, sizeof reg, 1, p) == 1) {
-        if (reg.getIdSucursal() == codBuscado) {
-            fclose(p); //cierro el archivo porque ya encontre la empresa
-            return pos;
-        }
-        pos++;
-    }
-    fclose(p);
-
-    return -1; //se recorrio el archivo y no existe el codigo
+    cout << left;
+    cout << setw(5) << "ID";
+    cout << setw(21) << "Nombre";
+    cout << setw(54) << "Direccion";
+    cout << setw(20) << "Telefono";
+    cout << endl;
 }
+
+bool SucursalManager::validarIDUnico(int id)
+{
+    Sucursal reg; 
+
+    int cant = _archivo.contarRegistro(); 
+    for (int i = 0; i < cant; i++) { 
+        reg = _archivo.leerRegistro(i); 
+        if (reg.getIdSucursal() == id) { 
+            return true;
+        }
+    }
+    return false;
+}
+
 
 void SucursalManager::agregarRegistro()
 {
     if (_archivo.guardarRegistro(crearRegistro())) {
-        cout << "La Sucursal se guardó correctamente." << endl;
+        cout << "La Sucursal se guardo correctamente." << endl;
     }
     else {
         cout << "No se pudo guardar la sucursal." << endl;
@@ -93,34 +106,145 @@ void SucursalManager::agregarRegistro()
 
 void SucursalManager::listarRegistros()
 {
-    int i, cantidad = _archivo.contarRegistro();
-
     Sucursal reg;
+    int cant = _archivo.contarRegistro();
 
-    for (i = 0; i < cantidad; i++) {
-        cout << "------------------------------" << endl;
+    salidaEnPantalla();
+
+    for (int i = 0; i < cant; i++) {
         reg = _archivo.leerRegistro(i);
         if (reg.getEstado() == false) {
             mostrarRegistro(reg);
+            cout << endl;
         }
-        cout << "------------------------------" << endl << endl;
+    }
+
+}
+
+void SucursalManager::ordenarNombre(Sucursal obj[], int tam)
+{
+    Sucursal aux;
+    for (int i = 0; i < tam - 1; i++) {
+        for (int j = 0; j < tam - i - 1; j++) {
+            if (obj[j].getNombre() > obj[j + 1].getNombre()) {
+                aux = obj[j];
+                obj[j] = obj[j + 1];
+                obj[j + 1] = aux;
+            }
+        }
+    }
+}
+
+void SucursalManager::buscarSucursal()
+{
+    int opc;
+
+    cout << "** Busqueda de Sucursales **" << endl;
+    cout << "1 - Buscar por ID" << endl;
+    cout << "2 - Buscar por Nombre" << endl;
+
+    cout << "Ingrese su opcion: ";
+    cin >> opc;
+
+    switch (opc)
+    {
+    case 1:
+    {
+        buscarSucursalID();
+        break;
+    case 2:
+        buscarSucursalNombre();
+        break;
+
+    }
+    default:
+        break;
+    }
+
+}
+
+void SucursalManager::buscarSucursalID()
+{
+    int id, pos;
+    Sucursal reg;
+
+    cout << "Ingrese ID de la Sucursal que desea Buscar " << endl;
+    cin >> id;
+    cin.ignore();
+    cout << endl;
+
+    pos = _archivo.buscarPosicion(id);
+
+    if (pos >= 0) {
+        reg = _archivo.leerRegistro(pos);
+        if (reg.getIdSucursal() == id) {
+            mostrarRegistro(reg);
+        }
+    }
+    else {
+        cout << "No se encontro la sucursal." << endl;
+    }
+}
+
+void SucursalManager::buscarSucursalNombre()
+{
+    string nombre;
+    Sucursal reg;
+    int cant = _archivo.contarRegistro();
+
+    cout << "Ingrese Nombre de la Sucursal que desea Buscar " << endl;
+    cin.ignore();
+    getline(cin, nombre);
+    cout << endl;
+    
+    if (cant >= 0) {
+        for (int i = 0; i < cant; i++) {
+            reg = _archivo.leerRegistro(i);
+            if (reg.getNombre() == nombre) {
+                mostrarRegistro(reg);
+            }
+        }
+    }
+    else {
+        cout << "No se encontro la sucursal." << endl;
     }
 }
 
 Sucursal SucursalManager::crearRegistro()
 {
-    Sucursal reg;
+    Sucursal reg; 
+    int id; 
+    string nombre; 
+    string telefono; 
+    Direccion d; 
 
-    cout << "---- Crear Registro ----" << endl;
-    cout << endl;
-    reg.Cargar();
+    cout << "---- Cargar Registro ----" << endl; 
+    cout << endl; 
+
+    cout << "Ingrese Id Sucursal: ";
+    cin >> id;
+    cin.ignore();
+    reg.setIdSucursal(id); 
+    cout << "Ingrese Nombre de Sucursal: ";
+    getline(cin, nombre);
+    reg.setNombre(nombre);
+    cout << "Ingrese DirecciÃ³n: ";
+    d.Cargar();
+    reg.setDireccion(d);
+    cout << "Ingrese Telefono: ";
+    getline(cin, telefono);
+    reg.setTelefono(telefono);
 
     return reg;
 }
 
 void SucursalManager::mostrarRegistro(Sucursal reg)
 {
-    reg.Mostrar();
+    cout << left;
+    cout << setw(5) << reg.getIdSucursal();
+    cout << setw(21) << reg.getNombre();
+    cout << setw(54) << reg.getDireccion().toString();
+    cout << setw(20) << reg.getTelefono();
 
 }
 
@@ -134,7 +258,7 @@ void SucursalManager::editarRegistro()
     cin.ignore();
     cout << endl;
 
-    pos = buscarPosicion(id); 
+    pos = _archivo.buscarPosicion(id);
 
     if (pos >= 0) {
         reg = _archivo.leerRegistro(pos);
@@ -143,7 +267,7 @@ void SucursalManager::editarRegistro()
             reg.Mostrar();
 
             cout << endl;
-            cout << "¿Que dato desea Editar? " << endl;
+            cout << "* Que dato desea Editar? " << endl;
             cout << "1 - Nombre" << endl;
             cout << "2 - Direccion" << endl;
             cout << "3 - Telefono" << endl;
@@ -162,17 +286,16 @@ void SucursalManager::editarRegistro()
             case 2:
             {
                 Direccion d;
-                cout << "Ingrese nueva dirección: ";
+                cout << "Ingrese nueva direccion: ";
                 d.Cargar();
                 reg.setDireccion(d);
                 break;
             }
             case 3:
             {
-                int tel;
+                string tel;
                 cout << "Ingrese nuevo telefono: ";
-                cin >> tel;
-                cin.ignore();
+                getline(cin, tel);
                 reg.setTelefono(tel);
                 break;
             }
@@ -201,36 +324,35 @@ void SucursalManager::editarRegistro()
 
 void SucursalManager::bajaLogica()
 {
-    int id;
-    char op;
+    int id, pos;
+    Sucursal reg;
 
-    cout << "Ingrese ID de la Sucursal que se desea dar de baja " << endl;
+    cout << "Ingrese ID de la Sucursal que desea dar de baja " << endl;
     cin >> id;
     cin.ignore();
     cout << endl;
 
-    int pos = buscarPosicion(id); 
+    pos = _archivo.buscarPosicion(id);
 
     if (pos >= 0) {
-        Sucursal reg;
         reg = _archivo.leerRegistro(pos);
-
-        cout << endl << "Sucursal a Eliminar: " << endl;
-        mostrarRegistro(reg);
-        cout << endl << "¿Confirma que desea eliminar esta Sucursal? S/N" << endl;
-        cin >> op;
-
-        if (op == 's' || op == 'S') {
-            reg.setEstado(false);
-            bool resultado = _archivo.sobreescribirRegistro(reg, pos);
+        if (reg.getEstado() == true) {
+            cout << "La sucursal ya se encuentra eliminada." << endl;
         }
         else {
-            cout << endl << "Eliminacion de la Sucursal cancelada. " << endl;
-        }
+            reg.setEstado(true);
+            bool modificacion = _archivo.sobreescribirRegistro(reg, pos);
 
+            if (modificacion = true) {
+                cout << "La sucursal se dio de baja correctamente." << endl;
+            }
+            else {
+                cout << "No se pudo dar de baja la sucursal." << endl;
+            }
+        }
     }
     else {
-        cout << "La sucursal buscada no existe. " << endl;
+        cout << "No se encontro la sucursal." << endl;
     }
 }
 
@@ -246,7 +368,7 @@ void SucursalManager::backupArchivo()
     if (resultado == 0) {
         cout << endl << "Backup realizado con exito. " << endl;
     }
-    else{
+    else {
         cout << "Hubo un error al copiar el archivo. " << endl;
     }
 }
@@ -263,7 +385,7 @@ void SucursalManager::restaurarBackup()
     if (resultado == 0) {
         cout << endl << "Backup realizado con exito. " << endl;
     }
-    else{
+    else {
         cout << "Hubo un error al copiar el archivo. " << endl;
     }
 }

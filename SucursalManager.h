@@ -7,10 +7,16 @@ private:
 	SucursalArchivo _archivo;
 public:
 	SucursalManager();
-	int buscarPosicion(int codBuscado);
+	
+	bool validarIDUnico(int id);
 	void agregarRegistro();
 	void listarRegistros();
+	void ordenarNombre(Sucursal obj[], int tam);
+	void buscarSucursal();
+	void buscarSucursalID();
+	void buscarSucursalNombre();
 	void Menu();
+	void salidaEnPantalla();
 	Sucursal crearRegistro();
 	void mostrarRegistro(Sucursal reg);
 	void editarRegistro();
