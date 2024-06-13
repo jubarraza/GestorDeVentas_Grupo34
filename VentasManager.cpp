@@ -177,7 +177,7 @@ Venta VentasManager::crearVenta()
     mostrarVendedorAsociado(posVendedor);
     cout << endl;
     
-    cout << "* Ingrese ID del Vehiculo comprado: ";
+    cout << "* Ingrese ID del Vehiculo adquirido: ";
     cin >> idVehiculo;
     cin.ignore();
     cout << endl;
@@ -578,8 +578,8 @@ std::string VentasManager::mostrarNombreCliente(long long dni)
 
 int VentasManager::validarSucursal(int id)
 {
-    SucursalManager sm;
-    int resultado = sm.buscarPosicion(id);
+    SucursalArchivo sa;
+    int resultado = sa.buscarPosicion(id);
     if (resultado >= 0) {
         return resultado;
     }
@@ -606,7 +606,7 @@ std::string VentasManager::mostrarNombreSucursal(int id)
     SucursalArchivo sa; 
     
 
-    int pos = sm.buscarPosicion(id);
+    int pos = sa.buscarPosicion(id);
 
     Sucursal aux = sa.leerRegistro(pos); 
 
