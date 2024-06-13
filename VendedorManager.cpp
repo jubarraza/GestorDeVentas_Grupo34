@@ -25,11 +25,35 @@ Vendedor VendedorManager::CrearVendedor(){
     int numLegajo, anioAntiguedad;
     Fecha fechaI;
     Vendedor vendedor;
+    char opc;
 
     std::cout<<std::setw(60)<<"--- AGREGAR VENDEDOR ---"<<std::endl;
     std::cout<<std::endl;
 
+    regreso:
     vendedor.CargarPersona();
+    bool resultado = DniRepetido(vendedor.getDni());
+    if (resultado) {
+        std::cout << "Vendedor ya existente. Desea cargar un nuevo vendedor? S/N : ";
+        std::cin >> opc;
+
+        switch (opc)
+        {
+        case 's':
+        case 'S':
+            system("cls");
+            goto regreso;
+            break;
+        case 'n':
+        case 'N':
+            Menu();
+            break;
+
+        default:
+            break;
+        }
+
+    }
 
     std::cout<<"NUMERO DE LEGAJO: ";
     std::cin>>numLegajo;
@@ -209,8 +233,6 @@ void VendedorManager::EliminarVendedor(){
     }
 }
 
-
-
 void VendedorManager::realizarBackupVendedores() {
     int opc;
     std::cout<<std::setw(60)<<"--- REALIZAR BACKUP ---"<<std::endl;
@@ -334,4 +356,33 @@ void VendedorManager::Menu(){
         }
     }
 
+}
+
+bool VendedorManager::LegajoRepetido(int idLegajo) {
+    Vendedor registro;
+    int cantidad = _archivo.ContarRegistro();
+
+    for (int i = 0; i < cantidad; i++) {
+        registro = _archivo.leerRegistro(i);
+
+        if (registro.getNroLegajo() == idLegajo) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool VendedorManager::DniRepetido(long long idPersona) {
+    VendedorArchivo va;
+    Vendedor registro;
+    int cantidad = va.ContarRegistro();
+
+    for (int i = 0; i < cantidad; i++) {
+        registro = va.leerRegistro(i);
+
+        if (registro.getDni() == idPersona) {
+            return true;
+        }
+    }
+    return false;
 }

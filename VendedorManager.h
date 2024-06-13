@@ -18,4 +18,6 @@ public:
     void restaurarBackupVendedores();
 
     void Menu();
+    bool LegajoRepetido(int idLegajo);
+    bool DniRepetido(long long idPersona);
 };
