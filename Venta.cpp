@@ -16,7 +16,7 @@ Venta::Venta()
     _eliminado = 0;
 }
 
-Venta::Venta(int idVenta, Fecha fechaVenta, int dni, int idSucursal, int nroLegajo, int idVehiculo, float gastos, float total, bool eliminado)
+Venta::Venta(int idVenta, Fecha fechaVenta, long long dni, int idSucursal, int nroLegajo, int idVehiculo, float gastos, float total, bool eliminado)
 {
     setIdVenta(idVenta);
     setFechaVenta(fechaVenta);
@@ -42,7 +42,7 @@ Fecha Venta::getFechaVenta()
     return _fechaVenta;
 }
 
-int Venta::getDniCliente()
+long long Venta::getDniCliente()
 {
     return _dniCliente;
 }
@@ -96,16 +96,16 @@ void Venta::setFechaVenta(Fecha f)
     _fechaVenta = f;
 }
 
-void Venta::setDniCliente(int dni) //tiene validacion para que el nro siempre sea de almenos 7 digitos - Si el cliente existe debe encontrarlo, si no existe debera dejar registrarlo.
+void Venta::setDniCliente(long long dni) 
 {
-    if (dni > 999999) {
-        _dniCliente = dni;
-    }
-    else {
-        cout << "DNI con formato incorrecto. Intente nuevamente:" << endl;
+    while (!validar(dni)) {
+        cin.clear();//limpia el estado de error
+        cin.ignore(numeric_limits<long long>::max(), '\n');
+        cout << "DNI no valido. Intente nuevamente: " << endl;
         cin >> dni;
-        this->setDniCliente(dni);
     }
+
+    _dniCliente = dni;
     
 }
 
@@ -149,4 +149,24 @@ void Venta::setTotalVentas(float total)
 void Venta::setEliminado(bool e)
 {
     _eliminado = e;
+}
+
+int Venta::contarDigitos(long long num) {
+    int contador = 0;
+    while (num > 0) {
+        num /= 10;
+        contador++;
+    }
+    return contador;
+}
+
+bool Venta::validar(long long  dni) { 
+    int numDigitos = contarDigitos(dni);
+    int  minimoDigito = 7;
+    int maximoDigito = 10;
+
+    if (numDigitos >= minimoDigito && numDigitos <= maximoDigito) {
+        return true;
+    }
+    return false;
 }
