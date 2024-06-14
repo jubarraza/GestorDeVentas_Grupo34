@@ -590,13 +590,16 @@ int VentasManager::validarSucursal(int id)
 
 void VentasManager::mostrarSucursalAsociada(int pos)
 {
-    SucursalManager sm;
     SucursalArchivo sa;
     Sucursal aux;
 
     aux = sa.leerRegistro(pos); 
     cout << "Sucursal asignada: " << endl;
-    sm.mostrarRegistro(aux);
+    cout << "Id Sucursal: #" << aux.getIdSucursal() << endl;
+    cout << "Nombre: " << aux.getNombre() << endl;
+    cout << "Dirección: " << aux.getDireccion().toString();
+    cout << endl;
+    cout << "Telefono: " << aux.getTelefono() << endl << endl;
     cout << endl;
 }
 
