@@ -118,6 +118,23 @@ bool Fecha::operator>(const Fecha& otra) {
     }
 }
 
+bool Fecha::operator>=(const Fecha& otra) {
+    if (this->_anio > otra._anio) {
+        return true;
+    }
+    else if (this->_anio == otra._anio) {
+        if (this->_mes > otra._mes) {
+            return true;
+        }
+        else if (this->_mes == otra._mes) {
+            if (this->_dia >= otra._dia) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 string Fecha::toString()
 {
     string valorADevolver;
@@ -144,7 +161,7 @@ string Fecha::toString()
 
 }
 
-int Fecha::obtenerAnioactual()
+int Fecha::obtenerAnioActual()
 {
     time_t t = time(0);
     tm* tiempoLocal = localtime(&t);
@@ -157,4 +174,25 @@ int Fecha::obtenerAnioactual()
     */
 }
 
+int Fecha::obtenerMesActual()
+{
+    time_t t = time(0);
+    tm* tiempoLocal = localtime(&t);
+    return tiempoLocal->tm_mon+1;
+}
 
+int Fecha::obtenerDiaActual()
+{
+    time_t t = time(0);
+    tm* tiempoLocal = localtime(&t);
+    return tiempoLocal->tm_mday;
+}
+
+Fecha Fecha::obtenerFechaActual() 
+{
+    time_t t = time(0);
+    tm* tiempoLocal = localtime(&t);
+
+    return Fecha(tiempoLocal->tm_mday, tiempoLocal->tm_mon+1, tiempoLocal->tm_year+1900);
+
+}
