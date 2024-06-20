@@ -15,7 +15,7 @@ Fecha::Fecha() {
     setDia(1);
     setMes(1);
     setAnio(1900);
-  
+
 }
 
 void Fecha::setDia(int d) {
@@ -61,19 +61,27 @@ int Fecha::getMes() { return _mes; }
 int Fecha::getAnio() { return _anio; }
 
 void Fecha::Cargar() {
-    int d, m, a;
+    int dia, mes, anio;
     cout << "Dia: ";
-    cin >> d;
-    setDia(d);
+    cin >> dia;
     cin.ignore();
     cout << "Mes: ";
-    cin >> m;
-    setMes(m);
+    cin >> mes;
     cin.ignore();
     cout << "Año: ";
-    cin >> a;
-    setAnio(a);
-    //cin.ignore();
+    cin >> anio;
+    time_t now = time(0);
+    tm* f = localtime(&now);
+    /// Verifica si la fecha es anterior o igual a la fecha actual
+    if (anio > f->tm_year + 1900 || (anio == f->tm_year + 1900 && mes > f->tm_mon + 1) || (anio == f->tm_year + 1900 && mes == f->tm_mon + 1 && dia > f->tm_mday)) {
+        cout << "Fecha No Valida, Ingresela Nuevamente " << endl;
+        Fecha::Cargar();
+    }
+    else {
+        setDia(dia);
+        setMes(mes);
+        setAnio(anio);
+    }
 }
 
 
@@ -113,7 +121,7 @@ bool Fecha::operator>(const Fecha& otra) {
 string Fecha::toString()
 {
     string valorADevolver;
-    valorADevolver = to_string(_dia) + "/" + to_string(_mes) + "/" + to_string(_anio); 
+    valorADevolver = to_string(_dia) + "/" + to_string(_mes) + "/" + to_string(_anio);
 
     if (to_string(_dia).size() == 1) {
         if (to_string(_mes).size() == 1) {
@@ -140,14 +148,13 @@ int Fecha::obtenerAnioactual()
 {
     time_t t = time(0);
     tm* tiempoLocal = localtime(&t);
-    return 1900 + tiempoLocal->tm_year;  // tm_year es el número de años desde 1900
-    
+    return 1900 + tiempoLocal->tm_year;  // tm_year es el numero de años desde 1900
+
     /*
     primera linea; obtiene el tiempo actual en segundos desde el 1 de enero de 1970.
-    segunda linea; convierte este tiempo en una estructura tm que contiene información de fecha y hora desglosada.
-    tercer linea; obtiene el año actual, ya que tm_year representa el número de años transcurridos desde 1900.
+    segunda linea; convierte este tiempo en una estructura tm que contiene informacion de fecha y hora desglosada.
+    tercer linea; obtiene el año actual, ya que tm_year representa el numero de años transcurridos desde 1900.
     */
 }
-
 
 
