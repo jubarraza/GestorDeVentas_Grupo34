@@ -16,7 +16,7 @@ public:
 
     void Cargar();
     bool operator>(const Fecha& otra); // if fecha > fecha otra == true
-    bool operator>=(const Fecha& otra);
+    bool operator>=(const Fecha& otra); // if fecha >= fecha otra == true
     std::string toString();
     int obtenerAnioActual();
     int obtenerMesActual();
