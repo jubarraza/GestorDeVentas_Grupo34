@@ -12,7 +12,7 @@ Vehiculo::Vehiculo() {
     strcpy(_modelo, "S/D");
     strcpy(_version, "S/D");
     strcpy(_color, "S/D");
-    _anioFabricacion = anio.obtenerAnioactual();
+    _anioFabricacion = anio.obtenerAnioActual();
     _stock = 0;
     _precioUnidad = 0;
     _estado = false;
@@ -89,10 +89,10 @@ string Vehiculo::getColor() {
 
 void Vehiculo::setAnioFabricacion(int a) {
     Fecha anio;
-    if (a <= anio.obtenerAnioactual()) {
+    if (a <= anio.obtenerAnioActual()) {
         _anioFabricacion = a;
     }
-    if (a > anio.obtenerAnioactual()) {
+    if (a > anio.obtenerAnioActual()) {
         cout << "* El Año de Fabricacion No puede ser Mayor al Año Actual *" << endl;
         cout << "- Ingreselo Nuevamente: ";
         cin >> a;

@@ -114,11 +114,11 @@ void Informes::recaudacionAnual()
         cout << "Ingrese año a revisar: ";
         cin >> anio;
 
-        if (anio > f.obtenerAnioactual()) {
+        if (anio > f.obtenerAnioActual()) {
             cout << "Año no valido." << endl << endl;
         }
 
-    } while (anio > f.obtenerAnioactual());
+    } while (anio > f.obtenerAnioActual());
 
 	system("cls");
 
@@ -176,11 +176,11 @@ void Informes::ventasXVendedorAnual()
         cout << "Ingrese el año a revisar: ";
         cin >> anio;
 
-        if (anio > f.obtenerAnioactual()) {
+        if (anio > f.obtenerAnioActual()) {
             cout << "Año no valido." << endl << endl;
         }
 
-    } while (anio > f.obtenerAnioactual());
+    } while (anio > f.obtenerAnioActual());
     
     system("cls");
 
@@ -257,11 +257,11 @@ void Informes::ventasXSucursalAnual()
         cout << "Ingrese año a revisar: ";
         cin >> anio;
 
-        if (anio > f.obtenerAnioactual()) {
+        if (anio > f.obtenerAnioActual()) {
             cout << "Año no valido." << endl << endl;
         }
 
-    } while (anio > f.obtenerAnioactual());
+    } while (anio > f.obtenerAnioActual());
     
     cout << endl << "Ingrese Id de Sucursal: ";
     cin >> id;
@@ -410,11 +410,11 @@ void Informes::ventasTodasLasSucursalesAnual()
         cout << "Ingrese el año a revisar: ";
         cin >> anio;
 
-        if (anio > f.obtenerAnioactual()) {
+        if (anio > f.obtenerAnioActual()) {
             cout << "Año no valido." << endl << endl;
         }
 
-    } while (anio > f.obtenerAnioactual());
+    } while (anio > f.obtenerAnioActual());
     system("cls");
 
     cout << " INFORME ANUAL DE VENTAS POR SUCURSAL  " << endl << endl;
