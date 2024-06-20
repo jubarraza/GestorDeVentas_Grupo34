@@ -57,20 +57,28 @@ void Informes::Menu()
 
         case 6:
         {
-            int opc;
-            cout << "¿Desea la version: 1 - Mensual o 2 - Anual?" << endl;
-            cin >> opc;
-            cin.ignore();
-            cout << endl;
+            {
+                int opc;
+                cout << "** INFORME DE VENTAS EN TODAS LAS SUCURSALES ** " << endl;
+                cout << "------------------------------------------------------------" << endl;
+                cout << "Elija una opcion: " << endl;
+                cout << "1. Mensual" << endl;
+                cout << "2. Anual" << endl;
+                cout << endl;
+                cout << "Opcion: ";
+                cin >> opc;
+                cin.ignore();
+                cout << endl;
 
-            if (opc == 1) {
-                ventasTodasLasSucursalesMensual();
+                if (opc == 1) {
+                    ventasTodasLasSucursalesMensual();
+                }
+                if (opc == 2) {
+                    ventasTodasLasSucursalesAnual();
+                }
+                system("pause");
+                break;
             }
-            if (opc == 2) {
-                ventasTodasLasSucursalesAnual();
-            }
-            system("pause");
-            break;
         }
         case 7:
             rankingVentasXModelo();
@@ -201,11 +209,149 @@ void Informes::ventasXSucursalAnual()
 //6.1
 void Informes::ventasTodasLasSucursalesMensual()
 {
+    int anio, mes, contVentas;
+    double acuMes;
+
+    Venta regV;
+    VentasArchivo va;
+    VentasManager vm;
+    int cantV = va.contarVentas();
+
+    Sucursal reg;
+    SucursalArchivo sa;
+    int cont = sa.contarRegistro();
+
+    cout << " INFORME MENSUAL DE VENTAS POR SUCURSAL  " << endl;
+    cout << "Ingrese año a revisar: ";
+    cin >> anio;
+    cout << endl << "Ingrese mes a revisar: ";
+    cin >> mes;
+    system("cls");
+
+
+    cout << " INFORME MENSUAL DE VENTAS POR SUCURSAL  " << endl << endl;
+    cout << "Año: " << anio << endl;
+    cout << "Mes: " << mes << endl;
+
+    cout << endl;
+
+    cout << left;
+    cout << setw(20) << "SUCURSAL";
+    cout << setw(20) << "CANTIDAD DE VENTAS";
+    cout << setw(20) << "RECAUDACION" << endl;
+    cout << "------------------------------------------------------------" << endl;
+
+    double total = 0;
+    int totalCantV = 0;
+    for (int i = 0; i < cont; i++)
+    {
+        reg = sa.leerRegistro(i);
+        acuMes = 0;
+        contVentas = 0;
+
+        for (int j = 0; j < cantV; j++)
+        {
+            regV = va.leerVenta(j);
+            if (regV.getFechaVenta().getAnio() == anio && regV.getFechaVenta().getMes() == mes) {
+                if (regV.getIdSucursal() == reg.getIdSucursal()) {
+                    acuMes += regV.getTotalVenta();
+                    contVentas++;
+                }
+            }
+        }
+        if (acuMes > 0) {
+            cout << setw(25) << reg.getNombre();
+            cout << setw(20) << contVentas;
+            cout << "$ " << setw(20) << vm.formatearNumero(acuMes);
+            cout << endl;
+        }
+
+        total += acuMes;
+        totalCantV += contVentas;
+    }
+    cout << endl;
+    cout << "------------------------------------------------------------" << endl;
+    cout << setw(25) << "TOTAL : ";
+    cout << setw(20) << totalCantV;
+    cout << "$ " << setw(20) << vm.formatearNumero(total);
+    cout << endl;
+
 }
 
 //6.2
 void Informes::ventasTodasLasSucursalesAnual()
 {
+    int anio, cantAnual;
+    double acuAnio;
+
+    Venta regV;
+    VentasArchivo va;
+    VentasManager vm;
+    int cantV = va.contarVentas();
+
+    Sucursal reg;
+    SucursalArchivo sa;
+    int cont = sa.contarRegistro();
+
+    cout << " INFORME ANUAL DE VENTAS POR SUCURSAL  " << endl;
+    cout << "Ingrese año a revisar: ";
+    cin >> anio;
+    system("cls");
+
+    //Agregar validacion de año
+
+    cout << " INFORME ANUAL DE VENTAS POR SUCURSAL  " << endl << endl;
+    cout << "Año: " << anio << endl;
+
+    cout << endl;
+
+    cout << left;
+    cout << setw(20) << "SUCURSAL";
+    cout << setw(27) << "CANTIDAD DE VENTAS";
+    cout << setw(20) << "RECAUDACION" << endl;
+    cout << "------------------------------------------------------------" << endl;
+
+    double totalAnio = 0;
+    int totalAnual = 0;
+
+    for (int i = 0; i < cont; i++)
+    {
+        reg = sa.leerRegistro(i);
+        cantAnual = 0;
+        acuAnio = 0;
+
+        for (int j = 0; j < cantV; j++)
+        {
+            regV = va.leerVenta(j);
+            if (regV.getFechaVenta().getAnio() == anio) {
+                if (regV.getIdSucursal() == reg.getIdSucursal()) {
+                    acuAnio += regV.getTotalVenta();
+                    cantAnual++;
+                }
+            }
+        }
+        if (acuAnio > 0) {
+            cout << setw(25) << reg.getNombre();
+            cout << setw(20) << cantAnual;
+            cout << "$ " << setw(20) << vm.formatearNumero(acuAnio);
+            cout << endl;
+        }
+
+        totalAnio += acuAnio;
+        totalAnual += cantAnual;
+
+    }
+    if (totalAnio > 0) {
+        cout << endl;
+        cout << "------------------------------------------------------------" << endl;
+        cout << setw(25) << "TOTAL : ";
+        cout << setw(20) << totalAnual;
+        cout << "$ " << setw(20) << vm.formatearNumero(totalAnio);
+        cout << endl;
+    }
+    else {
+        cout << "No se encontraron ventas para el año " << anio << endl;
+    }
 }
 
 //7
