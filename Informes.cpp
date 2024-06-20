@@ -102,46 +102,55 @@ void Informes::recaudacionAnual()
 {
     VentasManager vm;
     VentasArchivo va;
+    Fecha f;
     int i;
     double recaudacion[13] = {0};
     string meses[12] = { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" };
 
     int anio;
 
-    cout << "** INFORME DE RECAUDACION ANUAL ** " << endl;
-    cout << "Ingrese año a revisar: ";
-    cin >> anio;
-    system("cls");
+	cout << "** INFORME DE RECAUDACION ANUAL ** " << endl;
+    do {
+        cout << "Ingrese año a revisar: ";
+        cin >> anio;
 
-    int cantidad = va.contarVentas();
-    for (i = 0; i < cantidad; i++) {
-        Venta reg = va.leerVenta(i);
-        if (reg.getFechaVenta().getAnio() == anio) {
-            recaudacion[reg.getFechaVenta().getMes() - 1] += reg.getTotalVenta();
-            recaudacion[12] += reg.getTotalVenta();
+        if (anio > f.obtenerAnioactual()) {
+            cout << "Año no valido." << endl;
         }
 
-    }
+    } while (anio > f.obtenerAnioactual());
 
-    cout << "** INFORME DE RECAUDACION ANUAL ** " << endl << endl;
-    cout << "Año: " << anio << endl << endl;
+	system("cls");
 
-    cout << left;
-    cout << setw(12) << "MES";
-    cout << setw(20) << "RECAUDACION" << endl;
-    cout << "------------------------------------------------------------" << endl;
+	int cantidad = va.contarVentas();
+	for (i = 0; i < cantidad; i++) {
+		Venta reg = va.leerVenta(i);
+		if (reg.getFechaVenta().getAnio() == anio) {
+			recaudacion[reg.getFechaVenta().getMes() - 1] += reg.getTotalVenta();
+			recaudacion[12] += reg.getTotalVenta();
+		}
 
-    for (i = 0; i < 12; i++) {
-        
-        cout << setw(12) << meses[i];
-        cout << "$ " << setw(20) << vm.formatearNumero(recaudacion[i]);
-        cout << endl;
+	}
 
-    }
-    cout << endl << endl;
+	cout << "** INFORME DE RECAUDACION ANUAL ** " << endl << endl;
+	cout << "Año: " << anio << endl << endl;
 
-    cout << "** Total Anual : $" << vm.formatearNumero(recaudacion[12]) << " **" << endl << endl;
+	cout << left;
+	cout << setw(12) << "MES";
+	cout << setw(20) << "RECAUDACION" << endl;
+	cout << "------------------------------------------------------------" << endl;
 
+	for (i = 0; i < 12; i++) {
+
+		cout << setw(12) << meses[i];
+		cout << "$ " << setw(20) << vm.formatearNumero(recaudacion[i]);
+		cout << endl;
+
+	}
+	cout << endl << endl;
+
+	cout << "** Total Anual : $" << vm.formatearNumero(recaudacion[12]) << " **" << endl << endl;
+	
 }
 
 //3
