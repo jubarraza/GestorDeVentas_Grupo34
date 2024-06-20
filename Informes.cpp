@@ -147,6 +147,69 @@ void Informes::recaudacionAnual()
 //3
 void Informes::ventasXVendedorAnual()
 {
+     int numLegajo, anio, id = 0;
+    Vendedor vendedor;
+    Venta venta;
+    VendedorArchivo va;
+    VentasArchivo vs;
+    VentasManager vm;
+
+    int cantidadVendedor = va.ContarRegistro();
+    int cantidadVentas = vs.contarVentas();
+
+    string meses[12] = { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" };
+    double recaudacion[13] = {};
+
+    cout << "Ingrese el numero de legajo del vendedor: ";
+    cin >> numLegajo;
+    cout << "Ingrese el año a revisar: ";
+    cin >> anio;
+    system("cls");
+
+    for (int i = 0; i < cantidadVendedor; i++)
+    {
+        vendedor = va.leerRegistro(i);
+        id = va.BuscarId(numLegajo);
+
+    }
+
+    if (id > -1)
+    {
+        for (int i = 0; i < cantidadVentas; i++)
+        {
+             if (venta.getFechaVenta().getAnio() == anio) {
+                venta = vs.leerVenta(i);
+
+                recaudacion[venta.getFechaVenta().getMes() - 1] += venta.getTotalVenta();
+                recaudacion[12] += venta.getTotalVenta();
+
+             }
+        }
+        cout << "** INFORME ANUAL DE VENTAS POR VENDEDOR ** " << endl << endl;
+        cout << "Vendedor: " << vm.mostrarNombreVendedor(id) << endl;
+        cout << "Nro Legajo: " << numLegajo << endl;
+        cout << "Año: " << anio << endl << endl;
+
+        cout << left;
+        cout << setw(12) << "MES";
+        cout << setw(20) << "RECAUDACION" << endl;
+        cout << "------------------------------------------------------------" << endl;
+
+        for (int i = 0; i < 12; i++) {
+
+            cout << setw(12) << meses[i];
+            cout << "$ " << setw(20) << vm.formatearNumero(recaudacion[i]);
+            cout << endl;
+
+        }
+        cout << endl << endl;
+
+        cout << "** Total Anual : $" << vm.formatearNumero(recaudacion[12]) << " **" << endl << endl;
+
+    }
+    else {
+            cout << "No se encontro el vendedor" << endl;
+    }
 }
 
 //4
