@@ -108,15 +108,52 @@ void SucursalManager::listarRegistros()
 {
     Sucursal reg;
     int cant = _archivo.contarRegistro();
+    int opc;
 
-    salidaEnPantalla();
+    cout << "** Listado de Sucursales **" << endl;
+    cout << "1 - Listar por ID" << endl;
+    cout << "2 - Listar por Nombre" << endl;
 
-    for (int i = 0; i < cant; i++) {
-        reg = _archivo.leerRegistro(i);
-        if (reg.getEstado() == false) {
-            mostrarRegistro(reg);
-            cout << endl;
+    cout << "Ingrese su opcion: ";
+    cin >> opc;
+
+    switch (opc)
+    {
+    case 1:
+    {
+        salidaEnPantalla();
+
+        for (int i = 0; i < cant; i++) {
+            reg = _archivo.leerRegistro(i);
+            if (reg.getEstado() == false) {
+                mostrarRegistro(reg);
+                cout << endl;
+            }
         }
+        break;
+    }
+    case 2:
+    {
+        Sucursal* sucursales = new Sucursal[cant];
+        for (int i = 0; i < cant; i++) {
+            reg = _archivo.leerRegistro(i);
+            if (reg.getEstado() == false) {
+                sucursales[i] = reg;
+            }
+        }
+        ordenarNombre(sucursales, cant);
+        salidaEnPantalla();
+        for (int i = 0; i < cant; i++) {
+            if (sucursales[i].getEstado() == false) {
+                mostrarRegistro(sucursales[i]);
+                cout << endl;
+            }
+        }
+        delete[] sucursales;
+        break;
+    }
+    default:
+        break;
     }
 
 }
@@ -196,7 +233,7 @@ void SucursalManager::buscarSucursalNombre()
     cin.ignore();
     getline(cin, nombre);
     cout << endl;
-    
+
     if (cant >= 0) {
         for (int i = 0; i < cant; i++) {
             reg = _archivo.leerRegistro(i);
