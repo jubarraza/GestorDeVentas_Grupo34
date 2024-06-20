@@ -386,3 +386,111 @@ bool VendedorManager::DniRepetido(long long idPersona) {
     }
     return false;
 }
+
+bool VendedorManager::creciente(int num, int num2) {
+    return num < num2;
+}
+
+bool VendedorManager::decreciente(int num, int num2) {
+    return num > num2;
+}
+
+void VendedorManager::OrdenarPorAntiguedad(Vendedor* obj, int cantidad, bool criterio(int, int)) {
+    Vendedor aux;
+
+    for (int i = 0; i < cantidad; i++) {
+        for (int j = i + 1; j < cantidad; j++) {
+            if (criterio(obj[j].getAntiguedad(), obj[i].getAntiguedad())) {
+                aux = obj[j];
+                obj[j] = obj[i];
+                obj[i] = aux;
+            }
+        }
+    }
+}
+
+void VendedorManager::ListarAntiguedad() {
+    int cantidad = _archivo.ContarRegistro();
+    Vendedor* vec, reg;
+
+    vec = new Vendedor[cantidad];
+    if (vec == nullptr) {
+        std::cout << "No hay memoria.";
+    }
+
+    if (cantidad == 0) {
+        std::cout << "No hay Vendedores para mostrar." << std::endl;
+    }
+    else {
+        MostrarPantalla();
+        for (int i = 0; i < cantidad; i++) {
+            reg = _archivo.leerRegistro(i);
+            vec[i] = reg;
+        }
+
+        OrdenarPorAntiguedad(vec, cantidad, creciente);
+
+        for (int i = 0; i < cantidad; i++) {
+            if (vec[i].getEliminado() == false) {
+                MostrarVendedor(vec[i]);
+                std::cout << std::endl;
+            }
+        }
+        std::cout << std::endl;
+    }
+    delete[]vec;
+}
+
+bool VendedorManager::creciente(std::string  n, std::string m) {
+    return n < m;
+}
+
+bool VendedorManager::decreciente(std::string n, std::string m) {
+    return n > m;
+}
+
+void VendedorManager::OrdenarPorApellido(Vendedor* obj, int cantidad, bool criterio(std::string, std::string)) {
+    Vendedor aux;
+
+    for (int i = 0; i < cantidad; i++) {
+        for (int j = i + 1; j < cantidad; j++) {
+            if (criterio(obj[j].getApellido(), obj[i].getApellido())) {
+                aux = obj[j];
+                obj[j] = obj[i];
+                obj[i] = aux;
+            }
+        }
+    }
+}
+
+void VendedorManager::ListarApellido() {
+    int cantidad = _archivo.ContarRegistro();
+    Vendedor* vec, reg;
+
+    vec = new Vendedor[cantidad];
+    if (vec == nullptr) {
+        std::cout << "No hay memoria.";
+    }
+
+    if (cantidad == 0) {
+        std::cout << "No hay Vendedores para mostrar." << std::endl;
+    }
+    else {
+        MostrarPantalla();
+        for (int i = 0; i < cantidad; i++) {
+            reg = _archivo.leerRegistro(i);
+            vec[i] = reg;
+        }
+
+        OrdenarPorApellido(vec, cantidad, creciente);
+
+        for (int i = 0; i < cantidad; i++) {
+            if (vec[i].getEliminado() == false) {
+                MostrarVendedor(vec[i]);
+                std::cout << std::endl;
+            }
+        }
+        std::cout << std::endl;
+    }
+    delete[]vec;
+}
