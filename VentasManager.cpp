@@ -113,8 +113,9 @@ Venta VentasManager::crearVenta()
         switch (opc) {
         case 'S':
         case 's':
-            crearNuevoCliente();
+            crearNuevoCliente(dni);
             reg.setDniCliente(dni);
+            posCliente = validarCliente(dni); 
             system("cls");
             break;
 
@@ -539,11 +540,12 @@ int VentasManager::validarCliente(long long dni)
     }
 }
 
-void VentasManager::crearNuevoCliente()
+void VentasManager::crearNuevoCliente(long long dni)
 {
     ClienteManager cm;
+    ClienteArchivo ca;
     
-    cm.crearCliente();
+    ca.guardarCliente(cm.crearCliente(dni));
 
     
 }
@@ -600,7 +602,6 @@ void VentasManager::mostrarSucursalAsociada(int pos)
     cout << "Dirección: " << aux.getDireccion().toString();
     cout << endl;
     cout << "Telefono: " << aux.getTelefono() << endl << endl;
-    cout << endl;
 }
 
 std::string VentasManager::mostrarNombreSucursal(int id)
@@ -640,6 +641,7 @@ void VentasManager::mostrarVendedorAsociado(int pos)
     aux = va.leerRegistro(pos);
     cout << "Vendedor asignado: " << endl;
     aux.MostrarPersona();
+    cout << endl;
     cout << "NRO LEGAJO: " << aux.getNroLegajo() << endl;
     cout << "FECHA DE INGRESO: " << aux.getFechaIngreso().toString() << endl;
     cout << "ANTIGUEDAD: " << aux.getAntiguedad();
@@ -668,6 +670,8 @@ bool VentasManager::validarVehiculo(int& id)
     if (pos >= 0) {
         Vehiculo aux = va.leerRegistro(pos);
         if (aux.getStock() > 0) {
+            aux.setStock(aux.getStock() - 1);
+            va.modificarRegistro(aux, pos);
             return true;
 
         }
@@ -693,9 +697,7 @@ bool VentasManager::validarVehiculo(int& id)
             resultado = validarVehiculo(id);
         } while (resultado == false);
         
-        return true;
     }
-    
     
 }
 
@@ -713,7 +715,7 @@ void VentasManager::mostrarVehiculoAsociado(int id)
     cout << "Version: " << aux.getVersion() << endl;
     cout << "Color: " << aux.getColor();
     cout << "Año de fabricación: " << aux.getAnioFabricacion() << endl;
-    cout << "Stock actual: " << aux.getStock() << endl;
+    //cout << "Stock actualizado: " << aux.getStock() << endl;
     cout << "Precio unidad: $" << formatearNumero(aux.getPrecioUnidad());
     cout << endl;
 }
