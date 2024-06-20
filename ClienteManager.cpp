@@ -120,6 +120,30 @@ Cliente ClienteManager::crearCliente()
     return reg;
 }
 
+Cliente ClienteManager::crearCliente(long long dni)
+{
+    string email, tel;
+    Direccion d;
+    Cliente reg;
+    char opc;
+    cout << "------------- Ingreso de nuevo Cliente -------------" << endl;
+    reg.CargarPersona(dni);
+    cin.ignore();
+    cout << "EMAIL: ";
+    getline(cin, email);
+    reg.setEmail(email);
+    cout << "TELEFONO: ";
+    getline(cin, tel);
+    reg.setTelefono(tel);
+    cout << "DIRECCION: " << endl;
+    d.Cargar();
+    reg.setDireccion(d);
+    reg.setEliminado(false);
+
+    return reg;
+}
+
+
 void ClienteManager::mostrarCliente(Cliente reg)
 {
     reg.MostrarPersona();
