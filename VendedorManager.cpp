@@ -305,7 +305,7 @@ void VendedorManager::Menu(){
                 system("pause");
                 break;
             case 2:
-                ListarVendedor();
+               ListarApellido();
                 system("pause");
                 break;
             case 3:
@@ -387,11 +387,11 @@ bool VendedorManager::DniRepetido(long long idPersona) {
     return false;
 }
 
-bool VendedorManager::creciente(int num, int num2) {
+bool creciente(int num, int num2) {
     return num < num2;
 }
 
-bool VendedorManager::decreciente(int num, int num2) {
+bool decreciente(int num, int num2) {
     return num > num2;
 }
 
@@ -422,13 +422,13 @@ void VendedorManager::ListarAntiguedad() {
         std::cout << "No hay Vendedores para mostrar." << std::endl;
     }
     else {
-        MostrarPantalla();
+         MostrarPantalla(); 
         for (int i = 0; i < cantidad; i++) {
             reg = _archivo.leerRegistro(i);
             vec[i] = reg;
         }
 
-        OrdenarPorAntiguedad(vec, cantidad, creciente);
+        OrdenarPorAntiguedad(vec, cantidad, creciente);  
 
         for (int i = 0; i < cantidad; i++) {
             if (vec[i].getEliminado() == false) {
@@ -441,11 +441,11 @@ void VendedorManager::ListarAntiguedad() {
     delete[]vec;
 }
 
-bool VendedorManager::creciente(std::string  n, std::string m) {
+bool creciente(std::string  n, std::string m) {
     return n < m;
 }
 
-bool VendedorManager::decreciente(std::string n, std::string m) {
+bool decreciente(std::string n, std::string m) {
     return n > m;
 }
 
@@ -493,4 +493,16 @@ void VendedorManager::ListarApellido() {
         std::cout << std::endl;
     }
     delete[]vec;
+}
+
+void VendedorManager::MostrarPantalla() {
+    std::cout << std::left;
+    std::cout << std::setw(14) << "DNI ";
+    std::cout << std::setw(20) << "NOMBRE";
+    std::cout << std::setw(20) << "APELLIDO ";
+    std::cout << std::setw(23) << "FECHA NACIMIENTO ";
+    std::cout << std::setw(10) << "LEGAJO ";
+    std::cout << std::setw(20) << "FECHA INGRESO ";
+    std::cout << std::setw(10) << "ANTIGUEDAD ";
+    std::cout << std::endl;
 }
