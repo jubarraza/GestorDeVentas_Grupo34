@@ -316,7 +316,7 @@ void ClienteManager::editarCliente()
             cout << endl << "Cliente a Editar: " << endl;
             mostrarCliente(reg);
 
-            cout << endl;
+            cout << endl << endl;
             cout << "¿Que dato desea editar?" << endl;
             cout << "1 - Email" << endl;
             cout << "2 - Telefono" << endl;

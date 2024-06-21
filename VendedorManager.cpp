@@ -212,7 +212,7 @@ void VendedorManager::EliminarVendedor(){
         MostrarVendedor(vendedor);
         std::cout<<std::endl<<std::endl;
 
-        std::cout<< "Desea eliminar este vendedor. Confirar? S/N" << std::endl;
+        std::cout<< "Desea eliminar este vendedor. Confirmar? S/N" << std::endl;
         std::cout<<"OPCION: ";
         std::cin >> opcion;
         system("cls");
@@ -348,7 +348,6 @@ void VendedorManager::Menu(){
                     if(opc2==3){// Salir del bucle del submenú si se elige la opción 3
                         break;
                     }
-                    system("pause");
                 }
                 break;
             case 0:

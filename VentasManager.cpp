@@ -724,7 +724,7 @@ void VentasManager::mostrarVehiculoAsociado(int id)
     cout << "ID Vehiculo: " << aux.getIdVehiculo() << endl;
     cout << "Marca y Modelo: " << aux.getMarca() << " " << aux.getModelo() << endl;
     cout << "Version: " << aux.getVersion() << endl;
-    cout << "Color: " << aux.getColor();
+    cout << "Color: " << aux.getColor() << endl;
     cout << "Año de fabricación: " << aux.getAnioFabricacion() << endl;
     //cout << "Stock actualizado: " << aux.getStock() << endl;
     cout << "Precio unidad: $" << formatearNumero(aux.getPrecioUnidad());

@@ -420,10 +420,10 @@ void SucursalManager::restaurarBackup()
     int resultado = system(comando.c_str());
 
     if (resultado == 0) {
-        cout << endl << "Backup realizado con exito. " << endl;
+        cout << endl << "Restauracion realizada con exito. " << endl;
     }
     else {
-        cout << "Hubo un error al copiar el archivo. " << endl;
+        cout << "Hubo un error al restaurar el archivo. " << endl;
     }
 }
 
