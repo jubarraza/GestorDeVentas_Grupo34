@@ -73,8 +73,11 @@ void VentasManager::Menu()
             break;
 
         case 0:
-            
             break;
+
+        default:
+            cout << endl << "* Selecione una Opcion Correcta! *" << endl << endl;;
+            system("pause");
         }
     } while (opcion != 0);
 }
@@ -292,7 +295,8 @@ void VentasManager::menuListados()
         break;
 
     default:
-        break;
+        cout << endl << "* Selecione una Opcion Correcta! *" << endl << endl;
+        system("pause");
     }
 }
 
@@ -452,7 +456,14 @@ void VentasManager::editarVenta()
     
     }
     else {
-        cout << "Error al buscar la venta. Codigo " << pos << endl;
+        cout << "Error al buscar la venta. Codigo: (";
+        if (pos == -1) {
+            cout << pos << ") La venta no existe." << endl;
+        }
+        if (pos == -2) {
+            cout << pos << ") No se pudo abrir el archivo" << endl;
+
+        }
     }
 }
 
