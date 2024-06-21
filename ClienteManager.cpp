@@ -28,7 +28,7 @@ void ClienteManager::Menu()
         cout << endl;
         cout << "0. Regresar al menu anterior " << endl;
         cout << "----------------------" << endl;
-        cout << "OPCION: " << endl;
+        cout << "OPCION: ";
         cin >> opcion;
         system("cls");
 

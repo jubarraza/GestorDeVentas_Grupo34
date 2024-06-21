@@ -28,7 +28,7 @@ void SucursalManager::Menu()
         cout << endl;
         cout << "0. SALIR DEL PROGRAMA " << endl;
         cout << "---------------------------- " << endl;
-        cout << "OPCION: " << endl;
+        cout << "OPCION: ";
         cin >> opcion;
         system("cls");
 
