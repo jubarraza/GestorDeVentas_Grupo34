@@ -243,9 +243,8 @@ void Informes::ventasXVendedorAnual()
     {
         for (int i = 0; i < cantidadVentas; i++)
         {
-            //TODO consultar con Yami, me parece que la venta se tiene que leer antes del if y tambien se tiene que agregar un && venta.getNroLegajo() == numLegajo
-             if (venta.getFechaVenta().getAnio() == anio) {
-                venta = vs.leerVenta(i);
+             venta = vs.leerVenta(i);
+             if (venta.getFechaVenta().getAnio() == anio && venta.getNroLegajo() == numLegajo) {
 
                 recaudacion[venta.getFechaVenta().getMes() - 1] += venta.getTotalVenta();
                 recaudacion[12] += venta.getTotalVenta();
@@ -282,6 +281,87 @@ void Informes::ventasXVendedorAnual()
 //4
 void Informes::ventasXVendedoresMensual()
 {
+    int anio, mes, pos = 0;
+    int ventaRealizada = 0;
+    Vendedor vendedor;
+    Venta venta, * vecVenta;
+    VendedorArchivo va;
+    VentasArchivo vs;
+    VentasManager vm;
+
+    int cantidadVendedor = va.ContarRegistro();
+    int cantidadVentas = vs.contarVentas();
+
+    cout << "Ingrese el año a revisar: ";
+    cin >> anio;
+    cout << "Ingrese el mes a revisar: ";
+    cin >> mes;
+    system("cls");
+
+    for (int i = 0; i < cantidadVentas; i++)
+    {
+        venta = vs.leerVenta(i);
+        if (venta.getFechaVenta().getAnio() == anio && venta.getFechaVenta().getMes() == mes)
+        {
+            ventaRealizada++;
+        }
+    }
+
+    if (ventaRealizada > 0)
+    {
+        vecVenta = new Venta[ventaRealizada];
+        if (vecVenta == nullptr)
+        {
+            return;
+        }
+
+        for (int i = 0; i < cantidadVentas; i++)
+        {
+            venta = vs.leerVenta(i);
+            if (venta.getFechaVenta().getAnio() == anio && venta.getFechaVenta().getMes() == mes)
+            {
+                vecVenta[pos] = venta;
+                pos++;
+            }
+        }
+
+        cout << "** INFORME MENSUAL DE VENTAS POR VENDEDOR ** " << endl << endl;
+        cout << "Año: " << anio << endl;
+        cout << "Mes: " << mes << endl << endl;
+
+        cout << left;
+        cout << setw(20) << "VENDEDOR";
+        cout << setw(14) << "CANTIDAD";
+        cout << setw(20) << "RECAUDACION" << endl;
+        cout << "------------------------------------------------------------" << endl;
+
+        for (int i = 0; i < cantidadVendedor; i++)
+        {
+            vendedor = va.leerRegistro(i);
+            double recaudacion = 0;
+            int cantidad = 0;
+            for (int j = 0; j < ventaRealizada; j++)
+            {
+                if (vecVenta[j].getNroLegajo() == vendedor.getNroLegajo())
+                {
+                    recaudacion += vecVenta[j].getTotalVenta();
+                    cantidad++;
+                }
+            }
+            if (recaudacion > 0)
+            {
+                cout << setw(22) << vendedor.getApellidoNombre();
+                cout << setw(12) << cantidad;
+                cout << "$ " << setw(20) << vm.formatearNumero(recaudacion);
+                cout << endl;
+            }
+        }
+        cout << endl << endl;
+    }
+    else
+    {
+        cout << "No se encontraron ventas en el mes y año ingresado" << endl;
+    }
 }
 
 //5
@@ -395,7 +475,7 @@ void Informes::ventasTodasLasSucursalesMensual()
     cout << endl;
 
     cout << left;
-    cout << setw(20) << "SUCURSAL";
+    cout << setw(25) << "SUCURSAL";
     cout << setw(20) << "CANTIDAD DE VENTAS";
     cout << setw(20) << "RECAUDACION" << endl;
     cout << "------------------------------------------------------------" << endl;
@@ -522,4 +602,50 @@ void Informes::ventasTodasLasSucursalesAnual()
 //7
 void Informes::rankingVentasXModelo()
 {
+    int anio, cantVen, cantVeh;
+
+    VentasArchivo archiVen("Ventas.dat");
+    Venta venReg;
+    cantVen = archiVen.contarVentas();
+
+    VehiculosArchivo archiVeh("Vehiculos.dat");
+    Vehiculo vehReg;
+    cantVeh = archiVeh.contarRegistros();
+
+    vector<int> ventas(cantVeh, 0);
+    vector<string> nombre(cantVeh);
+
+    cout << "- Ranking Anual de Ventas por Modelo -" << endl;
+    cout << "---------------------------------------" << endl;
+    cout << "Ingrese el Año que desea Consultar: ";
+    cin >> anio;
+    system("cls");
+    cout << "- Ranking Anual de Ventas por Modelo -" << endl;
+    cout << "---------------------------------------" << endl;
+    cout << "------------- Año: " << anio << " -------------" << endl;
+    cout << left;
+    cout << setw(9) << "Marca";
+    cout << setw(15) << "Modelo";
+    cout << setw(10) << "Cantidad";
+    cout << endl;
+    for (int i = 0; i < cantVen; i++) {
+        venReg = archiVen.leerVenta(i);
+        if (venReg.getFechaVenta().getAnio() == anio) {
+            ventas[venReg.getIdVehiculo() - 1] += 1;
+            for (int j = 0; j < cantVeh; j++) {
+                vehReg = archiVeh.leerRegistro(j);
+                if (venReg.getIdVehiculo() == vehReg.getIdVehiculo()) {
+                    nombre[venReg.getIdVehiculo() - 1] = vehReg.getMarca() + "  " + vehReg.getModelo();
+                }
+            }
+        }
+    }
+    for (int j = 0; j < cantVeh; j++) {
+        if (ventas[j] > 0) {
+            cout << setw(24) << nombre[j];
+            cout << setw(10) << ventas[j];
+            cout << endl;
+        }
+    }
+    cout << endl;
 }
