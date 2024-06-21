@@ -193,7 +193,7 @@ void VehiculosManager::buscarVehiculo() {
         cout << "1) Por ID " << endl;
         cout << "2) Por Modelo " << endl;
         cout << "3) Por Anio de Fabricacion " << endl;
-        cout << "4) Por Color " << endl;
+        cout << "4) Por Color " << endl << endl;
         cout << "0) Salir " << endl;
         cout << "Ingrese una Opcion: ";
         cin >> opc;
@@ -207,8 +207,10 @@ void VehiculosManager::buscarVehiculo() {
             break;
         case 4:buscarPorColor();
             break;
+        case 0:
+            break;
         default:cout << endl << "* Opcion Incorrecta! *" << endl << endl;
-            return;
+            break;
         }
     }
     cout << endl;
@@ -595,7 +597,7 @@ string formatearNumero(float numero) {
     for (int i = 0; i < longitud; ++i) {
         parteEnteraFormateada += parteEntera[i];
         if ((longitud - i - 1) % 3 == 0 && (i != longitud - 1)) {
-            parteEnteraFormateada += '.';
+            parteEnteraFormateada += ',';
         }
     }
     return parteEnteraFormateada + parteDecimal;
