@@ -63,7 +63,7 @@ Vendedor VendedorManager::CrearVendedor(){
     vendedor.setFechaIngreso(fechaI);
     std::cout<<"ANTIGUEDAD: ";
     anioAntiguedad=vendedor.calcularAntiguedad();
-    std::cout<<anioAntiguedad<<std::endl;
+    std::cout << anioAntiguedad << " años" << std::endl;
     vendedor.setAntiguedad(anioAntiguedad);
     vendedor.setEliminado(false);
     std::cout<<std::endl;
@@ -78,7 +78,7 @@ void VendedorManager::MostrarVendedor(Vendedor vendedor){
     std::cout<<std::left;
     std::cout<<std::setw(10)<<vendedor.getNroLegajo();
     std::cout<<std::setw(20)<<vendedor.getFechaIngreso().toString();
-    std::cout<<std::setw(10)<<vendedor.getAntiguedad();
+    std::cout << std::setw(0) << vendedor.getAntiguedad() << " años"; 
 }
 
 void VendedorManager::AgregarVendedor(){
