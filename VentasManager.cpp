@@ -268,8 +268,9 @@ void VentasManager::menuListados()
 {
     int opc;
     cout << "Como desea ordenar el listado de Ventas?" << endl;
-    cout << "(1) por ID" << endl;
-    cout << "(2) por Fecha de Venta " << endl << endl;
+    cout << "1 - por ID" << endl;
+    cout << "2 - por Fecha de Venta " << endl << endl;
+    cout << "0 - Volver al menu anterior" << endl << endl;
     opc = validarInt("Ingrese opcion: ");
     cout << endl;
 
@@ -283,6 +284,9 @@ void VentasManager::menuListados()
     case 2:
         listarVentasXFecha();
         system("pause");
+        break;
+
+    case 0:
         break;
 
     default:
@@ -403,7 +407,8 @@ void VentasManager::editarVenta()
             cout << endl;
             cout << "¿Que dato desea editar?" << endl;
             cout << "1 - Fecha de Venta" << endl;
-            cout << "2 - Gastos Administrativos" << endl;
+            cout << "2 - Gastos Administrativos" << endl << endl;
+            cout << "0 - Volver al menu anterior" << endl << endl;
             opcion = validarInt("Opcion: ");
             cout << endl;
 
@@ -421,6 +426,9 @@ void VentasManager::editarVenta()
 				gastos = validarFloat("Ingrese nuevo valor de Gastos Administrativos: $");
 				reg.setGastosAdm(gastos);
 				break;
+            
+            case 0:
+                break;
 
             default:
                 cout << "* Opcion invalida *";

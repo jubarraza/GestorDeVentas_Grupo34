@@ -185,7 +185,9 @@ void ClienteManager::menuListado()
 {
     int opc;
     cout << "Como desea ordenar el listado de Clientes?" << endl;
-    cout << "(1) por orden de Carga o (2) por Apellido " << endl;
+    cout << "(1) por orden de Carga" << endl;
+    cout << "(2) por Apellido " << endl;
+    cout << "Volver al menu anterior" << endl;
     opc = validarInt("Opcion: ");
     cout << endl;
 
@@ -313,6 +315,7 @@ void ClienteManager::editarCliente()
             cout << "1 - Email" << endl;
             cout << "2 - Telefono" << endl;
             cout << "3 - Direccion" << endl;
+            cout << "Volver al menu anterior" << endl;
             opcion = validarInt("Opcion: ");
 
             switch (opcion) {

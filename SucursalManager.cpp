@@ -113,7 +113,8 @@ void SucursalManager::listarRegistros()
 
     cout << "** Listado de Sucursales **" << endl;
     cout << "1 - Listar por ID" << endl;
-    cout << "2 - Listar por Nombre" << endl;
+    cout << "2 - Listar por Nombre" << endl << endl;
+    cout << "0 - Volver al menu anterior" << endl;
 
     opc = validarInt("Ingrese su opcion: ");
 
@@ -152,6 +153,8 @@ void SucursalManager::listarRegistros()
         delete[] sucursales;
         break;
     }
+    case 0:
+        break;
     default:
         break;
     }
@@ -178,7 +181,8 @@ void SucursalManager::buscarSucursal()
 
     cout << "** Busqueda de Sucursales **" << endl;
     cout << "1 - Buscar por ID" << endl;
-    cout << "2 - Buscar por Nombre" << endl;
+    cout << "2 - Buscar por Nombre" << endl << endl;
+    cout << "0 - Volver al menu anterior" << endl;
 
     opc = validarInt("Ingrese su opcion: ");
 
@@ -190,6 +194,8 @@ void SucursalManager::buscarSucursal()
         break;
     case 2:
         buscarSucursalNombre();
+        break;
+    case 0:
         break;
 
     }
@@ -301,6 +307,7 @@ void SucursalManager::editarRegistro()
             cout << "1 - Nombre" << endl;
             cout << "2 - Direccion" << endl;
             cout << "3 - Telefono" << endl;
+            cout << "Volver al menu anterior" << endl;
             opcion = validarInt("Opcion: ");
 
             switch (opcion) {
@@ -328,6 +335,8 @@ void SucursalManager::editarRegistro()
                 reg.setTelefono(tel);
                 break;
             }
+            case 0:
+                break;
             default:
                 cout << "Opcion invalida.";
                 break;
