@@ -3,13 +3,14 @@
 #include <iomanip>
 
 #include "VendedorManager.h"
+#include "FuncionesGenerales.h"
 
 
 VendedorManager::VendedorManager(): _archivo("Vendedores.dat"){
 
 }
 
-void PlanillaVendedor(){
+void VendedorManager::PlanillaVendedor(){
     std::cout<<std::left;
     std::cout<<std::setw(14)<<"DNI ";
     std::cout<<std::setw(20)<< "NOMBRE";
@@ -25,7 +26,7 @@ Vendedor VendedorManager::CrearVendedor(){
     int numLegajo, anioAntiguedad;
     Fecha fechaI;
     Vendedor vendedor;
-    char opc;
+    int opc;
 
     std::cout<<std::setw(60)<<"--- AGREGAR VENDEDOR ---"<<std::endl;
     std::cout<<std::endl;
@@ -34,18 +35,15 @@ Vendedor VendedorManager::CrearVendedor(){
     vendedor.CargarPersona();
     bool resultado = DniRepetido(vendedor.getDni());
     if (resultado) {
-        std::cout << "Vendedor ya existente. Desea cargar un nuevo vendedor? S/N : ";
-        std::cin >> opc;
+        opc = validarInt("Vendedor ya existente.Desea cargar un nuevo vendedor? (1)Si - (2)No: ");
 
         switch (opc)
         {
-        case 's':
-        case 'S':
+        case 1:
             system("cls");
             goto regreso;
             break;
-        case 'n':
-        case 'N':
+        case 2:
             Menu();
             break;
 
@@ -55,8 +53,7 @@ Vendedor VendedorManager::CrearVendedor(){
 
     }
 
-    std::cout<<"NUMERO DE LEGAJO: ";
-    std::cin>>numLegajo;
+    numLegajo = validarInt("NUMERO DE LEGAJO: ");
     vendedor.setNroLegajo(numLegajo);
     std::cout<<"FECHA INGRESO: "<<std::endl;
     fechaI.Cargar();
@@ -116,8 +113,7 @@ void VendedorManager::BuscarVendedor(){
     std::cout<<std::setw(60)<<"--- BUSCAR VENDEDOR ---"<<std::endl;
     std::cout<<std::endl;
 
-    std::cout<<"Ingrese el numero de legajo del vendedor que desea buscar: ";
-    std::cin>>numLegajo;
+    numLegajo = validarInt("Ingrese el numero de legajo del vendedor que desea buscar: ");
     std::cout<<std::endl;
     system("cls");
 
@@ -140,12 +136,11 @@ void VendedorManager::BuscarVendedor(){
 
 void VendedorManager::EditarVendedor(){
     int legajo;
-    char opcion;
+    int opcion;
     std::cout<<std::setw(60)<<"--- EDITAR VENDEDOR ---"<<std::endl;
     std::cout<<std::endl;
 
-    std::cout << "Ingrese Legajo del Cliente a editar: ";
-    std::cin >> legajo;
+    legajo = validarInt("Ingrese Legajo del Vendedor a editar: ");
     std::cout << std::endl;
     system("cls");
 
@@ -161,12 +156,11 @@ void VendedorManager::EditarVendedor(){
         MostrarVendedor(vendedor);
 
         std::cout << std::endl<<std::endl;
-        std::cout << "¿Desea editar la Fecha de Ingreso? S/N" << std::endl;
-        std::cout<<"OPCION: ";
-        std::cin >> opcion;
+        std::cout << "¿Desea editar la Fecha de Ingreso? (1)Si - (2)No: " << std::endl;
+        opcion = validarInt("Opcion: ");
         system("cls");
 
-        if(opcion=='s' || opcion=='S'){
+        if(opcion == 1){
             std::cout<<std::endl;
             Fecha f;
             std::cout << "Ingrese nueva fecha: "<<std::endl;
@@ -194,13 +188,12 @@ void VendedorManager::EditarVendedor(){
 void VendedorManager::EliminarVendedor(){
     int numLegajo, indice;
     Vendedor vendedor;
-    char opcion;
+    int opcion;
 
     std::cout<<std::setw(60)<<"--- ELIMINAR VENDEDOR ---"<<std::endl;
     std::cout<<std::endl;
 
-    std::cout<<"Ingrese el numero de Legajo: ";
-    std::cin>>numLegajo;
+    numLegajo = validarInt("Ingrese el numero de Legajo: ");
 
     indice=_archivo.BuscarId(numLegajo);
 
@@ -212,12 +205,11 @@ void VendedorManager::EliminarVendedor(){
         MostrarVendedor(vendedor);
         std::cout<<std::endl<<std::endl;
 
-        std::cout<< "Desea eliminar este vendedor. Confirmar? S/N" << std::endl;
-        std::cout<<"OPCION: ";
-        std::cin >> opcion;
+        std::cout<< "Desea eliminar este vendedor? (1)Si - (2)No: " << std::endl;
+        opcion = validarInt("Opcion: ");
         system("cls");
 
-        if(opcion=='s' || opcion=='S'){
+        if(opcion == 1){ 
             vendedor.setEliminado(true);
 
             if(_archivo.Sobreescribir(indice, vendedor)){
@@ -240,9 +232,9 @@ void VendedorManager::realizarBackupVendedores() {
 
     std::cout << "- Desea Relizar Backup del Archivo Vendedores?" << std::endl;
     std::cout << " (1)SI (2)NO " << std::endl;
-    std::cout << "Selecione una Opcion: ";
-    std::cin >> opc;
+    opc = validarInt("Selecione una Opcion: ");
     system("cls");
+    
     switch (opc) {
     case 1:
         system("copy Vendedores.dat Vendedores.bkp");
@@ -263,9 +255,9 @@ void VendedorManager::restaurarBackupVendedores() {
 
     std::cout << "- Desea Restaurar el Archivo de Vendedores?" << std::endl;
     std::cout << " (1)SI (2)NO " << std::endl;
-    std::cout << "Selecione una Opcion: ";
-    std::cin >> opc;
+    opc = validarInt("Selecione una Opcion: ");
     system("cls");
+
     switch (opc) {
     case 1:
         system("copy Vendedores.bkp Vendedores.dat");
@@ -296,9 +288,9 @@ void VendedorManager::Menu(){
         std::cout<<"6- BACKUP"<<std::endl;
         std::cout<<"0- REGRESAR AL MENU ANTERIOR"<<std::endl;
         std::cout<<"-----------------------------"<<std::endl;
-        std::cout<<"Opcion: ";
-        std::cin>>option;
+        option = validarInt("Opcion: ");
         system("cls");
+
         switch(option){
             case 1:
                 AgregarVendedor();
@@ -329,8 +321,7 @@ void VendedorManager::Menu(){
                     std::cout<<"1- REALIZAR BACKUP VENDEDORES"<<std::endl;
                     std::cout<<"2- RESTAURAR BUCKUP VENDEDORES"<<std::endl;
                     std::cout<<"3- VOLVER AL MENU PRINCIPAL"<<std::endl;
-                    std::cout<<"OPCION: ";
-                    std::cin>>opc2;
+                    opc2 = validarInt("Opcion: ");
                     system("cls");
 
                     switch(opc2){
@@ -386,14 +377,6 @@ bool VendedorManager::DniRepetido(long long idPersona) {
     return false;
 }
 
-bool creciente(int num, int num2) {
-    return num < num2;
-}
-
-bool decreciente(int num, int num2) {
-    return num > num2;
-}
-
 void VendedorManager::OrdenarPorAntiguedad(Vendedor* obj, int cantidad, bool criterio(int, int)) {
     Vendedor aux;
 
@@ -438,14 +421,6 @@ void VendedorManager::ListarAntiguedad() {
         std::cout << std::endl;
     }
     delete[]vec;
-}
-
-bool creciente(std::string  n, std::string m) {
-    return n < m;
-}
-
-bool decreciente(std::string n, std::string m) {
-    return n > m;
 }
 
 void VendedorManager::OrdenarPorApellido(Vendedor* obj, int cantidad, bool criterio(std::string, std::string)) {
