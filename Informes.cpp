@@ -521,6 +521,7 @@ void Informes::ventasTodasLasSucursalesMensual()
 {
     int anio, mes, contVentas;
     double acuMes;
+    Fecha f;
 
     Venta regV;
     VentasArchivo va;
@@ -532,10 +533,25 @@ void Informes::ventasTodasLasSucursalesMensual()
     int cont = sa.contarRegistro();
 
     cout << " INFORME MENSUAL DE VENTAS POR SUCURSAL  " << endl;
-    cout << "Ingrese año a revisar: ";
-    cin >> anio;
-    cout << endl << "Ingrese mes a revisar: ";
-    cin >> mes;
+    do {
+        cout << "Ingrese el año a revisar: "; 
+        cin >> anio; 
+
+        if (anio > f.obtenerAnioActual()) { 
+            cout << "Año no valido." << endl << endl;
+        } 
+
+    } while (anio > f.obtenerAnioActual()); 
+
+    do {
+        cout << "Ingrese el mes a revisar: ";
+        cin >> mes; 
+
+        if (mes < 1 || mes > 12) {
+            cout << "Mes no valido." << endl << endl;
+        }
+
+    } while (mes < 1 || mes > 12);
     system("cls");
 
 
