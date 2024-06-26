@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include "Direccion.h"
+#include "FuncionesGenerales.h"
 #include <cstring>
 
 using namespace std;
@@ -15,9 +16,9 @@ Direccion::Direccion() {
 
 Direccion::Direccion(string calle, int numero, string provincia, int cp) {
     strcpy(_calle, calle.c_str());
-    _numero = numero;
+    setNumero(numero);
     strcpy(_provincia, provincia.c_str());
-    _cp = cp;
+    setCP(cp);
 }
 
 string Direccion::getCalle() {
@@ -42,7 +43,15 @@ void Direccion::setCalle(string c) {
 }
 
 void Direccion::setNumero(int n) {
-    _numero = n;
+    if (n >= 0) {
+        _numero = n;
+    }
+    else {
+        cout << "* El Numero No puede ser Negativo *" << endl;
+        n = validarInt("Numero # ");
+        this->setNumero(n);
+    }
+    
 }
 
 void Direccion::setProvincia(string p) {
@@ -50,7 +59,28 @@ void Direccion::setProvincia(string p) {
 }
 
 void Direccion::setCP(int cp) {
+
+    while (!validar(cp)) {
+        cin.clear();//limpia el estado de error
+        cin.ignore(numeric_limits<int>::max(), '\n');
+        cout << "CP no valido. Intente nuevamente. " << endl;
+        cp = validarInt("Codigo Postal: #");
+    }
+
     _cp = cp;
+
+}
+
+bool Direccion::validar(int cp)
+{
+    int numDigitos = contarDigitos(cp);
+    int  minimoDigito = 1;
+    int maximoDigito = 4;
+
+    if (numDigitos >= minimoDigito && numDigitos <= maximoDigito) {
+        return true;
+    }
+    return false;
 }
 
 void Direccion::Cargar() {
@@ -60,16 +90,12 @@ void Direccion::Cargar() {
     cout << "Calle: ";
     getline(cin, c);
     setCalle(c);
-    cout << "Numero #";
-    cin >> n;
-    cin.ignore();
+    n = validarInt("Numero #");
     setNumero(n);
     cout << "Provincia: ";
     getline(cin, p);
     setProvincia(p);
-    cout << "Codigo Postal: #";
-    cin >> cp;
-    cin.ignore();
+    cp = validarInt("Codigo Postal: #");
     setCP(cp);
 }
 
