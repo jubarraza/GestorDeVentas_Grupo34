@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS 
 #include <iostream>
 #include "Venta.h"
+#include "FuncionesGenerales.h"
 using namespace std;
 
 Venta::Venta()
@@ -133,7 +134,14 @@ void Venta::setIdVehiculo(int id) //se tiene que hacer validacion para que sea u
 
 void Venta::setGastosAdm(float gastos)
 {
-    _gastosAdm = gastos;
+    if (gastos >= 0) {
+        _gastosAdm = gastos;
+    }
+    else {
+        cout << "* Los Gastos Administrativos No Pueden Ser Negativos *" << endl;
+        gastos = pedirNumeroFloat("* Ingrese Gastos Administrativos: $");
+        this->setGastosAdm(gastos);
+    }
 }
 
 void Venta::setTotalVentas(double total)
