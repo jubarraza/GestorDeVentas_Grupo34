@@ -106,8 +106,7 @@ Cliente ClienteManager::crearCliente()
     cout << "EMAIL: ";
     getline(cin, email);
     reg.setEmail(email);
-    cout << "TELEFONO: ";
-    getline(cin, tel);
+    tel = validarStringNumerico("TELEFONO: ");
     reg.setTelefono(tel);
     cout << "DIRECCION: " << endl;
     d.Cargar();
@@ -128,8 +127,7 @@ Cliente ClienteManager::crearCliente(long long dni)
     cout << "EMAIL: ";
     getline(cin, email);
     reg.setEmail(email);
-    cout << "TELEFONO: ";
-    getline(cin, tel);
+    tel = validarStringNumerico("TELEFONO: ");
     reg.setTelefono(tel);
     cout << "DIRECCION: " << endl;
     d.Cargar();
@@ -329,8 +327,7 @@ void ClienteManager::editarCliente()
             case 2:
             {
                 string tel;
-                cout << "Ingrese nuevo telefono: ";
-                getline(cin, tel);
+                tel = validarStringNumerico("Ingrese nuevo telefono: ");
                 reg.setTelefono(tel);
                 break;
             }
