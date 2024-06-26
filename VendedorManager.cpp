@@ -297,8 +297,33 @@ void VendedorManager::Menu(){
                 system("pause");
                 break;
             case 2:
-               ListarApellido();
-                system("pause");
+                int  opc1;
+                while (true) {
+
+                    system("cls");
+                    std::cout << "------ MENU LISTAR VENDEDORES ------- " << std::endl;
+                    std::cout << "1- LISTAR POR ANTIGUEDAD" << std::endl;
+                    std::cout << "2- LISTAR POR APELLIDO" << std::endl;
+                    std::cout << "0- VOLVER AL MENU PRINCIPAL" << std::endl;
+                    opc1 = validarInt("Opcion: ");
+                    system("cls");
+
+                    switch (opc1) {
+                    case 1:
+                        ListarAntiguedad();
+                        system("pause");
+                        break;
+                    case 2:
+                        ListarApellido();
+                        system("pause");
+                        break;
+                    case 0:
+                        break;
+                    }
+                    if (opc1 == 0) {// Salir del bucle del submenú si se elige la opción 3
+                        break;
+                    }
+                }
                 break;
             case 3:
                 BuscarVendedor();
@@ -320,7 +345,7 @@ void VendedorManager::Menu(){
                     std::cout<<"------ MENU BACKUP ------- "<<std::endl;
                     std::cout<<"1- REALIZAR BACKUP VENDEDORES"<<std::endl;
                     std::cout<<"2- RESTAURAR BUCKUP VENDEDORES"<<std::endl;
-                    std::cout<<"3- VOLVER AL MENU PRINCIPAL"<<std::endl;
+                    std::cout<<"0- VOLVER AL MENU PRINCIPAL"<<std::endl;
                     opc2 = validarInt("Opcion: ");
                     system("cls");
 
@@ -333,10 +358,10 @@ void VendedorManager::Menu(){
                             restaurarBackupVendedores();
                             system("pause");
                             break;
-                        case 3:
+                        case 0:
                             break;
                     }
-                    if(opc2==3){// Salir del bucle del submenú si se elige la opción 3
+                    if (opc2 == 0) {// Salir del bucle del submenú si se elige la opción 3
                         break;
                     }
                 }
