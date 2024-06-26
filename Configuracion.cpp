@@ -1,6 +1,7 @@
 # include<iostream>
 using namespace std;
 #include"Configuracion.h"
+#include "FuncionesGenerales.h"
 
 void Configuracion::Menu() {
     int opc;
@@ -15,8 +16,8 @@ void Configuracion::Menu() {
         cout << "5) SubMenu Clientes " << endl << endl;
         cout << "----------------------------" << endl;
         cout << "0) Regresar al Menu Principal " << endl << endl;
-        cout << "Selecione una Opcion: ";
-        cin >> opc;
+        opc = validarInt("Selecione una Opcion: ");
+        
         switch (opc) {
         case 1:system("cls");
             subMenuVehiculos();
@@ -46,9 +47,9 @@ void realizarBackupVehiculos() {
     cout << endl;
     cout << "- Confirma el Backup del Archivo Vehiculos?" << endl;
     cout << " (1)SI (2)NO " << endl;
-    cout << "Selecione una Opcion: ";
     do {
-        cin >> opc;
+        opc = validarInt("Selecione una Opcion: ");
+        
         switch (opc) {
         case 1:
             cout << endl;
@@ -72,9 +73,9 @@ void restaurarBackupVehiculos() {
     cout << endl;
     cout << "- Confirma la Restauracion del Archivo Vehiculos?" << endl;
     cout << " (1)SI (2)NO " << endl;
-    cout << "Selecione una Opcion: ";
     do {
-        cin >> opc;
+        opc = validarInt("Selecione una Opcion: ");
+        
         switch (opc) {
         case 1:
             cout << endl;
@@ -99,9 +100,9 @@ void Configuracion::subMenuVehiculos() {
     cout << "1) Realizar Backup " << endl;
     cout << "2) Restaurar Backup " << endl;
     cout << "0) Regresar al Menu " << endl;
-    cout << "Ingrese una Opcion: ";
     do {
-        cin >> opc;
+        opc = validarInt("Ingrese una Opcion: ");
+
         switch (opc)
         {
         case 1:
@@ -126,9 +127,9 @@ void realizarBackupVentas() {
     int opc;
     cout << "- Desea Relizar Backup del Archivo Ventas?" << endl;
     cout << " (1)SI (2)NO " << endl;
-    cout << "Selecione una Opcion: ";
     do {
-        cin >> opc;
+        opc = validarInt("Selecione una Opcion: ");
+        
         switch (opc) {
         case 1: system("copy Ventas.dat Ventas.bkp");
             cout << "* Backup Realizado con Exito! *" << endl;
@@ -149,9 +150,9 @@ void restaurarBackupVentas() {
     int opc;
     cout << "- Desea Restaurar el Archivo Ventas?" << endl;
     cout << " (1)SI (2)NO " << endl;
-    cout << "Selecione una Opcion: ";
     do {
-        cin >> opc;
+        opc = validarInt("Selecione una Opcion: ");
+
         switch (opc) {
         case 1: system("copy Ventas.bkp Ventas.dat");
             cout << "* Restauracion Realizado con Exito! *" << endl;
@@ -174,9 +175,9 @@ void Configuracion::subMenuVentas() {
     cout << "1) Realizar Backup " << endl;
     cout << "2) Restaurar Backup " << endl;
     cout << "0) Regresar al Menu " << endl;
-    cout << "Ingrese una Opcion: ";
     do {
-        cin >> opc;
+        opc = validarInt("Ingrese una Opcion: ");
+
         switch (opc)
         {
         case 1: realizarBackupVentas();
@@ -199,9 +200,9 @@ void realizarBackupSucursales() {
     int opc;
     cout << "- Desea Relizar Backup del Archivo Sucursales?" << endl;
     cout << " (1)SI (2)NO " << endl;
-    cout << "Selecione una Opcion: ";
     do {
-        cin >> opc;
+        opc = validarInt("Selecione una Opcion: ");
+
         switch (opc) {
         case 1: system("copy Sucursales.dat Sucursales.bkp");
             cout << "* Backup Realizado con Exito! *" << endl;
@@ -221,9 +222,9 @@ void restaurarBackupSucursales() {
     int opc;
     cout << "- Desea Restaurar el Archivo de Sucursales?" << endl;
     cout << " (1)SI (2)NO " << endl;
-    cout << "Selecione una Opcion: ";
     do {
-        cin >> opc;
+        opc = validarInt("Selecione una Opcion: ");
+
         switch (opc) {
         case 1: system("copy Sucursales.bkp Sucursales.dat");
             cout << "* Restauracion Realizado con Exito! *" << endl;
@@ -245,9 +246,9 @@ void Configuracion::subMenuSucursales() {
     cout << "1) Realizar Backup " << endl;
     cout << "2) Restaurar Backup " << endl;
     cout << "0) Regresar al Menu " << endl;
-    cout << "Ingrese una Opcion: ";
     do {
-        cin >> opc;
+        opc = validarInt("Ingrese una Opcion: ");
+
         switch (opc)
         {
         case 1: realizarBackupSucursales();
@@ -270,9 +271,9 @@ void realizarBackupVendedores() {
     int opc;
     cout << "- Desea Relizar Backup del Archivo Vendedores?" << endl;
     cout << " (1)SI (2)NO " << endl;
-    cout << "Selecione una Opcion: ";
     do {
-        cin >> opc;
+        cout << "Selecione una Opcion: ";
+
         switch (opc) {
         case 1: system("copy Vendedores.dat Vendedores.bkp");
             cout << "* Backup Realizado con Exito! *" << endl;
@@ -293,9 +294,9 @@ void restaurarBackupVendedores() {
     int opc;
     cout << "- Desea Restaurar el Archivo de Vendedores?" << endl;
     cout << " (1)SI (2)NO " << endl;
-    cout << "Selecione una Opcion: ";
     do {
-        cin >> opc;
+        cout << "Selecione una Opcion: ";
+
         switch (opc) {
         case 1: system("copy Vendedores.bkp Vendedores.dat");
             cout << "* Restauracion Realizado con Exito! *" << endl;
@@ -318,9 +319,8 @@ void Configuracion::subMenuVendedores() {
     cout << "1) Realizar Backup " << endl;
     cout << "2) Restaurar Backup " << endl;
     cout << "0) Regresar al Menu " << endl;
-    cout << "Ingrese una Opcion: ";
     do {
-        cin >> opc;
+        opc = validarInt("Ingrese una Opcion: ");
         switch (opc)
         {
         case 1: realizarBackupVendedores();
@@ -343,9 +343,9 @@ void restaurarBackupClientes() {
     int opc;
     cout << "- Desea Restaurar el Archivo de Clientes?" << endl;
     cout << " (1)SI (2)NO " << endl;
-    cout << "Selecione una Opcion: ";
     do {
-        cin >> opc;
+        cout << "Selecione una Opcion: ";
+
         switch (opc) {
         case 1: system("copy Clientes.bkp Clientes.dat");
             cout << "* Restauracion Realizado con Exito! *" << endl;
@@ -366,9 +366,9 @@ void realizarBackupClientes() {
     int opc;
     cout << "- Desea Relizar Backup del Archivo Clientes?" << endl;
     cout << " (1)SI (2)NO " << endl;
-    cout << "Selecione una Opcion: ";
     do {
-        cin >> opc;
+        cout << "Selecione una Opcion: ";
+
         switch (opc) {
         case 1: system("copy Clientes.dat Clientes.bkp");
             cout << "* Backup Realizado con Exito! *" << endl;
@@ -391,9 +391,9 @@ void Configuracion::subMenuClientes() {
     cout << "1) Realizar Backup " << endl;
     cout << "2) Restaurar Backup " << endl;
     cout << "0) Regresar al Menu " << endl;
-    cout << "Ingrese una Opcion: ";
     do {
-        cin >> opc;
+        opc = validarInt("Ingrese una Opcion: ");
+        
         switch (opc)
         {
         case 1: realizarBackupClientes();
