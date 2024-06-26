@@ -4,17 +4,18 @@
 #include "FuncionesGenerales.h"
 using namespace std;
 
-Venta::Venta()
+//Constructores
+
+Venta::Venta() : _fechaVenta()
 {
-    _idVenta = 0;
-    _fechaVenta = Fecha();
-    _dniCliente = 0;
-    _idSucursal = 0;
-    _nroLegajo = 0;
-    _idVehiculo = 0;
-    _gastosAdm = 0;
-    _totalVenta = 0;
-    _eliminado = 0;
+    setIdVenta(999);
+    setDniCliente(1111111);
+    setIdSucursal(999999);
+    setNroLegajo(0);
+    setIdVehiculo(0);
+    setGastosAdm(0);
+    setTotalVentas(0);
+    setEliminado(false);
 }
 
 Venta::Venta(int idVenta, Fecha fechaVenta, long long dni, int idSucursal, int nroLegajo, int idVehiculo, float gastos, double total, bool eliminado)
@@ -23,13 +24,14 @@ Venta::Venta(int idVenta, Fecha fechaVenta, long long dni, int idSucursal, int n
     setFechaVenta(fechaVenta);
     setDniCliente(dni);
     setIdSucursal(idSucursal);
-    _nroLegajo = nroLegajo;
-    _idVehiculo = idVehiculo;
-    _gastosAdm = gastos;
-    _totalVenta = total;
-    _eliminado = eliminado;
+    setNroLegajo(nroLegajo);
+    setIdVehiculo(idVehiculo);
+    setGastosAdm(gastos);
+    setTotalVentas(total);
+    setEliminado(eliminado);
 
 }
+
 
 //getters
 
@@ -82,7 +84,7 @@ bool Venta::getEliminado()
 
 void Venta::setIdVenta(int id) 
 {
-    if (id > 0) {
+    if (id >= 0) {
         _idVenta = id; 
     }
     else {
@@ -112,7 +114,7 @@ void Venta::setDniCliente(long long dni)
 
 void Venta::setIdSucursal(int id) //se tiene que hacer validacion para que sea una sucursal existente
 {
-    if (id > 0) {
+    if (id >= 0) {
         _idSucursal = id;
     }
     else {
@@ -158,6 +160,8 @@ void Venta::setEliminado(bool e)
 {
     _eliminado = e;
 }
+
+//Funciones
 
 int Venta::contarDigitos(long long num) {
     int contador = 0;
