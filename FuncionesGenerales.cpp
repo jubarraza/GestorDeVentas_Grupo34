@@ -145,3 +145,13 @@ string validarStringNumerico(const std::string& mensaje) {
     cin.ignore(numeric_limits<size_t>::max());///Lipia el Buffer de Entrada por completo
     return ingreso;///Si el bucle completa la iteracion sin encontrar caracteres no Numericos, la funcion devuelve ingreso
 }
+
+int contarDigitos(int num)
+{
+    int contador = 0;
+    while (num > 0) {
+        num /= 10;
+        contador++;
+    }
+    return contador;
+}
