@@ -6,8 +6,8 @@ using namespace std;
 
 Cliente::Cliente() : _direccion()
 {
-    strcpy(_email ,"nn");
-    strcpy(_telefono, "1");
+    setEmail("nnnnnn");
+    setTelefono("1");
     setEliminado(false);
 
 }
