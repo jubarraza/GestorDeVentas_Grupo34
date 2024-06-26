@@ -7,6 +7,8 @@ private:
 public:
     VendedorManager();
 
+    void PlanillaVendedor();
+
     Vendedor CrearVendedor();
     void MostrarVendedor(Vendedor vendedor);
     void AgregarVendedor();
