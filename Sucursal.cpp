@@ -91,9 +91,7 @@ void Sucursal::Cargar()
     string telefono;
     Direccion d;
 
-    cout << "Ingrese Id Sucursal: ";
-    cin >> id;
-    cin.ignore();
+    id = validarInt("Ingrese Id Sucursal: ");
     setIdSucursal(id);
     cout << "Ingrese Nombre de Sucursal: ";
     getline(cin, nombre);

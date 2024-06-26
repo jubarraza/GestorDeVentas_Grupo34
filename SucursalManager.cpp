@@ -29,7 +29,8 @@ void SucursalManager::Menu()
         cout << endl;
         cout << "0. SALIR DEL PROGRAMA " << endl;
         cout << "---------------------------- " << endl;
-        opcion = validarInt("Opcion: "); 
+        opcion = validarInt("Opcion: ");
+
         system("cls");
 
         switch (opcion) {
@@ -81,12 +82,12 @@ void SucursalManager::salidaEnPantalla()
 
 bool SucursalManager::validarIDUnico(int id)
 {
-    Sucursal reg; 
+    Sucursal reg;
 
-    int cant = _archivo.contarRegistro(); 
-    for (int i = 0; i < cant; i++) { 
-        reg = _archivo.leerRegistro(i); 
-        if (reg.getIdSucursal() == id) { 
+    int cant = _archivo.contarRegistro();
+    for (int i = 0; i < cant; i++) {
+        reg = _archivo.leerRegistro(i);
+        if (reg.getIdSucursal() == id) {
             return true;
         }
     }
@@ -203,7 +204,7 @@ void SucursalManager::buscarSucursalID()
     int id, pos;
     Sucursal reg;
 
-    id = validarInt("Ingrese ID de la Sucursal que desea Buscar:  ");
+    id = validarInt("Ingrese ID de la Sucursal que desea Buscar: ");
     cout << endl;
 
     pos = _archivo.buscarPosicion(id);
@@ -225,7 +226,7 @@ void SucursalManager::buscarSucursalNombre()
     Sucursal reg;
     int cant = _archivo.contarRegistro();
 
-    cout << "Ingrese Nombre de la Sucursal que desea Buscar " << endl;
+    cout << "Ingrese Nombre de la Sucursal que desea Buscar: ";
     getline(cin, nombre);
     cout << endl;
 
@@ -244,17 +245,18 @@ void SucursalManager::buscarSucursalNombre()
 
 Sucursal SucursalManager::crearRegistro()
 {
-    Sucursal reg; 
-    int id; 
-    string nombre; 
-    string telefono; 
-    Direccion d; 
+    Sucursal reg;
+    string id;
+    int idSucursal;
+    string nombre;
+    string telefono;
+    Direccion d;
 
-    cout << "---- Cargar Registro ----" << endl; 
-    cout << endl; 
+    cout << "---- Cargar Registro ----" << endl;
+    cout << endl;
 
-    id = validarInt("Ingrese Id Sucursal: ");
-    reg.setIdSucursal(id); 
+    idSucursal = validarInt("Ingrese Id Sucursal: ");
+    reg.setIdSucursal(idSucursal);
     cout << "Ingrese Nombre de Sucursal: ";
     getline(cin, nombre);
     reg.setNombre(nombre);
@@ -354,7 +356,7 @@ void SucursalManager::bajaLogica()
     int id, pos;
     Sucursal reg;
 
-    id = validarInt("Ingrese ID de la Sucursal que desea dar de baja ");
+    id = validarInt("Ingrese ID de la Sucursal que desea dar de baja: ");
     cout << endl;
 
     pos = _archivo.buscarPosicion(id);
@@ -414,4 +416,3 @@ void SucursalManager::restaurarBackup()
         cout << "Hubo un error al restaurar el archivo. " << endl;
     }
 }
-

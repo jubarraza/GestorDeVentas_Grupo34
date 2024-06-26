@@ -16,13 +16,13 @@ Direccion::Direccion() {
 
 Direccion::Direccion(string calle, int numero, string provincia, int cp) {
     strcpy(_calle, calle.c_str());
-    setNumero(numero);
+    _numero = numero;
     strcpy(_provincia, provincia.c_str());
-    setCP(cp);
+    _cp = cp;
 }
 
 string Direccion::getCalle() {
-    
+
     return _calle;
 }
 
@@ -43,15 +43,7 @@ void Direccion::setCalle(string c) {
 }
 
 void Direccion::setNumero(int n) {
-    if (n >= 0) {
-        _numero = n;
-    }
-    else {
-        cout << "* El Numero No puede ser Negativo *" << endl;
-        n = validarInt("Numero # ");
-        this->setNumero(n);
-    }
-    
+    _numero = n;
 }
 
 void Direccion::setProvincia(string p) {
@@ -59,33 +51,18 @@ void Direccion::setProvincia(string p) {
 }
 
 void Direccion::setCP(int cp) {
-
     while (!validar(cp)) {
         cin.clear();//limpia el estado de error
-        cin.ignore(numeric_limits<int>::max(), '\n');
         cout << "CP no valido. Intente nuevamente. " << endl;
-        cp = validarInt("Codigo Postal: #");
+        cp = validarInt("Codigo Postal: # ");
     }
 
     _cp = cp;
-
-}
-
-bool Direccion::validar(int cp)
-{
-    int numDigitos = contarDigitos(cp);
-    int  minimoDigito = 1;
-    int maximoDigito = 4;
-
-    if (numDigitos >= minimoDigito && numDigitos <= maximoDigito) {
-        return true;
-    }
-    return false;
 }
 
 void Direccion::Cargar() {
-    string c, p; 
-    int n, cp; 
+    string c, p;
+    int n, cp;
 
     cout << "Calle: ";
     getline(cin, c);
@@ -108,7 +85,7 @@ void Direccion::Mostrar() {
 
 void Direccion::MostrarEnLinea()
 {
-    cout << _calle << " " <<  _numero << ", " << _provincia << ", CP: #" << _cp;
+    cout << _calle << " " << _numero << ", " << _provincia << ", CP: #" << _cp;
 }
 
 string Direccion::toString()
@@ -117,4 +94,16 @@ string Direccion::toString()
     valorADevolver = getCalle() + " #" + to_string(getNumero()) + ", " + getProvincia() + ", CP: " + to_string(getCP());
 
     return valorADevolver;
+}
+
+bool Direccion::validar(int cp)
+{
+    int numDigitos = contarDigitos(cp);
+    int  minimoDigito = 1;
+    int maximoDigito = 4;
+
+    if (numDigitos >= minimoDigito && numDigitos <= maximoDigito) {
+        return true;
+    }
+    return false;
 }
