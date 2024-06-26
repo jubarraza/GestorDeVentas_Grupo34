@@ -1,4 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS 
+#include "FuncionesGenerales.h"
 #include "VentasManager.h"
 #include "ClienteManager.h"
 #include "SucursalManager.h"
@@ -34,8 +35,7 @@ void VentasManager::Menu()
         cout << endl;
         cout << "0. Regresar al menu anterior " << endl;
         cout << "----------------------" << endl;
-        cout << "OPCION: ";
-        cin >> opcion;
+        opcion = validarInt("Opcion: ");
         system("cls");
 
         switch (opcion) {
@@ -87,7 +87,7 @@ Venta VentasManager::crearVenta()
     int id = _archivo.leerUltimoId() + 1;
     int nroLegajo, idSucursal, idVehiculo;
     long long dni;
-    float gastos, total;
+    float gastos, total = 0;
     Fecha f(1,1,1990);
     Venta reg;
 
@@ -99,9 +99,7 @@ Venta VentasManager::crearVenta()
     reg.setFechaVenta(f);
     cout << endl;
     
-    cout << "* Ingrese DNI del Cliente: ";
-    cin >> dni;
-    cin.ignore();
+    dni = validarLong("* Ingrese DNI del Cliente: ");
     cout << endl;
     
     //Validacion del cliente
@@ -110,30 +108,26 @@ Venta VentasManager::crearVenta()
         reg.setDniCliente(dni);
     }
     else {
-        char opc;
-        cout << "El cliente no existe. Desea agregarlo? S/N: " << endl;
-        cin >> opc;
+        int opc;
+        opc = validarInt("El cliente no existe. Desea agregarlo? (1)Si - (2)No: ");
+        cout << endl;
         switch (opc) {
-        case 'S':
-        case 's':
+        case 1:
             crearNuevoCliente(dni);
             reg.setDniCliente(dni);
             posCliente = validarCliente(dni); 
             system("cls");
             break;
 
-        case 'N':
-        case 'n':
-            cout << "No se pudo finalizar la creacion de la venta." << endl;
+        case 2:
+            cout << "* No se pudo finalizar la creacion de la venta *" << endl;
             exit(1);
         }
     }
     mostrarClienteAsociado(posCliente);
     cout << endl;
     
-    cout << "* Ingrese ID de Sucursal: " ;
-    cin >> idSucursal;
-    cin.ignore();
+    idSucursal = validarInt("* Ingrese ID de Sucursal: ");
     cout << endl;
     
     //Validacion Sucursal
@@ -143,9 +137,8 @@ Venta VentasManager::crearVenta()
     }
     else {
         do {
-            cout << "La sucursal no existe. Intente nuevamente: " << endl;
-            cin >> idSucursal; 
-            cin.ignore(); 
+            cout << "* La sucursal no existe. Intente nuevamente *" << endl;
+            idSucursal = validarInt("* Ingrese ID de Sucursal: ");
             posSucursal = validarSucursal(idSucursal); 
         } while (posSucursal < 0);
         system("cls");
@@ -157,9 +150,7 @@ Venta VentasManager::crearVenta()
 
     
     
-    cout << "* Ingrese Legajo del Vendedor: " ;
-    cin >> nroLegajo;
-    cin.ignore();
+    nroLegajo = validarInt("* Ingrese Legajo del Vendedor: ");
     cout << endl; 
 
     //Validacion Vendedor
@@ -169,9 +160,8 @@ Venta VentasManager::crearVenta()
     }
     else {
         do {
-            cout << "El vendedor no existe. Intente nuevamente: " << endl;
-            cin >> nroLegajo; 
-            cin.ignore();
+            cout << "* El vendedor no existe. Intente nuevamente *" << endl;
+            nroLegajo = validarInt("* Ingrese Legajo del Vendedor: ");
             posVendedor = validarVendedor(nroLegajo);
         } while (posVendedor < 0);
         system("cls");
@@ -181,9 +171,7 @@ Venta VentasManager::crearVenta()
     mostrarVendedorAsociado(posVendedor);
     cout << endl;
     
-    cout << "* Ingrese ID del Vehiculo adquirido: ";
-    cin >> idVehiculo;
-    cin.ignore();
+    idVehiculo = validarInt("* Ingrese ID del Vehiculo adquirido: ");
     cout << endl;
 
     //Validacion Vehiculo
@@ -195,15 +183,13 @@ Venta VentasManager::crearVenta()
     mostrarVehiculoAsociado(idVehiculo);
     cout << endl; 
     
-    cout << "Gastos Administrativos: $" ;
-    cin >> gastos;
-    cin.ignore();
-    reg.setGastosAdm(gastos);
+    gastos = pedirNumeroFloat("* Ingrese Gastos Administrativos: $");
+    reg.setGastosAdm(gastos); 
 
-    total = calcularPrecioTotal(gastos, obtenerPrecioVehiculo(idVehiculo));
+    total = calcularPrecioTotal(reg.getGastosAdm(), obtenerPrecioVehiculo(idVehiculo));
     reg.setTotalVentas(total);
     cout << endl;
-    cout << "Total Venta: $" << formatearNumero(reg.getTotalVenta()) << endl; 
+    cout << "* Total Venta: $" << formatearNumero(reg.getTotalVenta()) << endl; 
     cout << endl;
     reg.setEliminado(false);
 
@@ -263,10 +249,10 @@ void VentasManager::mostrarVentaEnLinea(Venta reg)
 void VentasManager::agregarVenta()
 {
     if (_archivo.guardarVenta(crearVenta())) {
-        cout << "La venta se guardó correctamente." << endl;
+        cout << "* La venta se guardo correctamente *" << endl;
     }
     else {
-        cout << "No se pudo guardar la venta." << endl;
+        cout << "* No se pudo guardar la venta *" << endl;
     }
 }
 
@@ -277,9 +263,7 @@ void VentasManager::menuListados()
     cout << "Como desea ordenar el listado de Ventas?" << endl;
     cout << "(1) por ID" << endl;
     cout << "(2) por Fecha de Venta " << endl << endl;
-    cout << "Ingrese opcion: ";
-    cin >> opc;
-    cin.ignore();
+    opc = validarInt("Ingrese opcion: ");
     cout << endl;
 
     switch (opc)
@@ -396,9 +380,7 @@ void VentasManager::editarVenta()
 {
     int id, opcion;
     
-    cout << "Ingrese ID de Venta a editar: ";
-    cin >> id;
-    cin.ignore();
+    id = validarInt("Ingrese ID de Venta a editar: ");
     cout << endl;
     
     int pos = buscarVenta(id);
@@ -415,7 +397,8 @@ void VentasManager::editarVenta()
             cout << "¿Que dato desea editar?" << endl;
             cout << "1 - Fecha de Venta" << endl;
             cout << "2 - Gastos Administrativos" << endl;
-            cin >> opcion;
+            opcion = validarInt("Opcion: ");
+            cout << endl;
 
             switch (opcion) {
             case 1:
@@ -428,13 +411,12 @@ void VentasManager::editarVenta()
             case 2:
             {
                 float gastos;
-                cout << "Ingrese nuevo valor de Gastos Administrativos: ";
-                cin >> gastos;
-                reg.setGastosAdm(gastos);
-                break;
+				gastos = validarFloat("Ingrese nuevo valor de Gastos Administrativos: $");
+				reg.setGastosAdm(gastos);
+				break;
 
             default:
-                cout << "Opcion invalida.";
+                cout << "* Opcion invalida *";
                 break;
             }
             }
@@ -442,26 +424,26 @@ void VentasManager::editarVenta()
             bool result = _archivo.sobreescribirVenta(reg, pos);
 
             if (result == true) {
-                cout << "Se editó correctamente la venta." << endl;
+                cout << "* Se edito correctamente la venta *" << endl;
             }
             else {
-                cout << "No se pudo editar la venta." << endl;
+                cout << "* No se pudo editar la venta *" << endl;
             }
 
 
         }
         else {
-            cout << "La venta buscada se encuentra eliminada" << endl;
+            cout << "* La venta buscada se encuentra eliminada *" << endl;
         }
     
     }
     else {
-        cout << "Error al buscar la venta. Codigo: (";
+        cout << "* Error al buscar la venta. Codigo: (";
         if (pos == -1) {
-            cout << pos << ") La venta no existe." << endl;
+            cout << pos << ") La venta no existe *" << endl;
         }
         if (pos == -2) {
-            cout << pos << ") No se pudo abrir el archivo" << endl;
+            cout << pos << ") No se pudo abrir el archivo *" << endl;
 
         }
     }
@@ -477,10 +459,10 @@ void VentasManager::backupArchivo()
     int resultado = system(comando.c_str());
     
     if (resultado == 0) {
-        cout << endl << "Backup realizado con exito." << endl;
+        cout << endl << "* Backup realizado con exito *" << endl;
     }
     else {
-        cout << "Hubo un error al copiar el archivo." << endl;
+        cout << "* Hubo un error al copiar el archivo *" << endl;
     }
    
 }
@@ -495,10 +477,10 @@ void VentasManager::restaurarBackup()
     int resultado = system(comando.c_str());
 
     if (resultado == 0) {
-        cout << endl << "Backup restaurado con exito." << endl;
+        cout << endl << "* Backup restaurado con exito *" << endl;
     }
     else {
-        cout << "Hubo un error al restaurar el archivo." << endl;
+        cout << "* Hubo un error al restaurar el archivo *" << endl;
     }
 
 }
@@ -506,11 +488,9 @@ void VentasManager::restaurarBackup()
 void VentasManager::borrarVenta()
 {
     int id;
-    char opc;
+    int opc;
 
-    cout << "Ingrese ID de Venta a borrar: ";
-    cin >> id; 
-    cin.ignore(); 
+    id = validarInt("Ingrese ID de Venta a borrar: ");
     cout << endl; 
 
     int pos = buscarVenta(id); 
@@ -521,20 +501,27 @@ void VentasManager::borrarVenta()
 
         cout << endl << "Venta a Borrar: " << endl;
         mostrarVenta(reg);
-        cout << endl << "Confirma que desea borrar esta venta? S/N" << endl;
-        cin >> opc;
+        cout << endl;
 
-        if (opc == 's' || opc == 'S') {
+        opc =  validarInt("Confirma que desea borrar esta venta? (1)Si - (2)No");
+
+        if (opc == 1) {
             reg.setEliminado(true);
             bool result = _archivo.sobreescribirVenta(reg, pos);
+            if (result) {
+                cout << "* La venta se ha borrado correctamente *" << endl;
+            }
+            else {
+                cout << "* No se pudo eliminar la venta *" << endl;
+            }
         }
         else {
-            cout << endl << "Se cancelo el borrado de la venta." << endl;
+            cout << endl << "* Se cancelo el borrado de la venta *" << endl;
         }
 
     }
     else {
-        cout << "La venta buscada no existe" << endl;
+        cout << "* La venta buscada no existe *" << endl;
     }
 
 }
@@ -689,9 +676,7 @@ bool VentasManager::validarVehiculo(int& id)
         else {
             do {
                 cout << "* El vehiculo no tiene stock y no puede ser vendido. *" << endl;
-                cout << "Ingrese un nuevo id de vehiculo: ";
-                cin >> id;
-                cin.ignore();
+                id = validarInt("* Ingrese un nuevo id de vehiculo: ");
                 resultado = validarVehiculo(id);
 
             } while (resultado == false);
@@ -702,9 +687,8 @@ bool VentasManager::validarVehiculo(int& id)
     }
     else {
         do {
-            cout << "El vehiculo no existe. Intente nuevamente: " << endl;
-            cin >> id; 
-            cin.ignore(); 
+            cout << "* El vehiculo ingresado no existe *" << endl;
+            id = validarInt("* Ingrese un nuevo id de vehiculo: ");
             resultado = validarVehiculo(id);
         } while (resultado == false);
         
@@ -757,7 +741,6 @@ float VentasManager::obtenerPrecioVehiculo(int id)
 
 float VentasManager::calcularPrecioTotal(float gastos, float precio)
 {
-
     return gastos + precio;
 }
 
@@ -794,8 +777,7 @@ void VentasManager::buscadorDeVentas()
         cout << "2) Por Fecha de Venta " << endl;
         cout << endl;
         cout << "0) Salir " << endl << endl;
-        cout << "Ingrese una Opcion: ";
-        cin >> opc;
+        opc = validarInt("Opcion: ");
         system("cls");
         switch (opc) {
         
@@ -816,9 +798,7 @@ void VentasManager::buscadorDeVentas()
 void VentasManager::buscarVentaPorID()
 {
     int id, pos; 
-    cout << "Ingrese el ID a buscar: ";
-    cin >> id; 
-    cin.ignore();
+    id = validarInt("Ingrese el ID a buscar: ");
     cout << endl;
     pos = buscarVenta(id);
     if (pos == -1) {
@@ -846,7 +826,6 @@ void VentasManager::buscarVentaPorFecha()
 
     cout << "Ingrese fecha a buscar:" << endl;
     f.Cargar();
-    cin.ignore();
     cout << endl;
 
     cantReg = _archivo.contarVentas();
