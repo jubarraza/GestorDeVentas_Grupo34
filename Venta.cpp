@@ -80,14 +80,14 @@ bool Venta::getEliminado()
 
 //setters
 
-void Venta::setIdVenta(int id) // hay que hacer validacion para que sea unico
+void Venta::setIdVenta(int id) 
 {
     if (id > 0) {
         _idVenta = id; 
     }
     else {
-        cout << "Id de Venta incorrecto. Intente nuevamente:" << endl;
-        cin >> id;
+        cout << "Id de Venta incorrecto. Intente nuevamente." << endl;
+        id = validarInt("ID de venta: ");
         this->setIdVenta(id);
     }
 }
@@ -102,8 +102,8 @@ void Venta::setDniCliente(long long dni)
     while (!validar(dni)) {
         cin.clear();//limpia el estado de error
         cin.ignore(numeric_limits<long long>::max(), '\n');
-        cout << "DNI no valido. Intente nuevamente: " << endl;
-        cin >> dni;
+        cout << "DNI no valido. Intente nuevamente. " << endl;
+        dni = validarLong("* Ingrese DNI del Cliente: ");
     }
 
     _dniCliente = dni;
@@ -116,8 +116,8 @@ void Venta::setIdSucursal(int id) //se tiene que hacer validacion para que sea u
         _idSucursal = id;
     }
     else {
-        cout << "Id de Sucursal incorrecto. Intente nuevamente:" << endl;
-        cin >> id;
+        cout << "Id de Sucursal incorrecto. Intente nuevamente." << endl;
+        id = validarInt("* Ingrese ID de Sucursal: ");
         this->setIdSucursal(id);
     }
 }
