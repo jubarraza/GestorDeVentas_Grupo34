@@ -434,6 +434,12 @@ void ClienteManager::borrarCliente()
         if (opc == 's' || opc == 'S') {
             reg.setEliminado(true);
             bool result = _archivo.sobreescribirCliente(reg, pos);
+            if (result) {
+                cout << "El cliente se ha borrado correctamente." << endl;
+            }
+            else {
+                cout << "No se pudo eliminar el cliente." << endl;
+            }
         }
         else {
             cout << endl << "Se cancelo el borrado del cliente." << endl;
