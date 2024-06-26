@@ -294,7 +294,7 @@ void Informes::ventasXVendedoresMensual()
     int cantidadVentas = vs.contarVentas();
 
     do {
-        cout << "Ingrese año a revisar: ";
+        cout << "Ingrese el año a revisar: ";
         cin >> anio;
 
         if (anio > f.obtenerAnioActual()) {
@@ -302,8 +302,17 @@ void Informes::ventasXVendedoresMensual()
         }
 
     } while (anio > f.obtenerAnioActual());
-    cout << "Ingrese el mes a revisar: ";
-    cin >> mes;
+
+    do {
+        cout << "Ingrese el mes a revisar: ";
+        cin >> mes;
+
+        if (mes < 1 || mes > 12) {
+            cout << "Mes no valido." << endl << endl;
+        }
+
+    } while (mes < 1 || mes > 12);
+
     system("cls");
 
     for (int i = 0; i < cantidadVentas; i++)
