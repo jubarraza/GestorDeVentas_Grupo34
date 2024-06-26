@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Sistema.h"
+#include "FuncionesGenerales.h"
 using namespace std;
 
 Sistema::Sistema() : _vehiculos(), _ventas(), _clientes(), _vendedores(), _sucursales(), _informes(), _configuracion()
@@ -30,8 +31,7 @@ void Sistema::Menu()
         cout << endl;
         cout << " 0) Salir del Programa" << endl;
         cout << "---------------------------" << endl;
-        cout << "Selecione una opcion: ";
-        cin >> opc;
+        opc = validarInt("Selecione una opcion: ");
         system("cls");
         switch (opc) {
         case 1: _vehiculos.Menu();
