@@ -1,9 +1,15 @@
 # include<iostream>
 using namespace std;
-#include"Configuracion.h"
+#include "VehiculosManager.h"
+#include "VentasManager.h"
+#include "SucursalManager.h"
+#include "VendedorManager.h"
+#include "ClienteManager.h"
+#include "Configuracion.h"
 #include "FuncionesGenerales.h"
 
 void Configuracion::Menu() {
+
     int opc;
     do {
         system("cls");
@@ -16,8 +22,8 @@ void Configuracion::Menu() {
         cout << "5) SubMenu Clientes " << endl << endl;
         cout << "----------------------------" << endl;
         cout << "0) Regresar al Menu Principal " << endl << endl;
-        opc = validarInt("Selecione una Opcion: ");
-        
+        cout << "Selecione una Opcion: ";
+        cin >> opc;
         switch (opc) {
         case 1:system("cls");
             subMenuVehiculos();
@@ -42,75 +48,25 @@ void Configuracion::Menu() {
     } while (opc != 0);
 }
 
-void realizarBackupVehiculos() {
-    int opc;
-    cout << endl;
-    cout << "- Confirma el Backup del Archivo Vehiculos?" << endl;
-    cout << " (1)SI (2)NO " << endl;
-    do {
-        opc = validarInt("Selecione una Opcion: ");
-        
-        switch (opc) {
-        case 1:
-            cout << endl;
-            system("copy Vehiculos.dat Vehiculos.bkp");
-            cout << "* Backup Realizado con Exito! *" << endl;
-            cout << endl;
-            system("pause");
-            return;
-        case 2:
-            system("cls");
-            return;
-        default:
-            cout << "* Opcion Incorrecta *" << endl;
-            cout << "- Seleccione una Opcion Correcta: ";
-        }
-    } while (opc != 2);
-}
-
-void restaurarBackupVehiculos() {
-    int opc;
-    cout << endl;
-    cout << "- Confirma la Restauracion del Archivo Vehiculos?" << endl;
-    cout << " (1)SI (2)NO " << endl;
-    do {
-        opc = validarInt("Selecione una Opcion: ");
-        
-        switch (opc) {
-        case 1:
-            cout << endl;
-            system("copy Vehiculos.bkp Vehiculos.dat");
-            cout << "* Restauracion Realizado con Exito! *" << endl;
-            cout << endl;
-            system("pause");
-            return;
-        case 2:
-            system("cls");
-            return;
-        default:
-            cout << "* Opcion Incorrecta *" << endl;
-            cout << "- Seleccione una Opcion Correcta: ";
-        }
-    } while (opc != 2);
-}
-
 void Configuracion::subMenuVehiculos() {
+    VehiculosManager vehiculos;
+
     int opc;
     cout << "--- Archivo Vehiculos ---" << endl;
     cout << "1) Realizar Backup " << endl;
     cout << "2) Restaurar Backup " << endl;
     cout << "0) Regresar al Menu " << endl;
+    cout << "Ingrese una Opcion: ";
     do {
-        opc = validarInt("Ingrese una Opcion: ");
-
+        cin >> opc;
         switch (opc)
         {
         case 1:
-            realizarBackupVehiculos();
+            vehiculos.realizarBackup();
             system("cls");
             return;
         case 2:
-            restaurarBackupVehiculos();
+            vehiculos.restaurarBackup();
             system("cls");
             return;
         case 0:
@@ -123,67 +79,25 @@ void Configuracion::subMenuVehiculos() {
     } while (opc != 0);
 }
 
-void realizarBackupVentas() {
-    int opc;
-    cout << "- Desea Relizar Backup del Archivo Ventas?" << endl;
-    cout << " (1)SI (2)NO " << endl;
-    do {
-        opc = validarInt("Selecione una Opcion: ");
-        
-        switch (opc) {
-        case 1: system("copy Ventas.dat Ventas.bkp");
-            cout << "* Backup Realizado con Exito! *" << endl;
-            cout << endl;
-            system("pause");
-            return;
-        case 2:
-            system("cls");
-            return;
-        default:
-            cout << "* Opcion Incorrecta *" << endl;
-            cout << "- Seleccione una Opcion Correcta: ";
-        }
-    } while (opc != 2);
-}
-
-void restaurarBackupVentas() {
-    int opc;
-    cout << "- Desea Restaurar el Archivo Ventas?" << endl;
-    cout << " (1)SI (2)NO " << endl;
-    do {
-        opc = validarInt("Selecione una Opcion: ");
-
-        switch (opc) {
-        case 1: system("copy Ventas.bkp Ventas.dat");
-            cout << "* Restauracion Realizado con Exito! *" << endl;
-            cout << endl;
-            system("pause");
-            return;
-        case 2:
-            system("cls");
-            return;
-        default:
-            cout << "* Opcion Incorrecta *" << endl;
-            cout << "- Seleccione una Opcion Correcta: ";
-        }
-    } while (opc != 2);
-}
-
 void Configuracion::subMenuVentas() {
+    VentasManager ventas;
+
     int opc;
     cout << "--- Archivo Ventas ---" << endl;
     cout << "1) Realizar Backup " << endl;
     cout << "2) Restaurar Backup " << endl;
     cout << "0) Regresar al Menu " << endl;
+    cout << "Ingrese una Opcion: ";
     do {
-        opc = validarInt("Ingrese una Opcion: ");
-
+        cin >> opc;
         switch (opc)
         {
-        case 1: realizarBackupVentas();
+        case 1:
+            ventas.backupArchivo();
             system("cls");
             return;
-        case 2: restaurarBackupVentas();
+        case 2:
+            ventas.restaurarBackup();
             system("cls");
             return;
         case 0:
@@ -196,65 +110,25 @@ void Configuracion::subMenuVentas() {
     } while (opc != 0);
 }
 
-void realizarBackupSucursales() {
-    int opc;
-    cout << "- Desea Relizar Backup del Archivo Sucursales?" << endl;
-    cout << " (1)SI (2)NO " << endl;
-    do {
-        opc = validarInt("Selecione una Opcion: ");
-
-        switch (opc) {
-        case 1: system("copy Sucursales.dat Sucursales.bkp");
-            cout << "* Backup Realizado con Exito! *" << endl;
-            cout << endl;
-            system("pause");
-            return;
-        case 2:
-            return;
-        default:
-            cout << "* Opcion Incorrecta *" << endl;
-            cout << "- Seleccione una Opcion Correcta: ";
-        }
-    } while (opc != 2);
-}
-
-void restaurarBackupSucursales() {
-    int opc;
-    cout << "- Desea Restaurar el Archivo de Sucursales?" << endl;
-    cout << " (1)SI (2)NO " << endl;
-    do {
-        opc = validarInt("Selecione una Opcion: ");
-
-        switch (opc) {
-        case 1: system("copy Sucursales.bkp Sucursales.dat");
-            cout << "* Restauracion Realizado con Exito! *" << endl;
-            cout << endl;
-            system("pause");
-            return;
-        case 2:
-            return;
-        default:
-            cout << "* Opcion Incorrecta *" << endl;
-            cout << "- Seleccione una Opcion Correcta: ";
-        }
-    } while (opc != 2);
-}
-
 void Configuracion::subMenuSucursales() {
+    SucursalManager sucursales;
+
     int opc;
     cout << "--- Archivo Sucursales ---" << endl;
     cout << "1) Realizar Backup " << endl;
     cout << "2) Restaurar Backup " << endl;
     cout << "0) Regresar al Menu " << endl;
+    cout << "Ingrese una Opcion: ";
     do {
-        opc = validarInt("Ingrese una Opcion: ");
-
+        cin >> opc;
         switch (opc)
         {
-        case 1: realizarBackupSucursales();
+        case 1:
+            sucursales.backupArchivo();
             system("cls");
             return;
-        case 2: restaurarBackupSucursales();
+        case 2:
+            sucursales.restaurarBackup();
             system("cls");
             return;
         case 0:
@@ -267,66 +141,25 @@ void Configuracion::subMenuSucursales() {
     } while (opc != 0);
 }
 
-void realizarBackupVendedores() {
-    int opc;
-    cout << "- Desea Relizar Backup del Archivo Vendedores?" << endl;
-    cout << " (1)SI (2)NO " << endl;
-    do {
-        opc = validarInt("Selecione una Opcion: "); 
-
-        switch (opc) {
-        case 1: system("copy Vendedores.dat Vendedores.bkp");
-            cout << "* Backup Realizado con Exito! *" << endl;
-            cout << endl;
-            system("pause");
-            return;
-        case 2:
-            return;
-        default:
-            cout << "* Opcion Incorrecta *" << endl;
-            cout << "- Seleccione una Opcion Correcta: ";
-        }
-    } while (opc != 2);
-}
-
-
-void restaurarBackupVendedores() {
-    int opc;
-    cout << "- Desea Restaurar el Archivo de Vendedores?" << endl;
-    cout << " (1)SI (2)NO " << endl;
-    do {
-        opc = validarInt("Selecione una Opcion: ");
-
-        switch (opc) {
-        case 1: system("copy Vendedores.bkp Vendedores.dat");
-            cout << "* Restauracion Realizado con Exito! *" << endl;
-            cout << endl;
-            system("pause");
-            return;
-        case 2:
-            system("cls");
-            return;
-        default:
-            cout << "* Opcion Incorrecta *" << endl;
-            cout << "- Seleccione una Opcion Correcta: ";
-        }
-    } while (opc != 2);
-}
-
 void Configuracion::subMenuVendedores() {
+    VendedorManager vendedores;
+
     int opc;
     cout << "--- Archivo Vendedores ---" << endl;
     cout << "1) Realizar Backup " << endl;
     cout << "2) Restaurar Backup " << endl;
     cout << "0) Regresar al Menu " << endl;
+    cout << "Ingrese una Opcion: ";
     do {
-        opc = validarInt("Ingrese una Opcion: ");
+        cin >> opc;
         switch (opc)
         {
-        case 1: realizarBackupVendedores();
+        case 1:
+            vendedores.realizarBackupVendedores();
             system("cls");
             return;
-        case 2: restaurarBackupVendedores();
+        case 2:
+            vendedores.restaurarBackupVendedores();
             system("cls");
             return;
         case 0:
@@ -339,67 +172,25 @@ void Configuracion::subMenuVendedores() {
     } while (opc != 0);
 }
 
-void restaurarBackupClientes() {
-    int opc;
-    cout << "- Desea Restaurar el Archivo de Clientes?" << endl;
-    cout << " (1)SI (2)NO " << endl;
-    do {
-        opc = validarInt("Selecione una Opcion: ");
-
-        switch (opc) {
-        case 1: system("copy Clientes.bkp Clientes.dat");
-            cout << "* Restauracion Realizado con Exito! *" << endl;
-            cout << endl;
-            system("pause");
-            return;
-        case 2:
-            system("cls");
-            return;
-        default:
-            cout << "* Opcion Incorrecta *" << endl;
-            cout << "- Seleccione una Opcion Correcta: ";
-        }
-    } while (opc != 2);
-}
-
-void realizarBackupClientes() {
-    int opc;
-    cout << "- Desea Relizar Backup del Archivo Clientes?" << endl;
-    cout << " (1)SI (2)NO " << endl;
-    do {
-        opc = validarInt("Selecione una Opcion: ");
-
-        switch (opc) {
-        case 1: system("copy Clientes.dat Clientes.bkp");
-            cout << "* Backup Realizado con Exito! *" << endl;
-            cout << endl;
-            system("pause");
-            return;
-        case 2:
-            system("cls");
-            return;
-        default:
-            cout << "* Opcion Incorrecta *" << endl;
-            cout << "- Seleccione una Opcion Correcta: ";
-        }
-    } while (opc != 2);
-}
-
 void Configuracion::subMenuClientes() {
+    ClienteManager clientes;
+
     int opc;
     cout << "--- Archivo Clientes ---" << endl;
     cout << "1) Realizar Backup " << endl;
     cout << "2) Restaurar Backup " << endl;
     cout << "0) Regresar al Menu " << endl;
+    cout << "Ingrese una Opcion: ";
     do {
-        opc = validarInt("Ingrese una Opcion: ");
-        
+        cin >> opc;
         switch (opc)
         {
-        case 1: realizarBackupClientes();
+        case 1:
+            clientes.backupArchivo();
             system("cls");
             return;
-        case 2: restaurarBackupClientes();
+        case 2:
+            clientes.restaurarBackup();
             system("cls");
             return;
         case 0:
