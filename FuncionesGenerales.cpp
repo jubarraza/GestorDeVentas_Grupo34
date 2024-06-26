@@ -121,3 +121,27 @@ float pedirNumeroFloat(const string& mensaje) {
         }
     }
 }
+
+string validarStringNumerico(const std::string& mensaje) {
+    string ingreso;
+    
+    while (true) {
+        bool esValido = true;
+        cout << mensaje; //mensaje que pide el ingreso
+        getline(cin, ingreso);
+        for (int i = 0; i < ingreso.size(); i++) {//Recorre cada Caracter del Ingreso
+            if (!isdigit(ingreso[i])) {//Si encuentra un caracter que no es un digito
+                esValido = false;//Bandera en False
+                break;//Sale del Bucle
+            }
+        }
+        if (!esValido) {//Vuelve a pedir el Ingreso
+            cout << "* Ingreso No Valido, Solo se Admiten Numeros Positivos *" << endl;
+        }
+        else {//Si es Valido
+            break;//Sale del Bucle
+        }
+    }
+    cin.ignore(numeric_limits<size_t>::max());///Lipia el Buffer de Entrada por completo
+    return ingreso;///Si el bucle completa la iteracion sin encontrar caracteres no Numericos, la funcion devuelve ingreso
+}
