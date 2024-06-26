@@ -1,5 +1,6 @@
 ﻿#define _CRT_SECURE_NO_WARNINGS 
 #include "SucursalManager.h"
+#include "FuncionesGenerales.h"
 #include <iostream>
 #include <iomanip>
 using namespace std;
@@ -28,8 +29,7 @@ void SucursalManager::Menu()
         cout << endl;
         cout << "0. SALIR DEL PROGRAMA " << endl;
         cout << "---------------------------- " << endl;
-        cout << "OPCION: ";
-        cin >> opcion;
+        opcion = validarInt("Opcion: "); 
         system("cls");
 
         switch (opcion) {
@@ -114,8 +114,7 @@ void SucursalManager::listarRegistros()
     cout << "1 - Listar por ID" << endl;
     cout << "2 - Listar por Nombre" << endl;
 
-    cout << "Ingrese su opcion: ";
-    cin >> opc;
+    opc = validarInt("Ingrese su opcion: ");
 
     switch (opc)
     {
@@ -180,8 +179,7 @@ void SucursalManager::buscarSucursal()
     cout << "1 - Buscar por ID" << endl;
     cout << "2 - Buscar por Nombre" << endl;
 
-    cout << "Ingrese su opcion: ";
-    cin >> opc;
+    opc = validarInt("Ingrese su opcion: ");
 
     switch (opc)
     {
@@ -205,9 +203,7 @@ void SucursalManager::buscarSucursalID()
     int id, pos;
     Sucursal reg;
 
-    cout << "Ingrese ID de la Sucursal que desea Buscar " << endl;
-    cin >> id;
-    cin.ignore();
+    id = validarInt("Ingrese ID de la Sucursal que desea Buscar:  ");
     cout << endl;
 
     pos = _archivo.buscarPosicion(id);
@@ -230,7 +226,6 @@ void SucursalManager::buscarSucursalNombre()
     int cant = _archivo.contarRegistro();
 
     cout << "Ingrese Nombre de la Sucursal que desea Buscar " << endl;
-    cin.ignore();
     getline(cin, nombre);
     cout << endl;
 
@@ -258,9 +253,7 @@ Sucursal SucursalManager::crearRegistro()
     cout << "---- Cargar Registro ----" << endl; 
     cout << endl; 
 
-    cout << "Ingrese Id Sucursal: ";
-    cin >> id;
-    cin.ignore();
+    id = validarInt("Ingrese Id Sucursal: ");
     reg.setIdSucursal(id); 
     cout << "Ingrese Nombre de Sucursal: ";
     getline(cin, nombre);
@@ -290,9 +283,7 @@ void SucursalManager::editarRegistro()
     int id, pos, opcion;
     Sucursal reg;
 
-    cout << "Ingrese ID de la Sucursal que desea Modificar " << endl;
-    cin >> id;
-    cin.ignore();
+    id = validarInt("Ingrese ID de la Sucursal que desea Modificar: ");
     cout << endl;
 
     pos = _archivo.buscarPosicion(id);
@@ -308,8 +299,7 @@ void SucursalManager::editarRegistro()
             cout << "1 - Nombre" << endl;
             cout << "2 - Direccion" << endl;
             cout << "3 - Telefono" << endl;
-            cin >> opcion;
-            cin.ignore();
+            opcion = validarInt("Opcion: ");
 
             switch (opcion) {
             case 1:
@@ -364,9 +354,7 @@ void SucursalManager::bajaLogica()
     int id, pos;
     Sucursal reg;
 
-    cout << "Ingrese ID de la Sucursal que desea dar de baja " << endl;
-    cin >> id;
-    cin.ignore();
+    id = validarInt("Ingrese ID de la Sucursal que desea dar de baja ");
     cout << endl;
 
     pos = _archivo.buscarPosicion(id);
