@@ -272,7 +272,7 @@ void realizarBackupVendedores() {
     cout << "- Desea Relizar Backup del Archivo Vendedores?" << endl;
     cout << " (1)SI (2)NO " << endl;
     do {
-        cout << "Selecione una Opcion: ";
+        opc = validarInt("Selecione una Opcion: "); 
 
         switch (opc) {
         case 1: system("copy Vendedores.dat Vendedores.bkp");
@@ -295,7 +295,7 @@ void restaurarBackupVendedores() {
     cout << "- Desea Restaurar el Archivo de Vendedores?" << endl;
     cout << " (1)SI (2)NO " << endl;
     do {
-        cout << "Selecione una Opcion: ";
+        opc = validarInt("Selecione una Opcion: ");
 
         switch (opc) {
         case 1: system("copy Vendedores.bkp Vendedores.dat");
@@ -344,7 +344,7 @@ void restaurarBackupClientes() {
     cout << "- Desea Restaurar el Archivo de Clientes?" << endl;
     cout << " (1)SI (2)NO " << endl;
     do {
-        cout << "Selecione una Opcion: ";
+        opc = validarInt("Selecione una Opcion: ");
 
         switch (opc) {
         case 1: system("copy Clientes.bkp Clientes.dat");
@@ -367,7 +367,7 @@ void realizarBackupClientes() {
     cout << "- Desea Relizar Backup del Archivo Clientes?" << endl;
     cout << " (1)SI (2)NO " << endl;
     do {
-        cout << "Selecione una Opcion: ";
+        opc = validarInt("Selecione una Opcion: ");
 
         switch (opc) {
         case 1: system("copy Clientes.dat Clientes.bkp");
