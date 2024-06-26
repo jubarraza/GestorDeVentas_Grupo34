@@ -71,6 +71,7 @@ long long validarLong(const std::string& mensaje) {
     return num;///Si el bucle completa la iteracion sin encontrar caracteres no Numericos, la funcion devuelve Num.
 }
 
+// la funcion de stof no me devuelve la parte de los decimales por lo que no la estoy usando en el codigo. La dejo por si podemos revisarla.
 float validarFloat(const std::string& mensaje) 
 {
     string ingreso; 
