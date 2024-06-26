@@ -134,6 +134,7 @@
     <ClCompile Include="Configuracion.cpp" />
     <ClCompile Include="Direccion.cpp" />
     <ClCompile Include="Fecha.cpp" />
+    <ClCompile Include="FuncionesGenerales.cpp" />
     <ClCompile Include="Informes.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Persona.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="Configuracion.h" />
     <ClInclude Include="Direccion.h" />
     <ClInclude Include="Fecha.h" />
+    <ClInclude Include="FuncionesGenerales.h" />
     <ClInclude Include="Informes.h" />
     <ClInclude Include="Persona.h" />
     <ClInclude Include="PersonaManager.h" />
