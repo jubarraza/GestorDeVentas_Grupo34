@@ -22,7 +22,6 @@ public:
     void setTelefono(std::string t);
     void setEstado(bool e);
     void Mostrar();
-    void Cargar();
 
     int contarDigitos(int num);
 
