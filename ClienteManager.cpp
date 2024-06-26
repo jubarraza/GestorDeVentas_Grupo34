@@ -4,6 +4,7 @@
 #include <vector>
 #include <locale>
 #include "ClienteManager.h"
+#include "FuncionesGenerales.h"
 using namespace std;
 
 ClienteManager::ClienteManager() : _archivo("Clientes.dat")
@@ -28,8 +29,7 @@ void ClienteManager::Menu()
         cout << endl;
         cout << "0. Regresar al menu anterior " << endl;
         cout << "----------------------" << endl;
-        cout << "OPCION: ";
-        cin >> opcion;
+        opcion = validarInt("Opcion: ");
         system("cls");
 
         switch (opcion) {
@@ -78,24 +78,22 @@ Cliente ClienteManager::crearCliente()
     string email, tel;
     Direccion d;
     Cliente reg;
-    char opc;
+    int opc;
     cout << "------------- Ingreso de nuevo Cliente -------------" << endl;
     regreso:
     reg.CargarPersona();
     bool resultado = DniRepetido(reg.getDni());
     if (resultado) {
-        std::cout << "Cliente ya existente. Desea cargar un nuevo cliente? S/N : ";
-        cin >> opc;
+        std::cout << "* Cliente ya existente *";
+        opc = validarInt("Desea cargar un nuevo cliente? (1)Si - (2)No : ");
 
         switch (opc)
         {
-        case 's':
-        case 'S':
+        case 1:
             system("cls");
             goto regreso;
             break;
-        case 'n':
-        case 'N':
+        case 2:
             Menu();
             break;
         
@@ -105,7 +103,6 @@ Cliente ClienteManager::crearCliente()
 
     }
 
-    cin.ignore();
     cout << "EMAIL: ";
     getline(cin, email);
     reg.setEmail(email);
@@ -128,7 +125,6 @@ Cliente ClienteManager::crearCliente(long long dni)
     char opc;
     cout << "------------- Ingreso de nuevo Cliente -------------" << endl;
     reg.CargarPersona(dni);
-    cin.ignore();
     cout << "EMAIL: ";
     getline(cin, email);
     reg.setEmail(email);
@@ -192,8 +188,7 @@ void ClienteManager::menuListado()
     int opc;
     cout << "Como desea ordenar el listado de Clientes?" << endl;
     cout << "(1) por orden de Carga o (2) por Apellido " << endl;
-    cin >> opc;
-    cin.ignore();
+    opc = validarInt("Opcion: ");
     cout << endl;
 
     switch (opc)
@@ -299,11 +294,10 @@ int ClienteManager::buscarCliente(long dni)
 
 void ClienteManager::editarCliente()
 {
-    int dni, opcion;
+    long long dni;
+    int opcion;
 
-    cout << "Ingrese DNI del Cliente a editar: ";
-    cin >> dni;
-    cin.ignore();
+    dni = validarLong("Ingrese DNI del Cliente a editar: ");
     cout << endl;
 
     int pos = buscarCliente(dni);
@@ -321,8 +315,7 @@ void ClienteManager::editarCliente()
             cout << "1 - Email" << endl;
             cout << "2 - Telefono" << endl;
             cout << "3 - Direccion" << endl;
-            cin >> opcion;
-            cin.ignore();
+            opcion = validarInt("Opcion: ");
 
             switch (opcion) {
             case 1:
@@ -412,12 +405,10 @@ void ClienteManager::restaurarBackup()
 
 void ClienteManager::borrarCliente()
 {
-    int dni;
-    char opc;
+    long long dni;
+    int opc;
 
-    cout << "Ingrese DNI del Cliente a borrar: ";
-    cin >> dni; 
-    cin.ignore();
+    dni = validarLong("Ingrese DNI del Cliente a borrar: ");
     cout << endl; 
 
     int pos = buscarCliente(dni);
@@ -428,26 +419,26 @@ void ClienteManager::borrarCliente()
 
         cout << endl << "Cliente a Borrar: " << endl << endl;
         mostrarCliente(reg);
-        cout << endl << endl << "Confirma que desea borrar este Cliente? S/N" << endl;
-        cin >> opc;
+        cout << endl;
+        opc = validarInt("Confirma que desea borrar este Cliente? (1)Si - (2)No: ");
 
-        if (opc == 's' || opc == 'S') {
+        if (opc == 1) {
             reg.setEliminado(true);
             bool result = _archivo.sobreescribirCliente(reg, pos);
             if (result) {
-                cout << "El cliente se ha borrado correctamente." << endl;
+                cout << "* El cliente se ha borrado correctamente *" << endl;
             }
             else {
-                cout << "No se pudo eliminar el cliente." << endl;
+                cout << "* No se pudo eliminar el cliente *" << endl;
             }
         }
         else {
-            cout << endl << "Se cancelo el borrado del cliente." << endl;
+            cout << endl << "* Se cancelo el borrado del cliente *" << endl;
         }
 
     }
     else {
-        cout << "El cliente buscado no existe" << endl;
+        cout << "* El cliente buscado no existe *" << endl;
     }
 }
 
@@ -459,11 +450,10 @@ void ClienteManager::buscadorDeClientes()
     }
     else {
         int pos;
-        long dni;
-        cout << "Ingrese el DNI a buscar: ";
-        cin >> dni;
-        cin.ignore();
+        long long dni;
+        dni = validarLong("Ingrese el DNI a buscar: ");
         cout << endl;
+        
         pos = buscarCliente(dni);
         if (pos == -1) {
             cout << endl << "* No se Encontraron Clientes con el DNI buscado *" << endl;
