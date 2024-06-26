@@ -1,6 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "Fecha.h"
-#include "FuncionesGenerales.h"
 #include <iostream>
 #include <string>
 #include <ctime>
@@ -24,9 +23,11 @@ void Fecha::setDia(int d) {
         _dia = d;
     }
     else {
-        cout << "Dia no valido. Intente nuevamente." << endl;
-        d = pedirNumeroPositivo("Dia: ");
+        cin.ignore();
+        cout << "Dia no valido. Intente nuevamente:" << endl;
+        cin >> d;
         this->setDia(d);
+        cin.ignore();
     }
 }
 
@@ -35,8 +36,8 @@ void Fecha::setMes(int m) {
         _mes = m;
     }
     else {
-        cout << "Mes no valido. Intente nuevamente." << endl;
-        m = pedirNumeroPositivo("Mes: ");
+        cout << "Mes no valido. Intente nuevamente:" << endl;
+        cin >> m;
         this->setMes(m);
     }
 }
@@ -46,9 +47,10 @@ void Fecha::setAnio(int a) {
         _anio = a;
     }
     else {
-        cout << "Año no valido. Intente nuevamente." << endl;
-        a = pedirNumeroPositivo("Año: ");
+        cout << "Año no valido. Intente nuevamente:" << endl;
+        cin >> a;
         this->setAnio(a);
+        cin.ignore();
     }
 }
 
@@ -60,21 +62,26 @@ int Fecha::getAnio() { return _anio; }
 
 void Fecha::Cargar() {
     int dia, mes, anio;
-    dia = pedirNumeroPositivo("Dia: ");
-    setDia(dia);
-    mes = pedirNumeroPositivo("Mes: ");
-    setMes(mes);
-    anio = pedirNumeroPositivo("Año: ");
-    setAnio(anio);
+    cout << "Dia: ";
+    cin >> dia;
+    cin.ignore();
+    cout << "Mes: ";
+    cin >> mes;
+    cin.ignore();
+    cout << "Año: ";
+    cin >> anio;
     time_t now = time(0);
     tm* f = localtime(&now);
-    
-    /// Verificacion de si la fecha es anterior o igual a la fecha actual:
+    /// Verifica si la fecha es anterior o igual a la fecha actual
     if (anio > f->tm_year + 1900 || (anio == f->tm_year + 1900 && mes > f->tm_mon + 1) || (anio == f->tm_year + 1900 && mes == f->tm_mon + 1 && dia > f->tm_mday)) {
         cout << "Fecha No Valida, Ingresela Nuevamente " << endl;
         Fecha::Cargar();
     }
-
+    else {
+        setDia(dia);
+        setMes(mes);
+        setAnio(anio);
+    }
 }
 
 
