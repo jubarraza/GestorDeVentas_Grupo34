@@ -50,7 +50,7 @@ void Cliente::setTelefono(string tel)
         strcpy(_telefono, tel.c_str());
     }
     else {
-        cout << "Telefono no cumple con limite de caracteres (20). Intente nuevamente:" << endl:
+        cout << "Telefono no cumple con limite de caracteres (20). Intente nuevamente:" << endl;
         getline(cin, tel); 
         this->setTelefono(tel);
     }
