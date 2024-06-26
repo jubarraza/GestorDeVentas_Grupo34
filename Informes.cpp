@@ -3,9 +3,11 @@
 #include "VehiculosManager.h"
 #include "SucursalManager.h"
 #include "VendedorManager.h"
+#include "FuncionesGenerales.h"
 #include <iostream>
 #include <iomanip>
 using namespace std;
+
 
 void Informes::Menu()
 {
@@ -25,8 +27,7 @@ void Informes::Menu()
         cout << endl;
         cout << "0. Volver al menu principal " << endl;
         cout << "----------------------" << endl;
-        cout << "OPCION: " << endl;
-        cin >> opcion;
+        opcion = validarInt("Opcion: ");
         system("cls");
 
         switch (opcion) {
@@ -65,9 +66,7 @@ void Informes::Menu()
                 cout << "1. Mensual" << endl;
                 cout << "2. Anual" << endl;
                 cout << endl;
-                cout << "Opcion: ";
-                cin >> opc;
-                cin.ignore();
+                opc = validarInt("Opcion: ");
                 cout << endl;
 
                 if (opc == 1) {
@@ -159,8 +158,7 @@ void Informes::recaudacionAnual()
 
 	cout << "** INFORME DE RECAUDACION ANUAL ** " << endl;
     do {
-        cout << "Ingrese año a revisar: ";
-        cin >> anio;
+        anio = validarInt("Ingrese año a revisar: ");
 
         if (anio > f.obtenerAnioActual()) {
             cout << "Año no valido." << endl << endl;
@@ -218,11 +216,9 @@ void Informes::ventasXVendedorAnual()
     string meses[12] = { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" };
     double recaudacion[13] = {};
 
-    cout << "Ingrese el numero de legajo del vendedor: ";
-    cin >> numLegajo;
+    numLegajo = validarInt("Ingrese el numero de legajo del vendedor: ");
     do {
-        cout << "Ingrese el año a revisar: ";
-        cin >> anio;
+        anio = validarInt("Ingrese el año a revisar: ");
 
         if (anio > f.obtenerAnioActual()) {
             cout << "Año no valido." << endl << endl;
@@ -294,8 +290,7 @@ void Informes::ventasXVendedoresMensual()
     int cantidadVentas = vs.contarVentas();
 
     do {
-        cout << "Ingrese el año a revisar: ";
-        cin >> anio;
+        anio = validarInt("Ingrese el año a revisar: ");
 
         if (anio > f.obtenerAnioActual()) {
             cout << "Año no valido." << endl << endl;
@@ -304,8 +299,7 @@ void Informes::ventasXVendedoresMensual()
     } while (anio > f.obtenerAnioActual());
 
     do {
-        cout << "Ingrese el mes a revisar: ";
-        cin >> mes;
+        mes = validarInt("Ingrese el mes a revisar: ");
 
         if (mes < 1 || mes > 12) {
             cout << "Mes no valido." << endl << endl;
@@ -453,8 +447,7 @@ void Informes::ventasXSucursalAnual()
 
     cout << "** INFORME ANUAL DE VENTAS POR SUCURSAL ** " << endl;
     do {
-        cout << "Ingrese año a revisar: ";
-        cin >> anio;
+        anio = validarInt("Ingrese el año a revisar: ");
 
         if (anio > f.obtenerAnioActual()) {
             cout << "Año no valido." << endl << endl;
@@ -462,8 +455,7 @@ void Informes::ventasXSucursalAnual()
 
     } while (anio > f.obtenerAnioActual());
     
-    cout << endl << "Ingrese Id de Sucursal: ";
-    cin >> id;
+    id = validarInt("Ingrese Id de Sucursal: ");
 
     cant = sa.contarRegistro();
     for (i = 0; i < cant; i++) {
@@ -534,8 +526,7 @@ void Informes::ventasTodasLasSucursalesMensual()
 
     cout << " INFORME MENSUAL DE VENTAS POR SUCURSAL  " << endl;
     do {
-        cout << "Ingrese el año a revisar: "; 
-        cin >> anio; 
+        anio = validarInt("Ingrese el año a revisar: ");
 
         if (anio > f.obtenerAnioActual()) { 
             cout << "Año no valido." << endl << endl;
@@ -544,8 +535,7 @@ void Informes::ventasTodasLasSucursalesMensual()
     } while (anio > f.obtenerAnioActual()); 
 
     do {
-        cout << "Ingrese el mes a revisar: ";
-        cin >> mes; 
+        mes = validarInt("Ingrese el mes a revisar: ");
 
         if (mes < 1 || mes > 12) {
             cout << "Mes no valido." << endl << endl;
@@ -622,8 +612,7 @@ void Informes::ventasTodasLasSucursalesAnual()
 
     cout << " INFORME ANUAL DE VENTAS POR SUCURSAL  " << endl;
     do {
-        cout << "Ingrese el año a revisar: ";
-        cin >> anio;
+        anio = validarInt("Ingrese el año a revisar: ");
 
         if (anio > f.obtenerAnioActual()) {
             cout << "Año no valido." << endl << endl;
@@ -704,9 +693,9 @@ void Informes::rankingVentasXModelo()
 
     cout << "- Ranking Anual de Ventas por Modelo -" << endl;
     cout << "---------------------------------------" << endl;
-    cout << "Ingrese el Año que desea Consultar: ";
-    cin >> anio;
+    anio = validarInt("Ingrese el Año que desea Consultar: ");
     system("cls");
+   
     cout << "- Ranking Anual de Ventas por Modelo -" << endl;
     cout << "---------------------------------------" << endl;
     cout << "------------- Año: " << anio << " -------------" << endl;
