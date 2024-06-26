@@ -29,8 +29,9 @@ void VentasManager::Menu()
         cout << "3. Busqueda de Ventas " << endl;
         cout << "4. Editar Venta " << endl;
         cout << "5. Borrar Venta " << endl;
-        cout << "6. Crear backup " << endl;
-        cout << "7. Restaurar backup " << endl;
+        cout << "6. Restaurar Venta borrada" << endl;
+        cout << "7. Crear backup " << endl;
+        cout << "8. Restaurar backup " << endl;
 
         cout << endl;
         cout << "0. Regresar al menu anterior " << endl;
@@ -64,10 +65,16 @@ void VentasManager::Menu()
             break;
 
         case 6:
+            restaurarVentaBorrada();
+            system("pause");
+            break;
+
+        case 7:
             backupArchivo();
             system("pause");
             break;
-        case 7: 
+
+        case 8: 
             restaurarBackup();
             system("pause");
             break;
@@ -524,6 +531,57 @@ void VentasManager::borrarVenta()
         cout << "* La venta buscada no existe *" << endl;
     }
 
+}
+
+void VentasManager::restaurarVentaBorrada() {
+    int cantReg = _archivo.contarVentas();
+    if (cantReg == -1) {
+        cout << endl << "* Error de Archivo *" << endl;
+    }
+    else {
+        int id, pos, opc;
+        id = validarInt("Ingrese el ID de la Venta: ");
+        system("cls");
+        
+        pos = buscarVenta(id);
+        if (pos == -1) {
+            cout << endl << "* No Existe ese ID de Venta *" << endl << endl;
+        }
+        if (pos >= 0) {
+            Venta reg;
+            reg = _archivo.leerVenta(pos);
+            if (reg.getEliminado() == true) {
+                cout << "Desea Restaurar el Registro? (1)Si (2)NO " << endl;
+                opc = validarInt("Seleccione una Opcion: ");
+                system("cls");
+
+                switch (opc) {
+                case 1: {
+                    reg.setEliminado(false);
+                    cout << endl;
+                    mostrarVenta(reg);
+                    bool restaurar = _archivo.sobreescribirVenta(reg, pos);
+                    if (restaurar == true) {
+                        cout << endl << setw(25) << " " << "* Registro Restaurado con Exito *" << endl << endl;
+                    }
+                    else {
+                        cout << endl << "* No se Pudo Restaurar el Registro *" << endl;
+                    }
+                        system("pause");
+                }
+                case 2:
+                    break;
+                default:cout << endl << "* Opcion Incorrecta! *" << endl << endl;
+                    return;
+                }
+            }
+            else {
+                cout << endl << "* El Registro Se Restauro con Exito *" << endl << endl;
+                system("pause");
+            }
+        }
+    }
+    cout << endl;
 }
 
 int VentasManager::validarCliente(long long dni)
