@@ -51,7 +51,6 @@ void VentasManager::Menu()
 
         case 3:
             buscadorDeVentas();
-            system("pause");
             break;
 
         case 4:
@@ -300,7 +299,7 @@ void VentasManager::listarVentas()
     int i, cantidad = _archivo.contarVentas();
     Venta reg;
 
-    if (cantidad == 0) {
+    if (cantidad == -1) {
         cout << "* No hay Ventas para mostrar *" << endl;
     }
     else {
@@ -345,7 +344,7 @@ void VentasManager::listarVentasXFecha()
     Venta reg;
     vector <Venta> vec;
 
-    if (cantidad == 0) {
+    if (cantidad == -1) {
         cout << "* No hay Ventas para mostrar *" << endl;
     }
     else {
@@ -438,11 +437,11 @@ void VentasManager::editarVenta()
             cout << endl;
             bool result = _archivo.sobreescribirVenta(reg, pos);
 
-            if (result == true) {
+            if (result == true && opcion != 0) {
                 cout << "* Se edito correctamente la venta *" << endl;
             }
             else {
-                cout << "* No se pudo editar la venta *" << endl;
+                cout << "* No se edito la venta *" << endl;
             }
 
 

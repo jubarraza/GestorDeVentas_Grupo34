@@ -46,9 +46,9 @@ void VehiculosManager::Menu() {
         cout << "8) Restaurar Backup " << endl;
         cout << "0) Regresar al Menu Principal " << endl;
         cout << "-----------------------------" << endl;
-        cout << "Selecione una Opcion: ";
-        opc = validarInt();
+        opc = validarInt("Selecione una Opcion: ");
         system("cls");
+        
         switch (opc) {
         case 1: agregarVehiculo();
             break;
@@ -114,8 +114,8 @@ Vehiculo VehiculosManager::cargarVehiculo() {
     getline(cin, color);
     reg.setColor(color);
     while (true) {
-        cout << "- Ingrese el Año de Fabricacion: ";
-        anio = validarInt();
+        anio = validarInt("- Ingrese el Año de Fabricacion: ");
+        
         if (anio > año.obtenerAnioActual()) {
             cout << "* El Año de Fabricacion No puede ser Mayor al Año Actual *" << endl;
         }
@@ -127,11 +127,9 @@ Vehiculo VehiculosManager::cargarVehiculo() {
         }
     }
     reg.setAnioFabricacion(anio);
-    cout << "- Stock: ";
-    stock = validarInt();
+    stock = validarInt("- Stock: ");
     reg.setStock(stock);
-    cout << "- Precio por Unidad: $ ";
-    precio = validarInt();
+    precio = validarInt("- Precio por Unidad: $ ");
     reg.setPrecioUnidad(precio);
     reg.setEstado(true);
     return reg;
@@ -174,9 +172,9 @@ void VehiculosManager::listarVehiculos() {
             cout << " 1) por ID " << endl;
             cout << " 2) Por Precio " << endl;
             cout << " 0) Regresar " << endl;
-            cout << "- Seleccione una opcion: ";
-            opc = validarInt();
+            opc = validarInt("- Seleccione una opcion: ");
             system("cls");
+            
             switch (opc) {
             case 1: listarPorId();
                 break;
@@ -279,9 +277,9 @@ void VehiculosManager::buscarVehiculo() {
             cout << "5) Por Color " << endl;
             cout << "0) Regresar " << endl;
             cout << "------------------------" << endl;
-            cout << "Ingrese una Opcion: ";
-            opc = validarInt();
+            opc = validarInt("Ingrese una Opcion: ");
             system("cls");
+            
             switch (opc) {
             case 1:buscarPorID();
                 break;
@@ -305,10 +303,10 @@ void VehiculosManager::buscarVehiculo() {
 
 void VehiculosManager::buscarPorID() {
     int id, pos;
-    cout << "- Ingrese el ID: ";
-    id = validarInt();
+    id = validarInt("- Ingrese el ID: ");
     system("cls");
     pos = _vehiculosArchivo.buscarRegistro(id);
+    
     if (pos == -1) {
         cout << endl << "* No se Encontraron Registros *" << endl;
     }
@@ -334,6 +332,7 @@ void VehiculosManager::buscarPorMarca() {
     int cantReg;
     Vehiculo reg;
     vector<Vehiculo> resultado;
+    
     cout << "- Ingrese la Marca: ";
     getline(cin, marca);
     
@@ -367,6 +366,7 @@ void VehiculosManager::buscarPorModelo() {
     int cantReg;
     Vehiculo reg;
     vector<Vehiculo> resultado;
+    
     cout << "- Ingrese el Modelo: ";
     getline(cin, modelo);
     cadena1 = aMinuscula(modelo);
@@ -399,9 +399,10 @@ void VehiculosManager::buscarPorAnio() {
     Fecha año;
     Vehiculo reg;
     vector<Vehiculo> resultado;
+    
     while (true) {
-        cout << "- Ingrese el Año de Fabricacion: ";
-        anio = validarInt();
+        anio = validarInt("- Ingrese el Año de Fabricacion: ");
+        
         if (anio > año.obtenerAnioActual()) {
             cout << "* El Año de Fabricacion No puede ser Mayor al Año Actual *" << endl;
         }
@@ -441,11 +442,14 @@ void VehiculosManager::buscarPorColor() {
     string color, cadena1, cadena2;
     Vehiculo reg;
     vector<Vehiculo> resultado;
+    
     cout << "- Ingrese el Color: ";
     color = validarStr();
     system("cls");
+    
     cadena1 = aMinuscula(color);
     cantReg = _vehiculosArchivo.contarRegistros();
+    
     for (int i = 0; i < cantReg; i++) {
         reg = _vehiculosArchivo.leerRegistro(i);
         if (reg.getEstado() == true) {
@@ -480,10 +484,11 @@ void VehiculosManager::editarVehiculo() {
     if (cantReg > 0) {
         int id, opc, pos;
         Vehiculo reg;
-        cout << "- Ingrese el ID del Vehiculo que desea Editar: ";
-        id = validarInt();
+        
+        id = validarInt("- Ingrese el ID del Vehiculo que desea Editar: ");
         cout << endl;
         pos = _vehiculosArchivo.buscarRegistro(id);
+        
         if (pos == -1) {
             cout << "* No Existe ese ID de Vehiculo *" << endl;
         }
@@ -503,8 +508,8 @@ void VehiculosManager::editarVehiculo() {
                 cout << "7) Precio " << endl;
                 cout << "8) Todo " << endl;
                 cout << "0) Salir " << endl;
-                cout << "Seleccion una Opcion: ";
-                opc = validarInt();
+                opc = validarInt("Seleccion una Opcion: ");
+                
                 switch (opc) {
                 case 1: {
                     string nuevaMarca;
@@ -536,22 +541,19 @@ void VehiculosManager::editarVehiculo() {
                 }
                 case 5: {
                     int nuevoAnio;
-                    cout << "- Ingrese Nuevo Anio: ";
-                    nuevoAnio = validarInt();
+                    nuevoAnio = validarInt(" - Ingrese Nuevo Anio : ");
                     reg.setAnioFabricacion(nuevoAnio);
                     break;
                 }
                 case 6: {
                     int nuevoStock;
-                    cout << "-Ingrese Nuevo Stock: ";
-                    nuevoStock = validarInt();
+                    nuevoStock = validarInt("-Ingrese Nuevo Stock: ");
                     reg.setStock(nuevoStock);
                     break;
                 }
                 case 7: {
                     float nuevoPrecio;
-                    cout << "-Ingrese Nuevo Precio: ";
-                    nuevoPrecio = validarInt();
+                    nuevoPrecio = validarInt("-Ingrese Nuevo Precio: ");
                     reg.setPrecioUnidad(nuevoPrecio);
                     break;
                 }
@@ -567,12 +569,9 @@ void VehiculosManager::editarVehiculo() {
                     getline(cin, nuevaVersion);
                     cout << "- Nuevo Color: ";
                     nuevoColor = validarStr();
-                    cout << "- Nuevo Año: ";
-                    nuevoAnio = validarInt();
-                    cout << "- Nuevo Stock: ";
-                    nuevoStock = validarInt();
-                    cout << "- Precio: ";
-                    nuevoPrecio = validarInt();
+                    nuevoAnio = validarInt("- Nuevo Año: ");
+                    nuevoStock = validarInt("- Nuevo Stock: ");
+                    nuevoPrecio = validarInt("- Precio: ");
                     reg.setMarca(nuevaMarca);
                     reg.setModelo(nuevoModelo);
                     reg.setVersion(nuevaVersion);
@@ -612,10 +611,10 @@ void VehiculosManager::eliminarVehiculo() {
     }
     if (cantReg > 0) {
         int id, pos, opc;
-        cout << "- Ingrese el ID del Vehiculo: ";
-        id = validarInt();
+        id = validarInt("- Ingrese el ID del Vehiculo: ");
         system("cls");
         pos = _vehiculosArchivo.buscarRegistro(id);
+        
         if (pos == -1) {
             cout << endl << "* No Existe ese ID de Vehiculo *" << endl << endl;
             system("pause");
@@ -632,8 +631,8 @@ void VehiculosManager::eliminarVehiculo() {
                 mostrarVehiculo(reg);
                 cout << endl;
                 cout << "- Desea Eliminar el Registro? (1)Si (2)NO " << endl;
-                cout << "- Seleccione una Opcion: ";
-                opc = validarInt();
+                opc = validarInt("- Seleccione una Opcion: ");
+                
                 switch (opc) {
                 case 1: {
                     reg.setEstado(false);
@@ -669,10 +668,10 @@ void VehiculosManager::resturarVehiculo() {
     }
     if (cantReg > 0) {
         int id, pos, opc;
-        cout << "- Ingrese el ID del Vehiculo: ";
-        id = validarInt();
+        id = validarInt("- Ingrese el ID del Vehiculo: ");
         system("cls");
         pos = _vehiculosArchivo.buscarRegistro(id);
+
         if (pos == -1) {
             cout << endl << "* No Existe ese ID de Vehiculo *" << endl << endl;
         }
@@ -681,9 +680,9 @@ void VehiculosManager::resturarVehiculo() {
             reg = _vehiculosArchivo.leerRegistro(pos);
             if (reg.getEstado() == false) {
                 cout << "- Desea Restaurar el Registro? (1)Si (2)NO " << endl;
-                cout << "- Seleccione una Opcion: ";
-                opc = validarInt();
+                opc = validarInt("- Seleccione una Opcion: ");
                 system("cls");
+                
                 switch (opc) {
                 case 1: {
                     reg.setEstado(true);
@@ -714,8 +713,8 @@ void VehiculosManager::realizarBackup() {
     int opc;
     cout << "- Desea Relizar Backup del Archivo Vehiculo?" << endl;
     cout << " (1)SI (2)NO " << endl;
-    cout << "- Selecione una Opcion: ";
-    opc = validarInt();
+    opc = validarInt("- Selecione una Opcion: ");
+    
     switch (opc) {
     case 1: system("copy Vehiculos.dat Vehiculos.bkp");
     case 2:
@@ -729,8 +728,8 @@ void VehiculosManager::restaurarBackup() {
     int opc;
     cout << "- Desea Restaurar del Archivo Vehiculo?" << endl;
     cout << " (1)SI (2)NO " << endl;
-    cout << "- Selecione una Opcion: ";
-    opc = validarInt();
+    opc = validarInt("- Selecione una Opcion: ");
+
     switch (opc) {
     case 1: system("copy Vehiculos.bkp Vehiculos.dat");
     case 2:

@@ -11,9 +11,9 @@ std::string validarStringNumerico(const std::string& mensaje);
 
 int contarDigitos(int num);
 
-int validarInt();
 std::string formatearNumero(float numero);
 std::string aMinuscula(std::string cadena);
+int validarInt();
 std::string validarStr();
 int validarNumero();
 

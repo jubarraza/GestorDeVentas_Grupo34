@@ -213,15 +213,21 @@ void ClienteManager::listarClientes() //por oden de carga
     int i, cantidad = _archivo.contarClientes();
     Cliente reg;
 
-    encabezadoClientes();
+    if (cantidad == -1) {
+        cout << "*No hay Clientes para mostrar *" << endl;
+    }
+    else {
+        encabezadoClientes();
 
         for (i = 0; i < cantidad; i++) {
             reg = _archivo.leerCliente(i);
             if (reg.getEliminado() == false) {
                 mostrarClienteEnLinea(reg);
             }
-        
+
         }
+
+    }
 
 }
 
@@ -232,7 +238,7 @@ void ClienteManager::listarClientesXApellido()
     Cliente reg;
     vector <Cliente> vec;
 
-    if (cantidad == 0) {
+    if (cantidad == -1) {
         cout << "* No hay Clientes para mostrar *" << endl;
     }
     else {

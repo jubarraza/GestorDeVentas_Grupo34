@@ -68,8 +68,13 @@ int VentasArchivo::leerUltimoId()
     int ultimoId = 0;
     Venta reg;
 
-    reg = leerVenta(cantidad-1);
-    ultimoId = reg.getIdVenta();
+    if (cantidad == -1) {
+        ultimoId = 0;
+    }
+    else {
+        reg = leerVenta(cantidad-1);
+        ultimoId = reg.getIdVenta();
+    }
     
     return ultimoId;
 }
