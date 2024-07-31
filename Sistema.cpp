@@ -51,7 +51,7 @@ void Sistema::Menu()
         case 8: Creditos();
             system("pause");
             break;
-        case 0:cout << endl << " Adios!! " << endl;
+        case 0:cout << endl << " Gracias por utilizar nuestro programa " << endl;
             break;
         default:cout << endl << "* Selecione una Opcion Correcta! *" << endl << endl;;
             system("pause");
